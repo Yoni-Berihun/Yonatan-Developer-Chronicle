@@ -1,0 +1,196 @@
+/* --- The Developer's Daily - Final Polished Edition --- */
+
+/* 1.  Variables, Fonts & Root Styles
+/* 2.  Layout & Overall Feel
+/* 3.  The Masthead (Header)
+/* 4.  Main Content (Article & Portrait)
+/* 5.  Typographic Details
+/* 6.  Visually Compelling Animations & Effects
+/* 7.  Responsive Design
+/* ---------------------------------------------------- */
+
+/* 1. Variables, Fonts & Root Styles
+/* ------------------------------------------ */
+:root {
+  /* The final, correct color palette */
+  --paper-color: #f3f0e9; /* A visible, gentle cream color */
+  --ink-color: #333333;
+  --accent-color: #0A2463; /* Deep Navy Blue */
+  --headline-font: 'Playfair Display', serif;
+  --body-font: 'Merriweather', serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--body-font);
+  background-color: var(--paper-color);
+  color: var(--ink-color);
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* 2. Layout & Overall Feel
+/* ------------------------------------------ */
+.container {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 2.5rem;
+}
+
+/* 3. The Masthead (Header)
+/* ------------------------------------------ */
+.masthead {
+  border-bottom: 2px solid #111;
+  padding-bottom: 1rem;
+  margin-bottom: 4rem;
+  animation: slideInFromTop 1s ease-out;
+}
+
+.masthead-top-bar {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--body-font);
+  font-size: 0.8rem;
+  color: #666;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.masthead-main {
+  padding-top: 1.5rem;
+  text-align: center;
+}
+
+.newspaper-title {
+  font-family: var(--headline-font);
+  font-weight: 800;
+  font-size: clamp(3rem, 10vw, 5.5rem);
+  line-height: 1;
+  color: #111;
+  margin: 0;
+}
+
+/* The .main-nav styles have been removed */
+
+/* 4. Main Content (Article & Portrait)
+/* ------------------------------------------ */
+.main-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3.5rem;
+  align-items: flex-start;
+}
+
+.about-me {
+  animation: slideInFromLeft 1s ease-out 0.2s backwards;
+}
+
+.portrait {
+  position: sticky;
+  top: 30px;
+  animation: fadeIn 1.2s ease-out 0.4s backwards;
+}
+
+.portrait img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  border: 1px solid #ddd;
+  padding: 10px;
+  background-color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+  border-radius: 50%;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.portrait img:hover {
+  transform: scale(1.03) rotate(1deg);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* 5. Typographic Details
+/* ------------------------------------------ */
+.author-name {
+  font-family: var(--headline-font);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.author-subtitle {
+  font-family: var(--headline-font);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.3rem;
+  color: #444;
+  margin-bottom: 2.5rem;
+  position: relative;
+  padding-left: 1.5rem;
+  border-left: 5px solid var(--accent-color);
+}
+
+.about-me p {
+  margin-bottom: 1.25rem;
+  font-size: 1.05rem;
+  color: var(--ink-color);
+}
+
+.drop-cap {
+  font-family: var(--headline-font);
+  font-weight: 600;
+  font-size: 5rem;
+  float: left;
+  line-height: 0.8;
+  margin: 0.2rem 0.8rem 0 0;
+}
+
+/* 6. Visually Compelling Animations
+/* ------------------------------------------ */
+@keyframes slideInFromTop {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInFromLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* 7. Responsive Design
+/* ------------------------------------------ */
+@media (max-width: 900px) {
+  .main-content {
+    grid-template-columns: 1fr;
+  }
+
+  .portrait {
+    order: -1;
+    position: static;
+    max-width: 450px;
+    margin: 0 auto 3rem auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  .masthead-top-bar {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+}
