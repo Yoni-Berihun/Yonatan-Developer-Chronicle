@@ -3,35 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Yonatan Berihun Chronicle | Professional Edition</title>
+    <title>The Yonatan Times | Professional Developer's Chronicle</title>
 
     <!-- Fonts: Playfair Display & Merriweather -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
 
-    <!-- This assumes your CSS file is in a folder named "css" -->
+    <!-- The Path to your CSS file -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    
+    <!-- The Top Black Bar -->
+    <div class="super-header"></div>
 
     <div class="container">
-        <!-- The Masthead -->
+        
+        <!-- The Dateline Bar -->
+        <div class="dateline-bar">
+            <div class="dateline-left">
+                <p>Vol. MMXXV, No. 001</p>
+                <p class="free-edition">FREE EDITION</p>
+            </div>
+            <div class="dateline-right">
+                <p>MONDAY</p>
+                <p>JANUARY 8, 2025</p>
+            </div>
+        </div>
+
+        <!-- The Main Masthead -->
         <header class="masthead">
-            <div class="masthead-top-bar">
-                <p class="edition-info">Est. 2024 • Professional Edition</p>
-                <p class="date-info">Thursday, July 31, 2025</p>
-            </div>
-            <div class="masthead-main">
-                <h1 class="newspaper-title">THE YONATAN TIMES</h1>
-                <!-- The nav element has been removed from here -->
-            </div>
+            <hr class="fancy-divider">
+            <h1 class="newspaper-title">THE YONATAN TIMES</h1>
+            <p class="subtitle">PROFESSIONAL DEVELOPER'S CHRONICLE</p>
+            <p class="tagline">"All The Code That's Fit To Print"</p>
+            <hr class="fancy-divider">
         </header>
 
         <!-- Main Content Area -->
         <main class="main-content">
-            
-            <!-- Left Column: The Feature Story -->
             <article class="about-me">
                 <h2 class="author-name">Yonatan Berihun</h2>
                 <h3 class="author-subtitle">Aspiring Inspired Developer | Lifelong Learner</h3>
@@ -46,13 +57,181 @@
                 </p>
             </article>
 
-            <!-- Right Column: Author Portrait -->
             <aside class="portrait">
                 <img src="images/author-photo.png" alt="A portrait of Yonatan Berihun">
             </aside>
-            
         </main>
-    </div>
+        <!-- End of Main Content Area -->
+        
+        <!-- ========================================================== -->
+        <!-- ============== FEATURED PROJECTS SECTION ================= -->
+        <!-- ========================================================== -->
+        <section id="projects" class="projects-section">
+            <div class="section-header">
+                <hr class="section-divider-long">
+                <h2 class="section-title">From The Technology Desk</h2>
+                <hr class="section-divider-long">
+            </div>
+
+            <div class="projects-grid">
+
+                <!-- PROJECT 1 -->
+                <article class="project-item">
+                    <div class="project-image-wrapper"><a href="https://t.me/official_HUSC_bot" target="_blank" rel="noopener noreferrer"><img src="images/project-1.jpg" alt="Hawassa University Feedback Bot Screenshot"></a></div>
+                    <div class="project-content">
+                        <p class="project-category">Spotlight: Telegram Bot</p>
+                        <h3 class="project-title">Hawassa University Feedback Bot</h3>
+                        <p class="project-description">A dynamic Telegram bot designed to streamline student feedback. Supports multiple languages and intelligently routes reports.</p>
+                        <div class="project-footer">
+                            <div class="project-tech-list"><span>Python</span><span>Telegram API</span><span>Regex</span></div>
+                            <div class="project-links">
+                                <a href="https://t.me/official_HUSC_bot" class="project-link" target="_blank" rel="noopener noreferrer">Read Full Story ›</a>
+                                <a href="https://github.com/Yoni-Berihun/hawassa-university-student-union-bot.git" class="project-link github" title="View on GitHub" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- PROJECT 2 -->
+                <article class="project-item">
+                    <div class="project-image-wrapper"><a href="https://github.com/Yoni-Berihun/hawassa-university-daycare-management-system.git" target="_blank" rel="noopener noreferrer"><img src="images/daycare_management_system.png" alt="Daycare Management System Screenshot"></a></div>
+                    <div class="project-content">
+                        <p class="project-category">Systems Architecture</p>
+                        <h3 class="project-title">Daycare Management System</h3>
+                        <p class="project-description">A C++ console app to manage child records, allowing admins to add, view, search, and update profiles. Features persistent data storage.</p>
+                        <div class="project-footer">
+                            <div class="project-tech-list"><span>C++</span><span>File I/O</span><span>Windows API</span></div>
+                            <div class="project-links">
+                                <a href="#" class="project-link disabled-link">Archived ›</a>
+                                <a href="https://github.com/Yoni-Berihun/hawassa-university-daycare-management-system.git" class="project-link github" title="View on GitHub" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- PROJECT 3 -->
+                <article class="project-item">
+                    <div class="project-image-wrapper"><a href="https://github.com/Yoni-Berihun/vehicle-rental-system.git" target="_blank" rel="noopener noreferrer"><img src="images/vehicle_rental_system.png" alt="YO Vehicle Rental System Screenshot"></a></div>
+                    <div class="project-content">
+                        <p class="project-category">Object-Oriented Design</p>
+                        <h3 class="project-title">YO Vehicle Rental System</h3>
+                        <p class="project-description">Engineered a Java-based console application to streamline vehicle rental operations, managing locations, vehicles, and customers.</p>
+                        <div class="project-footer">
+                            <div class="project-tech-list"><span>Java</span><span>OOP</span><span>Java Enums</span></div>
+                            <div class="project-links">
+                                <a href="#" class="project-link disabled-link">Archived ›</a>
+                                <a href="https://github.com/Yoni-Berihun/vehicle-rental-system.git" class="project-link github" title="View on GitHub" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- PROJECT 4 -->
+                <article class="project-item">
+                    <div class="project-image-wrapper"><a href="https://github.com/Yoni-Berihun/YO-Social-Media-Platform.git" target="_blank" rel="noopener noreferrer"><img src="images/yo_social.png" alt="YO-Social Screenshot"></a></div>
+                    <div class="project-content">
+                        <p class="project-category">Full-Stack Concepts</p>
+                        <h3 class="project-title">YO-Social Platform</h3>
+                        <p class="project-description">A Java console-based social media platform to connect users through posts, likes, and comments, with registration and authentication.</p>
+                        <div class="project-footer">
+                            <div class="project-tech-list"><span>Java</span><span>OOP</span><span>Console I/O</span></div>
+                            <div class="project-links">
+                                <a href="#" class="project-link disabled-link">Archived ›</a>
+                                <a href="https://github.com/Yoni-Berihun/YO-Social-Media-Platform.git" class="project-link github" title="View on GitHub" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                 
+                <!-- PROJECT 5 -->
+                <article class="project-item">
+                    <div class="project-image-wrapper"><a href="https://github.com/Yoni-Berihun/yo-dice-roller.git" target="_blank" rel="noopener noreferrer"><img src="images/yo_dice_roller.png" alt="YO Dice Roller Screenshot"></a></div>
+                    <div class="project-content">
+                        <p class="project-category">Creative Development</p>
+                        <h3 class="project-title">YO Dice Roller</h3>
+                        <p class="project-description">A lively Python app bringing the thrill of rolling dice to the terminal. Features ASCII art, animations, and session statistics.</p>
+                        <div class="project-footer">
+                            <div class="project-tech-list"><span>Python</span><span>random</span><span>time</span></div>
+                            <div class="project-links">
+                                <a href="#" class="project-link disabled-link">Archived ›</a>
+                                <a href="https://github.com/Yoni-Berihun/yo-dice-roller.git" class="project-link github" title="View on GitHub" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div> <!-- End .projects-grid -->
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- ===== PROFESSIONAL JOURNEY & STATISTICS - NEW SECTION ==== -->
+        <!-- ========================================================== -->
+        <section id="journey" class="journey-section">
+             <div class="section-header">
+                <hr class="section-divider-long">
+                <h2 class="section-title">Professional & Academic Journey</h2>
+                <hr class="section-divider-long">
+            </div>
+
+           <div class="journey-grid">
+
+                <!-- Left Column: The Timeline -->
+                <div class="timeline">
+                    <!-- Timeline Item 1 - New Professional Role -->
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                             <p class="timeline-date">2025 - Present</p>
+                             <h3 class="timeline-title">Telegram Bot Developer, Hawassa University Student Union</h3>
+                             <p class="timeline-description">Managed technology initiatives to enhance communication between the university and students. Developed and deployed digital solutions, including a custom Telegram bot, to streamline information sharing and improve student engagement. Leveraged technology to bridge communication gaps, optimize workflows, and make university services more accessible..</p>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 2 - University Education -->
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                             <p class="timeline-date">2023 - Present</p>
+                             <h3 class="timeline-title">Hawassa University | Hawassa, Ethiopia</h3>
+                             <p class="timeline-description">Pursuing a Bachelor of Science in Information Systems, deepening my knowledge in software engineering, database management, and system analysis. Expected graduation in June 2027.</p>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 3 - High School -->
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <p class="timeline-date">2018 - 2023</p>
+                            <h3 class="timeline-title">Karalo General Secondary School | Addis Ababa, Ethiopia</h3>
+                            <p class="timeline-description">Completed high school education, building a strong academic foundation and discovering my initial passion for logic and problem-solving that led me to the technology field.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: The Statistics Sidebar -->
+                <aside class="career-stats-column">
+                    <h3 class="stats-title">By the Numbers</h3>
+                    <div class="stat-card">
+                        <span class="stat-number">5+</span>
+                        <p class="stat-label">Programming Languages Mastered</p>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">10+</span>
+                        <p class="stat-label">Featured Projects Completed</p>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">3rd</span>
+                        <p class="stat-label">Year University Student</p>
+                    </div>
+                     <div class="stat-card">
+                        <span class="stat-number">1+</span>
+                        <p class="stat-label">Years Experiance</p>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+    </div> <!-- End .container -->
 
 </body>
 </html>
