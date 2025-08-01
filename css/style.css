@@ -105,78 +105,104 @@ body {
 .project-link.disabled-link { color: #999; pointer-events: none; text-decoration: none; }
 .project-link.disabled-link:hover { background: transparent; color: #999; }
 
-/* --- 7. Journey & Stats Section (Fancy Timeline) - UPDATED --- */
+/* --- 7. Journey & Stats Section (FINAL with best animations) --- */
+/* ----------------------------------------------------------------- */
 .journey-section { margin-top: 4rem; animation: fadeIn 1s 1s ease-out backwards; }
 .journey-grid { display: grid; grid-template-columns: 2.5fr 1fr; gap: 4rem; }
-.timeline { position: relative; padding: 0 0 0 2rem; }
-.timeline::before {
-  content: ''; position: absolute; top: 10px; left: 0;
-  width: 2px; height: 0; background-color: rgba(0,0,0,0.15);
-  animation: draw-line 2s 1.2s ease-out forwards;
+.timeline {
+    position: relative;
+     padding: 0.5rem 0 2rem 2rem; 
+     border-left: 3px solid rgba(0,0,0,0.15);  /* Slightly thinner line for elegance */
 }
-.timeline-item { position: relative; margin-bottom: 2.5rem; animation: slideAndFadeIn 1s ease-out backwards; }
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+    /* NEW: This is the amazing classical animation */
+    animation: slideAndFadeIn 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) backwards;
+}
 .timeline-item:last-child { margin-bottom: 0; }
+
+/* Staggered animation delays */
 .timeline-item:nth-child(1) { animation-delay: 1.4s; }
 .timeline-item:nth-child(2) { animation-delay: 1.6s; }
+.timeline-item:nth-child(3) { animation-delay: 1.8s; }
 
-.timeline-marker {
-    position: absolute; left: -10px; top: 5px;
-    width: 20px; height: 20px;
-    border-radius: 50%; background-color: var(--paper-color);
-    border: 4px solid #ccc; transition: all 0.4s ease;
-}
-.timeline-item:hover .timeline-marker {
-    background-color: var(--accent-blue); border-color: var(--accent-blue);
-    transform: scale(1.1); box-shadow: 0 0 0 4px rgba(10, 36, 99, 0.2);
-}
+
 .timeline-content {
-    background-color: #fff; border: 1px solid #e0e0e0; padding: 1.5rem;
-    border-radius: 3px; box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    transition: all 0.4s ease;
+    position: relative;
+    background-color: #fff; border: 1px solid #e0e0e0;
+    padding: 1.5rem;
+    border-radius: 3px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: all 0.4s ease-out; /* Smoother transition */
 }
 .timeline-item:hover .timeline-content {
-    transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transform: translateY(-8px) scale(1.02); /* More noticeable lift */
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
     border-color: rgba(10, 36, 99, 0.4);
 }
-.timeline-date {
-    font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
-    color: var(--subtitle-ink); margin-bottom: 0.5rem;
+
+/* BIGGER LOGO */
+.timeline-logo {
+    position: absolute;
+    top: -30px; /* Adjust for bigger size */
+    left: 25px;
+    width: 60px; /* Increased from 50px */
+    height: 60px; /* Increased from 50px */
+    background-color: var(--paper-color);
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    padding: 6px; /* Slightly more padding */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease-out;
 }
-.timeline-title {
-    font-family: var(--headline-font); font-size: 1.35rem; font-weight: 600;
-    margin-bottom: 0.5rem; transition: color 0.4s ease;
+.timeline-logo img {
+    width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
 }
+.timeline-item:hover .timeline-logo {
+    transform: scale(1.15); /* More noticeable growth */
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 4px rgba(10, 36, 99, 0.1);
+}
+
+.timeline-text {
+    padding-top: 1.5rem; /* More space for the bigger logo */
+}
+
+.timeline-date { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--subtitle-ink); margin-bottom: 0.5rem; }
+.timeline-title { font-family: var(--headline-font); font-size: 1.35rem; font-weight: 600; margin-bottom: 0.75rem; transition: color 0.4s ease; }
 .timeline-item:hover .timeline-title { color: var(--accent-blue); }
+
+.timeline-divider {
+    border: none;
+    height: 1px;
+    background-color: #eee;
+    margin-bottom: 0.75rem;
+}
+
 .timeline-description { font-size: 0.95rem; }
 
-.stats-title {
-    font-family: var(--headline-font); font-weight: 600; text-align: center;
-    text-transform: uppercase; letter-spacing: 0.1em; font-size: 1rem;
-    color: var(--subtitle-ink); padding-bottom: 0.75rem; border-bottom: 1px solid rgba(0,0,0,0.15);
-}
-.stat-card {
-    background-color: #fff; border: 1px solid rgba(0,0,0,0.1); margin-top: 1rem;
-    padding: 1.25rem; text-align: center; transition: all 0.3s ease;
-}
+/* Stats Styles (Unchanged) */
+.stats-title { font-family: var(--headline-font); font-weight: 600; text-align: center; text-transform: uppercase; letter-spacing: 0.1em; font-size: 1rem; color: var(--subtitle-ink); padding-bottom: 0.75rem; border-bottom: 1px solid rgba(0,0,0,0.15); }
+.stat-card { background-color: #fff; border: 1px solid rgba(0,0,0,0.1); margin-top: 1rem; padding: 1.25rem; text-align: center; transition: all 0.3s ease; }
 .stat-card:hover { transform: translateY(-4px); box-shadow: 0 6px 15px rgba(0,0,0,0.07); border-color: var(--accent-blue); }
-.stat-number {
-    display: block; font-family: var(--headline-font); font-weight: 700;
-    font-size: 3rem; color: var(--accent-blue); line-height: 1;
-}
+.stat-number { display: block; font-family: var(--headline-font); font-weight: 700; font-size: 3rem; color: var(--accent-blue); line-height: 1; }
 .stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--subtitle-ink); margin-top: 0.5rem; }
 
-/* 7. General Typographic Details */
-.author-name {
-  font-family: var(--headline-font); font-weight: 600; font-size: clamp(2.5rem, 6vw, 3.5rem);
-  line-height: 1.2; margin-bottom: 0.75rem;
+/* The @keyframes animation for slideAndFadeIn also needs to be in your main animation section. Ensure it is present */
+@keyframes slideAndFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
-.author-subtitle {
-  font-family: var(--headline-font); font-weight: 400; font-style: italic;
-  font-size: 1.3rem; color: #444; margin-bottom: 2.5rem; position: relative;
-  padding-left: 1.5rem; border-left: 5px solid var(--accent-blue);
-}
-.drop-cap { font-family: var(--headline-font); font-weight: 600; font-size: 5rem; float: left; line-height: 0.8; margin: 0.2rem 0.8rem 0 0; }
-
 /* 8. Visually Compelling Animations */
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes slideAndFadeIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
