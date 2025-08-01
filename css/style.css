@@ -605,21 +605,18 @@ body {
     .gallery-navigation label.prev { left: 15px; }
     .gallery-navigation label.next { right: 15px; }
 }
-/* --- 13. Letters to the Editor (Contact Section) --- */
-/* ----------------------------------------------------- */
 .contact-section {
-    margin-top: 5rem;
-    padding-bottom: 5rem;
-    animation: fadeIn 1s 1.2s ease-out backwards;
+    margin-top: 4rem;
+    animation: fadeIn 2s 2s ease-out backwards; /* Fades in after other content */
 }
 
 .contact-form-wrapper {
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
     background-color: #ffffff;
-    padding: 3rem 3.5rem;
-    border: 1px solid rgba(0,0,0,0.1);
-    box-shadow: 0 5px 30px rgba(0,0,0,0.07);
+    border: 1px solid #ddd;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+    padding: 2.5rem;
 }
 
 .form-intro {
@@ -627,14 +624,19 @@ body {
     font-size: 1rem;
     font-style: italic;
     color: var(--subtitle-ink);
-    margin-bottom: 2.5rem;
-    line-height: 1.7;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 2rem;
+}
+
+.hidden-field {
+    display: none;
 }
 
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem 2rem;
+    gap: 1.5rem;
 }
 
 .form-group {
@@ -650,36 +652,33 @@ body {
     font-family: var(--headline-font);
     font-weight: 600;
     font-size: 0.9rem;
-    color: var(--subtitle-ink);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    color: var(--ink-color);
     margin-bottom: 0.5rem;
 }
 
 .form-group input,
 .form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
     font-family: var(--body-font);
     font-size: 1rem;
-    padding: 0.85rem 1rem;
-    border: 1px solid #ccc;
-    background-color: var(--paper-color);
     color: var(--ink-color);
-    transition: all 0.3s ease-in-out;
+    background-color: var(--paper-color);
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    transition: all 0.3s ease;
 }
 
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: #999;
-    font-style: italic;
-}
-
-/* Interaction and Focus Styles */
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
     border-color: var(--accent-blue);
-    box-shadow: 0 0 0 3px rgba(10, 36, 99, 0.15);
-    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(10, 36, 99, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
 }
 
 .dispatch-button {
@@ -687,42 +686,30 @@ body {
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
+    width: 100%;
+    padding: 1rem;
     font-family: var(--headline-font);
-    font-weight: 600;
     font-size: 1.1rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--paper-color);
-    background-color: var(--accent-blue);
+    letter-spacing: 0.1em;
+    color: #fff;
+    background-color: var(--title-color);
     border: none;
-    padding: 1rem 2rem;
+    border-radius: 3px;
     cursor: pointer;
-    margin-top: 1rem;
     transition: all 0.3s ease;
 }
 
 .dispatch-button:hover {
-    background-color: #1a1a1a; /* Darker, sophisticated hover */
-    transform: translateY(-3px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    background-color: var(--accent-blue);
+    box-shadow: 0 5px 15px rgba(10, 36, 99, 0.2);
+    transform: translateY(-2px);
 }
 
 .dispatch-icon {
     width: 20px;
     height: 20px;
-}
-
-/* Responsive Grid for the Form */
-@media (max-width: 768px) {
-    .form-grid {
-        grid-template-columns: 1fr; /* Stack columns on smaller screens */
-    }
-    .form-col-span-2 {
-        grid-column: span 1; /* Reset column span */
-    }
-    .contact-form-wrapper {
-        padding: 2.5rem 2rem;
-    }
 }
 /* --- 14. Netlify Form Utilities --- */
 /* ---------------------------------- */
@@ -730,4 +717,477 @@ body {
 /* Hides the Netlify honeypot field from view */
 .hidden-field {
     display: none;
+}
+@media (max-width: 600px) {
+    .contact-form-wrapper {
+        padding: 1.5rem;
+    }
+    .form-grid {
+        grid-template-columns: 1fr; /* Stack form fields on mobile */
+    }
+    .form-col-span-2 {
+        grid-column: span 1; /* Reset span on mobile */
+    }
+}
+/* --- 10. The Footer Section --- */
+/* ---------------------------------------------------- */
+.site-footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    background-color: #e8e5dd; /* A slightly darker paper tone */
+    border-top: 2px solid rgba(0,0,0,0.2);
+    animation: fadeIn 1s 2s ease-out backwards; /* Fades in last */
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Auto-responsive columns */
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2.5rem 3rem 2.5rem;
+}
+
+.footer-title {
+    font-family: var(--headline-font);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--subtitle-ink);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+}
+
+.footer-column.about p {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.footer-links li {
+    margin-bottom: 0.75rem;
+}
+.footer-links a {
+    text-decoration: none;
+    color: var(--ink-color);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+.footer-links a:hover {
+    color: var(--accent-blue);
+    padding-left: 5px; /* Subtle indent on hover */
+    text-decoration: underline;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--ink-color);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+.social-links a:hover {
+    color: var(--accent-blue);
+}
+.social-links svg {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    transition: transform 0.3s ease;
+}
+.social-links a:hover svg {
+    transform: scale(1.1);
+}
+
+.footer-bottom-bar {
+    background-color: #111; /* Matches the top super-header */
+    color: #ccc;
+    padding: 1rem 2.5rem;
+    text-align: center;
+    font-size: 0.8rem;
+}
+.footer-bottom-bar p {
+    margin: 0;
+}
+
+
+/* --- Responsive Design for Footer --- */
+@media (max-width: 600px) {
+    .footer-content {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        text-align: center;
+    }
+    .footer-title {
+        border-bottom-style: solid; /* Make sure border doesn't disappear */
+    }
+    .social-links a {
+        justify-content: center;
+    }
+}
+/* --- The Yonatan Times - Final Publication --- */
+/* Table of Contents
+/* 1.  Variables, Fonts & Root Styles
+/* 2.  Layout & Overall Feel
+/* 3.  The Header Structure
+/* 4.  Main Content (About Me)
+/* 5.  General Section Header Styles
+/* 6.  Projects Section
+/* 7.  Journey & Stats Section
+/* 8.  Accolades Section
+/* 9.  Contact Section
+/* 10. The Footer Section
+/* 11. The Navigation Bar (NEW)
+/* 12. Visually Compelling Animations
+/* 13. Responsive Design
+/* ---------------------------------------------------- */
+
+/* 1. Variables, Fonts & Root Styles */
+:root {
+  --paper-color: #f3f0e9;
+  --ink-color: #333333;
+  --title-color: #1a1a1a;
+  --accent-blue: #0A2463; 
+  --accent-red: #9a2a2a;
+  --subtitle-ink: #5c534a; 
+  --headline-font: 'Playfair Display', serif;
+  --body-font: 'Merriweather', serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--body-font); background-color: var(--paper-color); color: var(--ink-color); line-height: 1.75; overflow-x: hidden; }
+
+/* (Sections 2-10 - All of your previous, approved CSS rules - remain here unchanged) */
+/* ... All existing CSS from layout to footer ... */
+
+/* --- 11. The Navigation Bar (FINAL WORKING VERSION) --- */
+/* ------------------------------------------------------ */
+.main-navigation {
+    padding: 1rem 0;
+    margin: 1.5rem auto;
+    max-width: 80%;
+}
+.navigation-title {
+    font-family: var(--headline-font);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--subtitle-ink);
+    text-align: center;
+    margin-bottom: 1rem;
+    display: none;
+}
+
+/* Invisible checkbox that powers the menu */
+.nav-toggle {
+    display: none;
+}
+
+/* The hamburger icon button */
+.nav-toggle-label {
+    display: none; /* Hidden on desktop */
+    position: absolute;
+    top: 3.5rem;
+    right: 2.5rem;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    z-index: 1001; /* Must be on top of the menu */
+}
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+    display: block; background: var(--title-color);
+    height: 2px; width: 100%; position: relative;
+    transition: all 0.3s ease-in-out;
+}
+.nav-toggle-label span::before,
+.nav-toggle-label span::after { content: ''; position: absolute; }
+.nav-toggle-label span::before { top: -8px; }
+.nav-toggle-label span::after { top: 8px; }
+.nav-toggle:checked ~ .nav-toggle-label span { transform: rotate(135deg); }
+.nav-toggle:checked ~ .nav-toggle-label span::before { top: 0; transform: rotate(90deg); }
+.nav-toggle:checked ~ .nav-toggle-label span::after { top: 0; transform: rotate(90deg); opacity: 0; }
+
+/* Desktop Navigation List */
+.main-navigation ul {
+    display: flex; justify-content: center; align-items: center;
+    gap: 1.5rem; list-style: none; padding: 1rem 0;
+    border-top: 1px solid rgba(0,0,0,0.15);
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+}
+
+/* Desktop Navigation Links */
+.main-navigation li a {
+    font-family: var(--body-font); text-decoration: none;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    font-size: 0.85rem; font-weight: 600;
+    color: var(--subtitle-ink); padding: 0.5rem 1rem;
+    transition: all 0.3s ease-out;
+}
+.main-navigation li a:hover,
+.main-navigation li a:focus {
+    color: var(--title-color);
+    background-color: rgba(0,0,0,0.02);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transform: translateY(-3px);
+}
+
+/* The Invisible Overlay for Auto-Closing */
+.nav-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.2); /* Semi-transparent black */
+    visibility: hidden; /* Hidden by default */
+    opacity: 0;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    z-index: 999; /* Below hamburger, above content */
+}
+
+.nav-toggle:checked ~ .nav-overlay {
+    visibility: visible; /* Show overlay when menu is open */
+    opacity: 1;
+}
+
+/* (All animation keyframes remain unchanged) */
+/* ... */
+
+/* --- 13. Responsive Design (UPDATED with Overlay) --- */
+@media (max-width: 900px) {
+    
+    .nav-toggle-label {
+        display: block; /* Show the hamburger icon */
+    }
+
+    .main-navigation .navigation-title {
+        display: block; /* Show title on mobile menu */
+    }
+
+    /* Mobile Menu Drawer */
+    .main-navigation ul {
+        position: fixed;
+        top: 0; right: 0;
+        height: 100vh;
+        width: 300px;
+        max-width: 80%;
+        background-color: var(--paper-color);
+        border: none;
+        border-left: 1px solid #ddd;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+        padding: 6rem 2rem 2rem 2rem;
+        box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 1000; /* Menu slides OVER the overlay */
+    }
+
+    /* Slide the menu in when the checkbox is checked */
+    .nav-toggle:checked ~ .main-navigation ul {
+        transform: translateX(0);
+    }
+    
+    .main-navigation li { width: 100%; text-align: center; }
+    .main-navigation li a { font-size: 1.2rem; padding: 1rem; }
+    .main-navigation li a:hover,
+    .main-navigation li a:focus {
+        background: none; box-shadow: none; transform: none;
+        color: var(--accent-blue);
+    }
+}
+/* --- 14. The Technology Dispatch (CORRECTED & ANIMATED) --- */
+/* ------------------------------------------------------------------ */
+.skills-section {
+    margin-top: 5rem;
+    padding: 3rem 0;
+}
+
+.editorial-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.editorial-title {
+    font-family: var(--headline-font); /* FIXED: Ensured headline font is used */
+    font-weight: 700;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--title-color); /* FIXED: Ensured title color is used */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.editorial-subtitle {
+    font-family: var(--body-font); /* FIXED: Ensured body font is used */
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--subtitle-ink); /* FIXED: Ensured subtitle color is used */
+    margin-top: 0.5rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.skills-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.skills-grid-three-col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+}
+
+@keyframes slideUpAndFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.skills-block {
+    background-color: #ffffff;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+    padding: 2.5rem;
+    border-radius: 3px;
+    transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+    
+    /* PURE CSS ON-LOAD ANIMATION */
+    opacity: 0; 
+    animation: slideUpAndFadeIn 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+/* Staggered appearance of each block */
+.skills-block:nth-child(1) { animation-delay: 1.5s; }
+.skills-block:nth-child(2) { animation-delay: 1.7s; }
+.skills-block:nth-child(3) { animation-delay: 1.9s; }
+
+
+.skills-block:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+}
+
+.skills-category-title {
+    font-family: var(--headline-font); /* FIXED: Ensured headline font is used */
+    font-weight: 600;
+    font-size: 1.75rem;
+    color: var(--subtitle-ink); /* FIXED: Ensured subtitle color is used */
+    margin-bottom: 2rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+}
+
+.skills-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.skill-logo {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: grayscale(50%);
+    opacity: 0.8;
+    transition: all 0.4s ease;
+}
+
+.skill-item:hover .skill-logo {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.skill-info {
+    width: 100%;
+}
+
+.skill-name {
+    font-family: var(--body-font); /* FIXED: Ensured body font is used */
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--ink-color); /* FIXED: Ensured main ink color is used */
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.skill-bar-container {
+    width: 100%;
+    height: 18px;
+    background-color: var(--paper-color); /* FIXED: Ensured paper color is used */
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.07);
+    overflow: hidden;
+}
+
+.skill-bar {
+    height: 100%;
+    width: 0; 
+    background-color: var(--accent-blue); /* FIXED: Ensured accent color is used */
+    background-image: linear-gradient(to bottom, var(--accent-blue), #081e4b);
+    border-radius: 1px;
+    animation: fillSkillBar 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+@keyframes fillSkillBar {
+    from { width: 0; }
+    to { width: var(--skill-level); }
+}
+
+/* Staggered skill bar animations */
+.skills-block:nth-child(1) .skill-item:nth-child(1) .skill-bar { animation-delay: 2.0s; }
+.skills-block:nth-child(1) .skill-item:nth-child(2) .skill-bar { animation-delay: 2.1s; }
+.skills-block:nth-child(1) .skill-item:nth-child(3) .skill-bar { animation-delay: 2.2s; }
+.skills-block:nth-child(1) .skill-item:nth-child(4) .skill-bar { animation-delay: 2.3s; }
+.skills-block:nth-child(1) .skill-item:nth-child(5) .skill-bar { animation-delay: 2.4s; }
+.skills-block:nth-child(1) .skill-item:nth-child(6) .skill-bar { animation-delay: 2.5s; }
+.skills-block:nth-child(1) .skill-item:nth-child(7) .skill-bar { animation-delay: 2.6s; }
+
+.skills-block:nth-child(2) .skill-item:nth-child(1) .skill-bar { animation-delay: 2.2s; }
+.skills-block:nth-child(2) .skill-item:nth-child(2) .skill-bar { animation-delay: 2.3s; }
+.skills-block:nth-child(2) .skill-item:nth-child(3) .skill-bar { animation-delay: 2.4s; }
+
+.skills-block:nth-child(3) .skill-item:nth-child(1) .skill-bar { animation-delay: 2.4s; }
+.skills-block:nth-child(3) .skill-item:nth-child(2) .skill-bar { animation-delay: 2.5s; }
+.skills-block:nth-child(3) .skill-item:nth-child(3) .skill-bar { animation-delay: 2.6s; }
+
+
+/* Responsive Design */
+@media (max-width: 1000px) {
+    .skills-grid-three-col {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 700px) {
+    .skills-grid-three-col {
+        grid-template-columns: 1fr;
+    }
 }
