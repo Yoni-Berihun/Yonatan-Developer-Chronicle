@@ -200,3 +200,508 @@ body {
   .timeline { padding-left: 0; }
   .timeline::before, .timeline-marker { display: none; }
 }
+/* --- 10. Technology Editorial (Skills) Section - Centered Layout --- */
+/* -------------------------------------------------------------------- */
+.skills-section {
+    margin-top: 4rem;
+    padding: 2.5rem 0;
+    animation: fadeIn 1s 0.8s ease-out backwards;
+}
+
+.editorial-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.editorial-title {
+    font-family: var(--headline-font);
+    font-weight: 700;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--title-color);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.editorial-subtitle {
+    font-family: var(--body-font);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--subtitle-ink);
+    margin-top: 0.5rem;
+}
+
+.skills-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2.5rem;
+    background-color: #ffffff;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    transition: all 0.4s ease; /* NEW: Add transition for the hover effect */
+}
+
+/* NEW: The on-hover animation for the entire block */
+.skills-wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.skills-grid-three-col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem 3rem;
+}
+
+.skills-block:not(:last-child) {
+    margin-bottom: 3rem;
+}
+
+.skills-category-title {
+    font-family: var(--headline-font);
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--subtitle-ink);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.skills-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.skill-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.skill-info {
+    width: 100%;
+}
+
+.skill-name {
+    font-family: var(--body-font);
+    font-weight: 700;
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.skill-bar-container {
+    width: 100%;
+    height: 16px;
+    background-color: var(--paper-color);
+    border: 1px solid #ddd;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.skill-bar {
+    height: 100%;
+    width: 0; /* Initial width for animation */
+    background-color: var(--accent-blue);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.08) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.08) 75%, transparent 75%, transparent);
+    background-size: 20px 20px;
+    animation: fillSkillBar 1.5s 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+/* Stagger animation delays for visual appeal */
+.skills-block:nth-of-type(1) .skill-item:nth-child(1) .skill-bar { animation-delay: 1.1s; }
+.skills-block:nth-of-type(1) .skill-item:nth-child(2) .skill-bar { animation-delay: 1.2s; }
+.skills-block:nth-of-type(1) .skill-item:nth-child(3) .skill-bar { animation-delay: 1.3s; }
+.skills-block:nth-of-type(1) .skill-item:nth-child(4) .skill-bar { animation-delay: 1.4s; }
+.skills-block:nth-of-type(1) .skill-item:nth-child(5) .skill-bar { animation-delay: 1.5s; }
+.skills-block:nth-of-type(1) .skill-item:nth-child(6) .skill-bar { animation-delay: 1.6s; }
+.skills-block:nth-of-type(1) .skill-item:nth-child(7) .skill-bar { animation-delay: 1.7s; }
+
+.skills-block:nth-of-type(2) .skill-item:nth-child(1) .skill-bar { animation-delay: 1.8s; }
+.skills-block:nth-of-type(2) .skill-item:nth-child(2) .skill-bar { animation-delay: 1.9s; }
+.skills-block:nth-of-type(2) .skill-item:nth-child(3) .skill-bar { animation-delay: 2.0s; }
+.skills-block:nth-of-type(2) .skill-item:nth-child(4) .skill-bar { animation-delay: 2.1s; }
+.skills-block:nth-of-type(2) .skill-item:nth-child(5) .skill-bar { animation-delay: 2.2s; }
+
+.skills-block:nth-of-type(3) .skill-item:nth-child(1) .skill-bar { animation-delay: 2.3s; }
+
+
+@keyframes fillSkillBar {
+    from {
+        width: 0;
+    }
+    to {
+        width: var(--skill-level);
+    }
+}
+
+/* --- Skills Section Responsive Design --- */
+@media (max-width: 900px) {
+    .skills-grid-three-col {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 600px) {
+    .skills-grid-three-col {
+        grid-template-columns: 1fr;
+    }
+    .skills-wrapper {
+        padding: 1.5rem;
+    }
+}
+/* --- 12. The Editor's Accolades (ENLARGED & ANIMATED) --- */
+/* ----------------------------------------------------------------- */
+.accolades-section {
+    margin-top: 5rem;
+    padding: 3rem 0;
+    animation: fadeIn 1s 1.2s ease-out backwards;
+}
+
+.accolades-gallery {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    background-color: #fdfdfd;
+    border: 1px solid rgba(0,0,0,0.12);
+    box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+/* Hide radio buttons */
+.accolades-gallery input[type="radio"] {
+    display: none;
+}
+
+.accolades-wrapper {
+    display: flex;
+    width: 300%; /* 100% * 3 slides */
+    /* ANIMATION: A smoother, more professional easing function for the slide. */
+    transition: transform 0.75s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.accolade-item {
+    width: 33.333%;
+    flex-shrink: 0;
+    display: grid;
+    grid-template-columns: 1.2fr 1.5fr;
+    align-items: center;
+    gap: 3.5rem;
+    padding: 4rem;
+}
+
+/* --- CSS Logic for Slider Movement --- */
+#accolade-radio-1:checked ~ .accolades-wrapper { transform: translateX(0%); }
+#accolade-radio-2:checked ~ .accolades-wrapper { transform: translateX(-33.333%); }
+#accolade-radio-3:checked ~ .accolades-wrapper { transform: translateX(-66.666%); }
+
+
+/* --- Keyframes for Our Cool & Classical Animations --- */
+
+/* ANIMATION: For titles and elements that slide up and fade in */
+@keyframes slideUpFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ANIMATION: For images and containers to scale in gracefully */
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ANIMATION: A simple, clean fade-in */
+@keyframes fadeInDelayed {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
+/* --- Content Styling & Initial Animation States --- */
+/* ANIMATION: Set the initial state of elements to be invisible before animation begins */
+.accolade-image, .accolade-title, .accolade-publication, .accolade-description {
+    opacity: 0;
+}
+
+.accolade-image img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    filter: sepia(20%) grayscale(20%);
+    transition: all 0.4s ease;
+}
+
+.accolade-date {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent-red);
+    letter-spacing: 0.08em;
+}
+
+.accolade-title {
+    font-family: var(--headline-font);
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    color: var(--title-color);
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0.5rem 0 0.75rem 0;
+}
+
+.accolade-publication {
+    font-family: var(--body-font);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--subtitle-ink);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.accolade-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--ink-color);
+}
+
+/* --- Triggering the Cascading Animations --- */
+/* This is the core magic. When a radio is checked, we animate the children of the corresponding slide. */
+
+#accolade-radio-1:checked ~ .accolades-wrapper .accolade-item:nth-child(1) .accolade-image,
+#accolade-radio-2:checked ~ .accolades-wrapper .accolade-item:nth-child(2) .accolade-image,
+#accolade-radio-3:checked ~ .accolades-wrapper .accolade-item:nth-child(3) .accolade-image {
+    animation: scaleIn 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s forwards;
+}
+
+#accolade-radio-1:checked ~ .accolades-wrapper .accolade-item:nth-child(1) .accolade-title,
+#accolade-radio-2:checked ~ .accolades-wrapper .accolade-item:nth-child(2) .accolade-title,
+#accolade-radio-3:checked ~ .accolades-wrapper .accolade-item:nth-child(3) .accolade-title {
+    animation: slideUpFadeIn 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) 0.4s forwards;
+}
+
+#accolade-radio-1:checked ~ .accolades-wrapper .accolade-item:nth-child(1) .accolade-publication,
+#accolade-radio-2:checked ~ .accolades-wrapper .accolade-item:nth-child(2) .accolade-publication,
+#accolade-radio-3:checked ~ .accolades-wrapper .accolade-item:nth-child(3) .accolade-publication {
+    animation: fadeInDelayed 1s ease 0.6s forwards;
+}
+
+#accolade-radio-1:checked ~ .accolades-wrapper .accolade-item:nth-child(1) .accolade-description,
+#accolade-radio-2:checked ~ .accolades-wrapper .accolade-item:nth-child(2) .accolade-description,
+#accolade-radio-3:checked ~ .accolades-wrapper .accolade-item:nth-child(3) .accolade-description {
+    animation: fadeInDelayed 1s ease 0.8s forwards;
+}
+
+
+/* --- Navigation Buttons with Enhanced Hover Effects --- */
+.gallery-navigation {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+}
+
+.gallery-navigation label {
+    pointer-events: auto;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.6); /* Reduced opacity for blur */
+    backdrop-filter: blur(4px); /* ANIMATION: Cool frosted glass effect */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    font-family: var(--headline-font);
+    font-size: 2.5rem;
+    color: var(--subtitle-ink);
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    /* ANIMATION: Smooth transition for hover effects */
+    transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.gallery-navigation label:hover {
+    background-color: white;
+    color: #000;
+    border-color: rgba(0,0,0,0.2);
+    /* ANIMATION: Button grows and lifts on hover */
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.gallery-navigation label.prev { left: 25px; }
+.gallery-navigation label.next { right: 25px; }
+
+/* Show relevant navigation */
+.gallery-navigation > div { display: none; }
+#accolade-radio-1:checked ~ .gallery-navigation .nav-for-accolade-1 { display: block; }
+#accolade-radio-2:checked ~ .gallery-navigation .nav-for-accolade-2 { display: block; }
+#accolade-radio-3:checked ~ .gallery-navigation .nav-for-accolade-3 { display: block; }
+
+
+/* --- Responsive for Enlarged Section --- */
+@media (max-width: 900px) {
+    .accolade-item {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2.5rem;
+        padding: 3rem;
+    }
+    .accolade-image { max-width: 400px; margin: 0 auto; }
+}
+
+@media (max-width: 600px) {
+    .accolade-item { padding: 2.5rem 1.5rem; }
+    .gallery-navigation label { width: 45px; height: 45px; font-size: 2rem; }
+    .gallery-navigation label.prev { left: 15px; }
+    .gallery-navigation label.next { right: 15px; }
+}
+/* --- 13. Letters to the Editor (Contact Section) --- */
+/* ----------------------------------------------------- */
+.contact-section {
+    margin-top: 5rem;
+    padding-bottom: 5rem;
+    animation: fadeIn 1s 1.2s ease-out backwards;
+}
+
+.contact-form-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 3rem 3.5rem;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 5px 30px rgba(0,0,0,0.07);
+}
+
+.form-intro {
+    text-align: center;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--subtitle-ink);
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-col-span-2 {
+    grid-column: span 2;
+}
+
+.form-group label {
+    font-family: var(--headline-font);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--subtitle-ink);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+    font-family: var(--body-font);
+    font-size: 1rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid #ccc;
+    background-color: var(--paper-color);
+    color: var(--ink-color);
+    transition: all 0.3s ease-in-out;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+/* Interaction and Focus Styles */
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(10, 36, 99, 0.15);
+    background-color: #fff;
+}
+
+.dispatch-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    font-family: var(--headline-font);
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--paper-color);
+    background-color: var(--accent-blue);
+    border: none;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.dispatch-button:hover {
+    background-color: #1a1a1a; /* Darker, sophisticated hover */
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.dispatch-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Responsive Grid for the Form */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+    }
+    .form-col-span-2 {
+        grid-column: span 1; /* Reset column span */
+    }
+    .contact-form-wrapper {
+        padding: 2.5rem 2rem;
+    }
+}
+/* --- 14. Netlify Form Utilities --- */
+/* ---------------------------------- */
+
+/* Hides the Netlify honeypot field from view */
+.hidden-field {
+    display: none;
+}

@@ -162,76 +162,71 @@
 
             </div> <!-- End .projects-grid -->
         </section>
+<!-- ========================================================== -->
+<!-- ============ LETTERS TO THE EDITOR (NETLIFY READY) ======== -->
+<!-- ========================================================== -->
+<section id="contact" class="contact-section">
+    <div class="section-header">
+        <hr class="section-divider-long">
+        <h2 class="section-title">Letters to the Editor</h2>
+        <hr class="section-divider-long">
+    </div>
 
-        <!-- ========================================================== -->
-        <!-- ===== PROFESSIONAL JOURNEY & STATISTICS - NEW SECTION ==== -->
-        <!-- ========================================================== -->
-        <section id="journey" class="journey-section">
-             <div class="section-header">
-                <hr class="section-divider-long">
-                <h2 class="section-title">Professional & Academic Journey</h2>
-                <hr class="section-divider-long">
-            </div>
+    <div class="contact-form-wrapper">
+        <!-- 
+          NETLIFY FORM SETUP:
+          - 'name="contact"' identifies the form in your Netlify dashboard.
+          - 'data-netlify="true"' tells Netlify to handle submissions.
+          - 'data-netlify-honeypot="bot-field"' enables spam protection.
+        -->
+        <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="contact-form">
+            
+            <p class="form-intro">
+                Your feedback, inquiries, and stories are invaluable. Please use the form below to send your message directly to our desk. All fields are required.
+            </p>
 
-           <div class="journey-grid">
+            <!-- This is a hidden field for Netlify's spam protection. Bots will fill it out, but humans won't. -->
+            <p class="hidden-field">
+              <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+            </p>
 
-                <!-- Left Column: The Timeline -->
-                <div class="timeline">
-                    <!-- Timeline Item 1 - New Professional Role -->
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                             <p class="timeline-date">2025 - Present</p>
-                             <h3 class="timeline-title">Telegram Bot Developer, Hawassa University Student Union</h3>
-                             <p class="timeline-description">Managed technology initiatives to enhance communication between the university and students. Developed and deployed digital solutions, including a custom Telegram bot, to streamline information sharing and improve student engagement. Leveraged technology to bridge communication gaps, optimize workflows, and make university services more accessible..</p>
-                        </div>
-                    </div>
+            <div class="form-grid">
 
-                    <!-- Timeline Item 2 - University Education -->
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                             <p class="timeline-date">2023 - Present</p>
-                             <h3 class="timeline-title">Hawassa University | Hawassa, Ethiopia</h3>
-                             <p class="timeline-description">Pursuing a Bachelor of Science in Information Systems, deepening my knowledge in software engineering, database management, and system analysis. Expected graduation in June 2027.</p>
-                        </div>
-                    </div>
-
-                    <!-- Timeline Item 3 - High School -->
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <p class="timeline-date">2018 - 2023</p>
-                            <h3 class="timeline-title">Karalo General Secondary School | Addis Ababa, Ethiopia</h3>
-                            <p class="timeline-description">Completed high school education, building a strong academic foundation and discovering my initial passion for logic and problem-solving that led me to the technology field.</p>
-                        </div>
-                    </div>
+                <!-- Full Name Field -->
+                <div class="form-group">
+                    <label for="full-name">Correspondent's Name</label>
+                    <input type="text" id="full-name" name="full-name" placeholder="e.g., Jane Doe" required>
                 </div>
 
-                <!-- Right Column: The Statistics Sidebar -->
-                <aside class="career-stats-column">
-                    <h3 class="stats-title">By the Numbers</h3>
-                    <div class="stat-card">
-                        <span class="stat-number">5+</span>
-                        <p class="stat-label">Programming Languages Mastered</p>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number">10+</span>
-                        <p class="stat-label">Featured Projects Completed</p>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number">3rd</span>
-                        <p class="stat-label">Year University Student</p>
-                    </div>
-                     <div class="stat-card">
-                        <span class="stat-number">1+</span>
-                        <p class="stat-label">Years Experiance</p>
-                    </div>
-                </aside>
+                <!-- Email Address Field -->
+                <div class="form-group">
+                    <label for="email">Return Address (Email)</label>
+                    <input type="email" id="email" name="email" placeholder="e.g., your.address@example.com" required>
+                </div>
+
+                <!-- Subject Line Field -->
+                <div class="form-group form-col-span-2">
+                    <label for="subject">Subject Line</label>
+                    <input type="text" id="subject" name="subject" placeholder="Regarding your article on..." required>
+                </div>
+
+                <!-- Message Body Field -->
+                <div class="form-group form-col-span-2">
+                    <label for="message">Message Body</label>
+                    <textarea id="message" name="message" rows="8" placeholder="Dear Editor, I am writing to you today because..." required></textarea>
+                </div>
+
+                <!-- Dispatch Button -->
+                <div class="form-group form-col-span-2">
+                    <button type="submit" class="dispatch-button">
+                        <svg class="dispatch-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+                        Dispatch Message
+                    </button>
+                </div>
+
             </div>
-        </section>
-
-    </div> <!-- End .container -->
-
+        </form>
+    </div>
+</section>
 </body>
 </html>
