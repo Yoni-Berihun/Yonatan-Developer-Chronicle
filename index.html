@@ -520,7 +520,7 @@
     </div> <!-- End .accolades-gallery -->
     
 </section>
-  <!-- ========================================================== -->
+  <!-- ====        <!-- ========================================================== -->
         <!-- ======== LETTERS TO THE EDITOR (NETLIFY READY) =========== -->
         <!-- ========================================================== -->
         <section id="contact" class="contact-section">
@@ -531,53 +531,42 @@
             </div>
 
             <div class="contact-form-wrapper">
-                <!-- 
-                  NETLIFY FORM SETUP:
-                  - 'name="contact"' identifies the form in your Netlify dashboard.
-                  - 'data-netlify="true"' tells Netlify to handle submissions.
-                  - 'data-netlify-honeypot="bot-field"' enables spam protection.
-                -->
                 <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="contact-form">
                     
                     <p class="form-intro">
                         Your feedback, inquiries, and stories are invaluable. Please use the form below to send your message directly to our desk. All fields are required.
                     </p>
 
-                    <!-- Hidden field for Netlify's spam protection. -->
+                    <!-- Hidden field for Netlify's spam protection. It is REQUIRED. -->
                     <p class="hidden-field">
                       <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
                     </p>
                     
-                    <!-- Hidden field that tells Netlify the name of the form. -->
+                    <!-- This hidden field is also REQUIRED and must match the form's name attribute. -->
                     <input type="hidden" name="form-name" value="contact" />
 
                     <div class="form-grid">
 
-                        <!-- Full Name Field -->
                         <div class="form-group">
                             <label for="full-name">Correspondent's Name</label>
-                            <input type="text" id="full-name" name="name" placeholder="e.g., Abebe Belachew" required>
+                            <input type="text" id="full-name" name="name" placeholder="e.g., Jane Doe" required>
                         </div>
 
-                        <!-- Email Address Field -->
                         <div class="form-group">
                             <label for="email">Return Address (Email)</label>
-                            <input type="email" id="email" name="email" placeholder="e.g., yourname@example.com" required>
+                            <input type="email" id="email" name="email" placeholder="e.g., your.address@example.com" required>
                         </div>
 
-                        <!-- Subject Line Field -->
                         <div class="form-group form-col-span-2">
                             <label for="subject">Subject Line</label>
                             <input type="text" id="subject" name="subject" placeholder="Regarding your article on..." required>
                         </div>
 
-                        <!-- Message Body Field -->
                         <div class="form-group form-col-span-2">
                             <label for="message">Message Body</label>
                             <textarea id="message" name="message" rows="8" placeholder="Dear Editor, I am writing to you today because..." required></textarea>
                         </div>
 
-                        <!-- Dispatch Button -->
                         <div class="form-group form-col-span-2">
                             <button type="submit" class="dispatch-button">
                                 <svg class="dispatch-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
