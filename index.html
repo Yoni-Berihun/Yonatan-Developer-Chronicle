@@ -3,28 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Yonatan Times | Professional Developer's Chronicle - Hackathon Edition</title>
-    <meta name="description" content="Yonatan Berihun's professional portfolio showcasing innovative projects, technical skills, and academic achievements in a newspaper-style design.">
-    <meta name="keywords" content="developer, portfolio, web development, programming, hackathon, newspaper design">
-    <meta name="author" content="Yonatan Berihun">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph Meta Tags for Social Sharing -->
-    <meta property="og:title" content="The Yonatan Times | Professional Developer's Chronicle">
-    <meta property="og:description" content="Innovative developer portfolio with newspaper-style design showcasing technical projects and achievements.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yonatan-berihun.github.io">
-    <meta property="og:image" content="images/author-photo.png">
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="The Yonatan Times | Professional Developer's Chronicle">
-    <meta name="twitter:description" content="Innovative developer portfolio with newspaper-style design showcasing technical projects and achievements.">
-    <meta name="twitter:image" content="images/author-photo.png">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <title>The Yonatan Times | Professional Developer's Chronicle</title>
 
     <!-- Fonts: Playfair Display & Merriweather -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,7 +18,7 @@
 
     
     <!-- Top Black Bar -->
-    <div class="super-header"></div>
+    <div class="super-header"></div>  
 
     <div class="container">
         
@@ -54,12 +33,8 @@
             </div>
         </div>
 
-        <!-- Main Masthead -->
-        <header class="masthead">
-            <hr class="fancy-divider">
-            <h1 class="newspaper-title">THE YONATAN TIMES</h1>
-            <p class="subtitle">PROFESSIONAL DEVELOPER'S CHRONICLE</p>
-            
+        <!-- Sticky Navigation -->
+        <nav class="sticky-navigation">
             <!-- Navigation Toggle -->
             <input type="checkbox" id="nav-toggle" class="nav-toggle">
             
@@ -69,10 +44,10 @@
             </label>
             
             <!-- Main Navigation -->
-            <nav class="main-navigation">
+            <div class="main-navigation">
                 <h4 class="navigation-title">Navigation</h4>
                  <ul>
-                    <li><a href="#home" class="nav-link" id="nav-home">Home</a></li>
+                    <li><a href="#" class="nav-link" id="nav-home">Home</a></li>
                     <li><a href="#projects" class="nav-link" id="nav-projects">Projects</a></li>
                     <li><a href="#journey" class="nav-link" id="nav-journey">Journey</a></li>
                     <li><a href="#accolades" class="nav-link" id="nav-accolades">Accolades</a></li>
@@ -93,7 +68,7 @@
         </header>
 
         <!-- Main Content Area -->
-        <main id="main-content" class="main-content">
+        <main class="main-content">
             <article class="about-me">
                 <h2 class="author-name">Yonatan Berihun</h2>
                 <h3 class="author-subtitle">Aspiring Inspired Developer | Lifelong Learner</h3>
@@ -159,7 +134,7 @@
                     </div>
                     <div class="project-content">
                         <div>
-                            <p class="project-category"> Telegram Bot </p>
+                            <p class="project-category">Spotlight: Telegram Bot</p>
                             <h3 class="project-title">Hawassa University Feedback Bot</h3>
                             <p class="project-description">A dynamic Telegram bot designed to streamline student feedback. Supports multiple languages and intelligently routes reports.</p>
                         </div>
@@ -170,7 +145,7 @@
                                 <span>Regex</span>
                             </div>
                             <div class="project-links">
-                                <span class="project-link"> Live Link ›</span>
+                                <span class="project-link">Read Full Story ›</span>
                                 <div class="project-link-icon">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
@@ -188,7 +163,7 @@
                     </div>
                     <div class="project-content">
                         <div>
-                            <p class="project-category">Console Application>
+                            <p class="project-category">Systems Architecture</p>
                             <h3 class="project-title">Daycare Management System</h3>
                             <p class="project-description">A C++ console app to manage child records, allowing admins to add, view, search, and update profiles. Features persistent data storage.</p>
                         </div>
@@ -217,7 +192,7 @@
                     </div>
                     <div class="project-content">
                         <div>
-                            <p class="project-category">Console Application</p>
+                            <p class="project-category">Object-Oriented Design</p>
                             <h3 class="project-title">YO Vehicle Rental System</h3>
                             <p class="project-description">Engineered a Java-based console application to streamline vehicle rental operations, managing locations, vehicles, and customers.</p>
                         </div>
@@ -246,7 +221,7 @@
                     </div>
                     <div class="project-content">
                         <div>
-                            <p class="project-category">Console Application</p>
+                            <p class="project-category">Full-Stack Concepts</p>
                             <h3 class="project-title">YO-Social Platform</h3>
                             <p class="project-description">A Java console-based social media platform to connect users through posts, likes, and comments, with registration and authentication.</p>
                         </div>
@@ -269,13 +244,13 @@
                 </a>
                  
                 <!-- Project 5: YO Dice Roller -->
-                <a href="https://github.com/Yoni-Berihun/yo-dice-roller.git" target="_blank" rel="noopener noreferrer" class="project-item">
+                <a href="https://github.com/Yoni-Berihun/Dice-Rolling-Game.git" target="_blank" rel="noopener noreferrer" class="project-item">
                     <div class="project-image-wrapper">
                         <img src="images/yo_dice_roller.png" alt="YO Dice Roller Screenshot">
                     </div>
                     <div class="project-content">
                         <div>
-                            <p class="project-category">Console Application</p>
+                            <p class="project-category">Creative Development</p>
                             <h3 class="project-title">YO Dice Roller</h3>
                             <p class="project-description">A lively Python app bringing the thrill of rolling dice to the terminal. Features ASCII art, animations, and session statistics.</p>
                         </div>
@@ -337,78 +312,36 @@
 
             <div class="skills-wrapper">
                 <div class="skills-grid-three-col">
-                    <!-- Languages Block -->
+                    <!-- Programming Languages Block -->
                     <div class="skills-block">
-                        <h3 class="skills-category-title">Languages</h3>
+                        <h3 class="skills-category-title">Programming Languages</h3>
                         <div class="skills-list">
-                            <!-- C# -->
                             <div class="skill-item">
-                                <img src="images/c-sharp.png" alt="C# Logo" class="skill-logo">
-                                <div class="skill-info">
-                                    <span class="skill-name">C#</span>
-                                    <div class="skill-bar-container">
-                                        <div class="skill-bar" style="--skill-level: 80%;"></div>
-                                    </div>
+                                <div class="skill-content">
+                                    <p class="skill-description">
+                                        <strong>C# and C++</strong> are my core programming languages. I've been working with them for system-level development and object-oriented design. I'm building everything from console applications to complex software architectures.
+                                    </p>
                                 </div>
                             </div>
-                            <!-- C++ -->
                             <div class="skill-item">
-                                <img src="images/cpp-logo.png" alt="C++ Logo" class="skill-logo">
-                                <div class="skill-info">
-                                    <span class="skill-name">C++</span>
-                                    <div class="skill-bar-container">
-                                        <div class="skill-bar" style="--skill-level: 81%;"></div>
-                                    </div>
+                                <div class="skill-content">
+                                    <p class="skill-description">
+                                        <strong>Python</strong> is my go-to language for automation and API development. I'm currently working on Telegram bots and building various utility applications that solve real problems.
+                                    </p>
                                 </div>
                             </div>
-                            <!-- Python -->
                             <div class="skill-item">
-                                <img src="images/python.png" alt="Python Logo" class="skill-logo">
-                                <div class="skill-info">
-                                    <span class="skill-name">Python</span>
-                                    <div class="skill-bar-container">
-                                        <div class="skill-bar" style="--skill-level: 75%;"></div>
-                                    </div>
+                                <div class="skill-content">
+                                    <p class="skill-description">
+                                        <strong>Java</strong> is where I've developed my strongest OOP skills. I'm working with design patterns and building projects that range from console applications to full-stack solutions.
+                                    </p>
                                 </div>
                             </div>
-                            <!-- Dart -->
                             <div class="skill-item">
-                                <img src="images/dart-logo.png" alt="Dart Logo" class="skill-logo">
-                                <div class="skill-info">
-                                    <span class="skill-name">Dart</span>
-                                    <div class="skill-bar-container">
-                                        <div class="skill-bar" style="--skill-level: 80%;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Java -->
-                            <div class="skill-item">
-                                <img src="images/java.png" alt="Java Logo" class="skill-logo">
-                                <div class="skill-info">
-                                    <span class="skill-name">Java</span>
-                                    <div class="skill-bar-container">
-                                        <div class="skill-bar" style="--skill-level: 78%;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- HTML -->
-                            <div class="skill-item">
-                                <img src="images/html-5.png" alt="HTML Logo" class="skill-logo">
-                                <div class="skill-info">
-                                    <span class="skill-name">HTML</span>
-                                    <div class="skill-bar-container">
-                                        <div class="skill-bar" style="--skill-level: 65%;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- CSS -->
-                            <div class="skill-item">
-                                <img src="images/css-3.png" alt="CSS Logo" class="skill-logo">
-                                <div class="skill-info">
-                                    <span class="skill-name">CSS</span>
-                                    <div class="skill-bar-container">
-                                        <div class="skill-bar" style="--skill-level: 78%;"></div>
-                                    </div>
+                                <div class="skill-content">
+                                    <p class="skill-description">
+                                        <strong>Dart and HTML/CSS</strong> are my tools for front-end development. I'm learning cross-platform mobile development with Flutter and building responsive web designs using modern standards.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -418,34 +351,25 @@
                     <div class="skills-block">
                         <h3 class="skills-category-title">Frameworks & Concepts</h3>
                         <div class="skills-list">
-                            <!-- .NET MVC -->
                             <div class="skill-item">
-                                <img src="images/dot-net.png" alt=".NET Logo" class="skill-logo">
-                                <div class="skill-info">
-                                    <span class="skill-name">.NET MVC</span>
-                                    <div class="skill-bar-container">
-                                        <div class="skill-bar" style="--skill-level: 10%;"></div>
-                                    </div>
+                                <div class="skill-content">
+                                    <p class="skill-description">
+                                        <strong>Object-Oriented Programming</strong> is my strongest foundation. I've been practicing encapsulation, inheritance, polymorphism, and SOLID principles across all my projects and languages.
+                                    </p>
                                 </div>
                             </div>
-                            <!-- Flutter -->
                             <div class="skill-item">
-                                <img src="images/flutter-logo.png" alt="Flutter Logo" class="skill-logo">
-                                <div class="skill-info">
-                                    <span class="skill-name">Flutter</span>
-                                    <div class="skill-bar-container">
-                                        <div class="skill-bar" style="--skill-level: 20%;"></div>
-                                    </div>
+                                <div class="skill-content">
+                                    <p class="skill-description">
+                                        <strong>.NET MVC</strong> is my first step into web frameworks. I'm learning the Model-View-Controller pattern and exploring the ASP.NET ecosystem for web development.
+                                    </p>
                                 </div>
                             </div>
-                            <!-- OOP -->
                             <div class="skill-item">
-                                <img src="images/programming.png" alt="OOP Concept Logo" class="skill-logo">
-                                <div class="skill-info">
-                                    <span class="skill-name">Object-Oriented Programming</span>
-                                    <div class="skill-bar-container">
-                                        <div class="skill-bar" style="--skill-level: 91%;"></div>
-                                    </div>
+                                <div class="skill-content">
+                                    <p class="skill-description">
+                                        <strong>Flutter</strong> is my entry point into mobile development. I'm building cross-platform apps and learning Dart-based UI development and mobile architecture.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -455,34 +379,25 @@
                     <div class="skills-block">
                         <h3 class="skills-category-title">Developer Tools</h3>
                         <div class="skills-list">
-                            <!-- Git -->
                             <div class="skill-item">
-                                <img src="images/git.png" alt="Git Logo" class="skill-logo">
-                                <div class="skill-info">
-                                    <span class="skill-name">Git</span>
-                                    <div class="skill-bar-container">
-                                        <div class="skill-bar" style="--skill-level: 75%;"></div>
-                                    </div>
+                                <div class="skill-content">
+                                    <p class="skill-description">
+                                        <strong>Git and GitHub</strong> are my daily tools for version control. I'm managing repositories, collaborating on projects, and learning best practices for team development.
+                                    </p>
                                 </div>
                             </div>
-                            <!-- GitHub -->
                             <div class="skill-item">
-                                <img src="images/github.png" alt="GitHub Logo" class="skill-logo">
-                                <div class="skill-info">
-                                    <span class="skill-name">GitHub</span>
-                                    <div class="skill-bar-container">
-                                        <div class="skill-bar" style="--skill-level: 70%;"></div>
-                                    </div>
+                                <div class="skill-content">
+                                    <p class="skill-description">
+                                        <strong>Python Telegram Bot API</strong> is my specialty area. I'm building bots with natural language processing, designing user interactions, and integrating various APIs for real-world applications.
+                                    </p>
                                 </div>
                             </div>
-                            <!-- Python Telegram Bot -->
                             <div class="skill-item">
-                                <img src="images/telegram.png" alt="Telegram Logo" class="skill-logo">
-                                <div class="skill-info">
-                                    <span class="skill-name">Python Telegram Bot</span>
-                                    <div class="skill-bar-container">
-                                        <div class="skill-bar" style="--skill-level: 69%;"></div>
-                                    </div>
+                                <div class="skill-content">
+                                    <p class="skill-description">
+                                        <strong>Development Environments</strong> are my workspace. I'm working with various IDEs, debugging tools, and setting up development workflows across Windows and cross-platform scenarios.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -794,3 +709,5 @@
     </div>
 </body>
 </html>
+
+

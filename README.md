@@ -10,7 +10,7 @@
 
 *A sophisticated newspaper-style portfolio showcasing the professional journey of an aspiring developer*
 
-[🌐 Live Demo](https://yonii.netlify.app) | [📄 View CV](https://docs.google.com/uc?export=download&id=153Q42yrskPp4az6uF1gXapoVlv3d4gPd) | [💼 LinkedIn](https://www.linkedin.com/in/yonatan-berihun)
+[🌐 Live Demo](https://yoni-berihun.netlify.app) | [📄 View CV](https://docs.google.com/uc?export=download&id=153Q42yrskPp4az6uF1gXapoVlv3d4gPd) | [💼 LinkedIn](https://www.linkedin.com/in/yonatan-berihun)
 
 </div>
 
@@ -45,7 +45,7 @@ This portfolio transforms the traditional developer portfolio into a sophisticat
 - **Performance Optimized**: Fast loading times and smooth interactions
 
 ### 📱 Interactive Elements
-- **Skills Visualization**: Animated skill bars with progress indicators and hover effects
+- **Skills Visualization**: Descriptive skill blocks with hover effects and animations
 - **Project Showcase**: Grid layout featuring 5 major projects with detailed descriptions
 - **Awards Carousel**: Interactive CSS-only slider for displaying certificates and achievements
 - **Contact Form**: Functional contact form with Netlify integration and validation
@@ -56,7 +56,7 @@ This portfolio transforms the traditional developer portfolio into a sophisticat
 - **Smooth Transitions**: CSS animations for enhanced user experience
 - **Hover Effects**: Interactive elements with professional hover states
 - **Loading Animations**: Staggered animations for content sections
-- **Skill Bar Animations**: Dynamic progress bars for technical skills
+- **Skill Block Animations**: Dynamic hover effects for technical skills
 - **Carousel Navigation**: Smooth transitions between award certificates
 - **Button Interactions**: Professional hover and active states
 
@@ -64,7 +64,7 @@ This portfolio transforms the traditional developer portfolio into a sophisticat
 1. **Header & Navigation**: Professional masthead with responsive navigation
 2. **About Section**: Personal introduction with professional photo
 3. **Projects Showcase**: 5 featured projects with technology tags
-4. **Skills Section**: Three categories with animated progress bars
+4. **Skills Section**: Three categories with descriptive skill blocks
 5. **Professional Journey**: Timeline layout with educational background
 6. **Awards & Recognition**: Interactive carousel with certificates
 7. **Contact Section**: Professional form with validation
@@ -103,7 +103,7 @@ This portfolio transforms the traditional developer portfolio into a sophisticat
 Yonatan-Developer-Chronicle/
 ├── index.html              # Main HTML file with semantic structure
 ├── css/
-│   └── style.css          # Complete stylesheet (1992 lines)
+│   └── style.css          # Complete stylesheet (2096 lines)
 ├── images/                # Image assets
 │   ├── author-photo.png   # Professional portrait
 │   ├── project screenshots # Project demonstration images
@@ -126,7 +126,7 @@ Yonatan-Developer-Chronicle/
 ### Installation & Setup
 
 #### Option 1: Direct Access
-1. Visit the live demo: [The Yonatan Times](https://yonii.netlify.app)
+1. Visit the live demo: [The Yonatan Times](https://yoni-berihun.netlify.app)
 2. No installation required - fully functional web application
 
 #### Option 2: Local Development
@@ -192,7 +192,7 @@ Yonatan-Developer-Chronicle/
   - Programming Languages (C#, C++, Python, Dart, Java, HTML, CSS)
   - Frameworks & Concepts (.NET MVC, Flutter, OOP)
   - Developer Tools (Git, GitHub, Telegram Bot API)
-- **Animated Progress Bars**: Visual representation of skill levels
+- **Descriptive Skill Blocks**: Text-based skill descriptions with hover effects
 - **Technology Icons**: Professional logos for each skill
 - **Hover Effects**: Interactive skill display
 
@@ -267,7 +267,6 @@ Yonatan-Developer-Chronicle/
 
 ---
 
-
 ## 🚀 Future Enhancements
 
 ### Planned Improvements
@@ -289,10 +288,10 @@ Yonatan-Developer-Chronicle/
 
 ## 📞 Contact Information
 
-- **🌐 Portfolio**: [The Yonatan Times](https://yonii.netlify.app)
+- **🌐 Portfolio**: [The Yonatan Times](https://yoni-berihun.netlify.app)
 - **💼 LinkedIn**: [Yonatan Berihun](https://www.linkedin.com/in/yonatan-berihun)
 - **🐙 GitHub**: [Yoni-Berihun](https://github.com/Yoni-Berihun)
-- **📧 Email**: Available through contact form on portfolio
+- **📧 Email**: yonatanberihun26@gmail.com
 - **📄 CV**: [Download Resume](https://docs.google.com/uc?export=download&id=153Q42yrskPp4az6uF1gXapoVlv3d4gPd)
 
 ---
@@ -325,8 +324,8 @@ This project is created for the **PLP Academy July 2025 Portfolio Challenge**. A
 - **Accessibility**: Semantic HTML with proper navigation and structure
 
 ### File Structure
-- **HTML**: 766 lines of semantic markup
-- **CSS**: 1992 lines of organized styles
+- **HTML**: 732 lines of semantic markup
+- **CSS**: 2096 lines of organized styles
 - **Images**: Optimized for web with proper alt text
 - **Documentation**: Comprehensive README with setup instructions
 
