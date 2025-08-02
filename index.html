@@ -3,7 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Yonatan Times | Professional Developer's Chronicle</title>
+    <title>The Yonatan Times | Professional Developer's Chronicle - Hackathon Edition</title>
+    <meta name="description" content="Yonatan Berihun's professional portfolio showcasing innovative projects, technical skills, and academic achievements in a newspaper-style design.">
+    <meta name="keywords" content="developer, portfolio, web development, programming, hackathon, newspaper design">
+    <meta name="author" content="Yonatan Berihun">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags for Social Sharing -->
+    <meta property="og:title" content="The Yonatan Times | Professional Developer's Chronicle">
+    <meta property="og:description" content="Innovative developer portfolio with newspaper-style design showcasing technical projects and achievements.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yonatan-berihun.github.io">
+    <meta property="og:image" content="images/author-photo.png">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Yonatan Times | Professional Developer's Chronicle">
+    <meta name="twitter:description" content="Innovative developer portfolio with newspaper-style design showcasing technical projects and achievements.">
+    <meta name="twitter:image" content="images/author-photo.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 
     <!-- Fonts: Playfair Display & Merriweather -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,16 +78,22 @@
                     <li><a href="#accolades" class="nav-link" id="nav-accolades">Accolades</a></li>
                     <li><a href="#contact" class="nav-link" id="nav-contact">Contact</a></li>
                 </ul>
-            </nav>
+            </div>
 
             <!-- Navigation Overlay -->
             <label for="nav-toggle" class="nav-overlay"></label>
+        </nav>
 
+        <!-- Main Masthead -->
+        <header class="masthead">
+            <hr class="fancy-divider">
+            <h1 class="newspaper-title">THE YONATAN TIMES</h1>
+            <p class="subtitle">PROFESSIONAL DEVELOPER'S CHRONICLE</p>
             <hr class="fancy-divider">
         </header>
 
         <!-- Main Content Area -->
-        <main class="main-content">
+        <main id="main-content" class="main-content">
             <article class="about-me">
                 <h2 class="author-name">Yonatan Berihun</h2>
                 <h3 class="author-subtitle">Aspiring Inspired Developer | Lifelong Learner</h3>
@@ -691,17 +718,19 @@
                 <!-- About Column -->
                 <div class="footer-column about">
                     <h4 class="footer-title">About The Publication</h4>
-                    <p>The Yonatan Times is a digitally-native publication dedicated to chronicling the journey of a passionate developer. All content is engineered with HTML5 and styled with CSS3, reflecting a commitment to foundational web excellence.</p>
+                    <p>The Yonatan Times is a digitally-native publication inspired by The New York Times newspaper design. This project is built entirely with pure HTML5 and CSS3, demonstrating the power of foundational web technologies without any JavaScript, frameworks, or libraries. Every element showcases the elegance and sophistication achievable through semantic markup and advanced CSS techniques.</p>
                 </div>
                 
                 <!-- Navigation Column -->
                 <div class="footer-column navigation">
                     <h4 class="footer-title">Navigate Sections</h4>
                     <ul class="footer-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#projects">Projects</a></li>
-                        <li><a href="#journey">Journey</a></li>
-                        <li><a href="#accolades">Accolades</a></li>
+                        <li><a href="#" class="footer-nav-link" id="footer-nav-home">Home</a></li>
+                        <li><a href="#projects" class="footer-nav-link" id="footer-nav-projects">Projects</a></li>
+                        <li><a href="#journey" class="footer-nav-link" id="footer-nav-journey">Journey</a></li>
+                        <li><a href="#accolades" class="footer-nav-link" id="footer-nav-accolades">Accolades</a></li>
+                        <li><a href="#skills" class="footer-nav-link" id="footer-nav-skills">Skills</a></li>
+                        <li><a href="#contact" class="footer-nav-link" id="footer-nav-contact">Contact</a></li>
                     </ul>
                 </div>
                 
