@@ -10,68 +10,59 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
 
-    <!-- The Path to your CSS file -->
+    <!-- CSS Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     
-    <!-- The Top Black Bar -->
+    <!-- Top Black Bar -->
     <div class="super-header"></div>
 
     <div class="container">
         
-        <!-- The Dateline Bar -->
+        <!-- Dateline Bar -->
         <div class="dateline-bar">
             <div class="dateline-left">
                 <p>Vol. MMXXV, No. 001</p>
                 <p class="free-edition">FREE EDITION</p>
             </div>
             <div class="dateline-right">
-                <p>MONDAY</p>
-                <p>JANUARY 8, 2025</p>
+                <p>August, 2025</p>
             </div>
         </div>
 
-               <!-- The Main Masthead - FINAL GUARANTEED-TO-WORK NAVIGATION -->
+        <!-- Main Masthead -->
         <header class="masthead">
             <hr class="fancy-divider">
             <h1 class="newspaper-title">THE YONATAN TIMES</h1>
             <p class="subtitle">PROFESSIONAL DEVELOPER'S CHRONICLE</p>
             
-            <!-- This is the invisible checkbox that controls the menu -->
+            <!-- Navigation Toggle -->
             <input type="checkbox" id="nav-toggle" class="nav-toggle">
             
-            <!-- This is the hamburger icon button for mobile -->
+            <!-- Hamburger Menu Button -->
             <label for="nav-toggle" class="nav-toggle-label">
                 <span></span>
             </label>
             
-            <!-- This is the main navigation menu -->
+            <!-- Main Navigation -->
             <nav class="main-navigation">
                 <h4 class="navigation-title">Navigation</h4>
                  <ul>
-                    <!--
-                        THE DEFINITIVE FIX IS HERE:
-                        The onclick="document.getElementById('nav-toggle').checked = false;"
-                        is a tiny piece of JavaScript that programmatically "unchecks" the
-                        control box whenever a link is clicked. This forces the menu closed.
-                    -->
-                    <li><a href="#" onclick="document.getElementById('nav-toggle').checked = false;">Home</a></li>
-                    <li><a href="#projects" onclick="document.getElementById('nav-toggle').checked = false;">Projects</a></li>
-                    <li><a href="#journey" onclick="document.getElementById('nav-toggle').checked = false;">Journey</a></li>
-                    <li><a href="#accolades" onclick="document.getElementById('nav-toggle').checked = false;">Accolades</a></li>
-                    <li><a href="#contact" onclick="document.getElementById('nav-toggle').checked = false;">Contact</a></li>
+                    <li><a href="#home" class="nav-link" id="nav-home">Home</a></li>
+                    <li><a href="#projects" class="nav-link" id="nav-projects">Projects</a></li>
+                    <li><a href="#journey" class="nav-link" id="nav-journey">Journey</a></li>
+                    <li><a href="#accolades" class="nav-link" id="nav-accolades">Accolades</a></li>
+                    <li><a href="#contact" class="nav-link" id="nav-contact">Contact</a></li>
                 </ul>
             </nav>
 
-            <!-- 
-              The overlay is kept as a best practice. It allows users to also close
-              the menu by simply tapping outside of it, which is excellent UX.
-            -->
+            <!-- Navigation Overlay -->
             <label for="nav-toggle" class="nav-overlay"></label>
 
             <hr class="fancy-divider">
         </header>
+
         <!-- Main Content Area -->
         <main class="main-content">
             <article class="about-me">
@@ -94,9 +85,36 @@
         </main>
         <!-- End of Main Content Area -->
         
-        <!-- ========================================================== -->
-        <!-- ============== FEATURED PROJECTS SECTION ================= -->
-        <!-- ========================================================== -->
+        <!-- CV Download Section -->
+        <section class="cv-download-section">
+            <div class="cv-download-wrapper">
+                <div class="cv-download-content">
+                    <div class="cv-download-text">
+                        <h3 class="cv-download-title">Professional Credentials</h3>
+                        <p class="cv-download-subtitle">Access my comprehensive resume and professional background</p>
+                    </div>
+                    <div class="cv-download-button-container">
+                        <a href="https://docs.google.com/uc?export=download&id=153Q42yrskPp4az6uF1gXapoVlv3d4gPd" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="cv-download-button">
+                            <span class="cv-button-text">Download CV</span>
+                            <div class="cv-button-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7,10 12,15 17,10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+             <!-- ========================================================== -->
+        
+        <!-- Featured Projects Section -->
         <section id="projects" class="projects-section">
             <div class="section-header">
                 <hr class="section-divider-long">
@@ -105,304 +123,394 @@
             </div>
 
             <div class="projects-grid">
-
-                <!-- PROJECT 1 -->
-                <article class="project-item">
-                    <div class="project-image-wrapper"><a href="https://t.me/official_HUSC_bot" target="_blank" rel="noopener noreferrer"><img src="images/project-1.jpg" alt="Hawassa University Feedback Bot Screenshot"></a></div>
+                <!-- Project 1: Hawassa University Feedback Bot -->
+                <a href="https://t.me/official_HUSC_bot" target="_blank" rel="noopener noreferrer" class="project-item">
+                    <div class="project-image-wrapper">
+                        <img src="images/project-1.jpg" alt="Hawassa University Feedback Bot Screenshot">
+                    </div>
                     <div class="project-content">
-                        <p class="project-category">Spotlight: Telegram Bot</p>
-                        <h3 class="project-title">Hawassa University Feedback Bot</h3>
-                        <p class="project-description">A dynamic Telegram bot designed to streamline student feedback. Supports multiple languages and intelligently routes reports.</p>
+                        <div>
+                            <p class="project-category">Spotlight: Telegram Bot</p>
+                            <h3 class="project-title">Hawassa University Feedback Bot</h3>
+                            <p class="project-description">A dynamic Telegram bot designed to streamline student feedback. Supports multiple languages and intelligently routes reports.</p>
+                        </div>
                         <div class="project-footer">
-                            <div class="project-tech-list"><span>Python</span><span>Telegram API</span><span>Regex</span></div>
+                            <div class="project-tech-list">
+                                <span>Python</span>
+                                <span>Telegram API</span>
+                                <span>Regex</span>
+                            </div>
                             <div class="project-links">
-                                <a href="https://t.me/official_HUSC_bot" class="project-link" target="_blank" rel="noopener noreferrer">Read Full Story ›</a>
-                                <a href="https://github.com/Yoni-Berihun/hawassa-university-student-union-bot.git" class="project-link github" title="View on GitHub" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                                <span class="project-link">Read Full Story ›</span>
+                                <div class="project-link-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </article>
+                </a>
 
-                <!-- PROJECT 2 -->
-                <article class="project-item">
-                    <div class="project-image-wrapper"><a href="https://github.com/Yoni-Berihun/hawassa-university-daycare-management-system.git" target="_blank" rel="noopener noreferrer"><img src="images/daycare_management_system.png" alt="Daycare Management System Screenshot"></a></div>
+                <!-- Project 2: Daycare Management System -->
+                <a href="https://github.com/Yoni-Berihun/hawassa-university-daycare-management-system.git" target="_blank" rel="noopener noreferrer" class="project-item">
+                    <div class="project-image-wrapper">
+                        <img src="images/daycare_management_system.png" alt="Daycare Management System Screenshot">
+                    </div>
                     <div class="project-content">
-                        <p class="project-category">Systems Architecture</p>
-                        <h3 class="project-title">Daycare Management System</h3>
-                        <p class="project-description">A C++ console app to manage child records, allowing admins to add, view, search, and update profiles. Features persistent data storage.</p>
+                        <div>
+                            <p class="project-category">Systems Architecture</p>
+                            <h3 class="project-title">Daycare Management System</h3>
+                            <p class="project-description">A C++ console app to manage child records, allowing admins to add, view, search, and update profiles. Features persistent data storage.</p>
+                        </div>
                         <div class="project-footer">
-                            <div class="project-tech-list"><span>C++</span><span>File I/O</span><span>Windows API</span></div>
+                            <div class="project-tech-list">
+                                <span>C++</span>
+                                <span>File I/O</span>
+                                <span>Windows API</span>
+                            </div>
                             <div class="project-links">
-                                <a href="#" class="project-link disabled-link">Archived ›</a>
-                                <a href="https://github.com/Yoni-Berihun/hawassa-university-daycare-management-system.git" class="project-link github" title="View on GitHub" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                                <span class="project-link disabled-link">Archived ›</span>
+                                <div class="project-link-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </article>
-
-                <!-- PROJECT 3 -->
-                <article class="project-item">
-                    <div class="project-image-wrapper"><a href="https://github.com/Yoni-Berihun/vehicle-rental-system.git" target="_blank" rel="noopener noreferrer"><img src="images/vehicle_rental_system.png" alt="YO Vehicle Rental System Screenshot"></a></div>
+                </a>
+                
+                <!-- Project 3: Vehicle Rental System -->
+                <a href="https://github.com/Yoni-Berihun/vehicle-rental-system.git" target="_blank" rel="noopener noreferrer" class="project-item">
+                    <div class="project-image-wrapper">
+                        <img src="images/vehicle_rental_system.png" alt="YO Vehicle Rental System Screenshot">
+                    </div>
                     <div class="project-content">
-                        <p class="project-category">Object-Oriented Design</p>
-                        <h3 class="project-title">YO Vehicle Rental System</h3>
-                        <p class="project-description">Engineered a Java-based console application to streamline vehicle rental operations, managing locations, vehicles, and customers.</p>
+                        <div>
+                            <p class="project-category">Object-Oriented Design</p>
+                            <h3 class="project-title">YO Vehicle Rental System</h3>
+                            <p class="project-description">Engineered a Java-based console application to streamline vehicle rental operations, managing locations, vehicles, and customers.</p>
+                        </div>
                         <div class="project-footer">
-                            <div class="project-tech-list"><span>Java</span><span>OOP</span><span>Java Enums</span></div>
+                            <div class="project-tech-list">
+                                <span>Java</span>
+                                <span>OOP</span>
+                                <span>Java Enums</span>
+                            </div>
                             <div class="project-links">
-                                <a href="#" class="project-link disabled-link">Archived ›</a>
-                                <a href="https://github.com/Yoni-Berihun/vehicle-rental-system.git" class="project-link github" title="View on GitHub" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                                <span class="project-link disabled-link">Archived ›</span>
+                                <div class="project-link-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </article>
+                </a>
 
-                <!-- PROJECT 4 -->
-                <article class="project-item">
-                    <div class="project-image-wrapper"><a href="https://github.com/Yoni-Berihun/YO-Social-Media-Platform.git" target="_blank" rel="noopener noreferrer"><img src="images/yo_social.png" alt="YO-Social Screenshot"></a></div>
+                <!-- Project 4: YO-Social Platform -->
+                <a href="https://github.com/Yoni-Berihun/YO-Social-Media-Platform.git" target="_blank" rel="noopener noreferrer" class="project-item">
+                    <div class="project-image-wrapper">
+                        <img src="images/yo_social.png" alt="YO-Social Screenshot">
+                    </div>
                     <div class="project-content">
-                        <p class="project-category">Full-Stack Concepts</p>
-                        <h3 class="project-title">YO-Social Platform</h3>
-                        <p class="project-description">A Java console-based social media platform to connect users through posts, likes, and comments, with registration and authentication.</p>
+                        <div>
+                            <p class="project-category">Full-Stack Concepts</p>
+                            <h3 class="project-title">YO-Social Platform</h3>
+                            <p class="project-description">A Java console-based social media platform to connect users through posts, likes, and comments, with registration and authentication.</p>
+                        </div>
                         <div class="project-footer">
-                            <div class="project-tech-list"><span>Java</span><span>OOP</span><span>Console I/O</span></div>
+                            <div class="project-tech-list">
+                                <span>Java</span>
+                                <span>OOP</span>
+                                <span>Console I/O</span>
+                            </div>
                             <div class="project-links">
-                                <a href="#" class="project-link disabled-link">Archived ›</a>
-                                <a href="https://github.com/Yoni-Berihun/YO-Social-Media-Platform.git" class="project-link github" title="View on GitHub" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                                <span class="project-link disabled-link">Archived ›</span>
+                                <div class="project-link-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </article>
+                </a>
                  
-                <!-- PROJECT 5 -->
-                <article class="project-item">
-                    <div class="project-image-wrapper"><a href="https://github.com/Yoni-Berihun/yo-dice-roller.git" target="_blank" rel="noopener noreferrer"><img src="images/yo_dice_roller.png" alt="YO Dice Roller Screenshot"></a></div>
+                <!-- Project 5: YO Dice Roller -->
+                <a href="https://github.com/Yoni-Berihun/yo-dice-roller.git" target="_blank" rel="noopener noreferrer" class="project-item">
+                    <div class="project-image-wrapper">
+                        <img src="images/yo_dice_roller.png" alt="YO Dice Roller Screenshot">
+                    </div>
                     <div class="project-content">
-                        <p class="project-category">Creative Development</p>
-                        <h3 class="project-title">YO Dice Roller</h3>
-                        <p class="project-description">A lively Python app bringing the thrill of rolling dice to the terminal. Features ASCII art, animations, and session statistics.</p>
+                        <div>
+                            <p class="project-category">Creative Development</p>
+                            <h3 class="project-title">YO Dice Roller</h3>
+                            <p class="project-description">A lively Python app bringing the thrill of rolling dice to the terminal. Features ASCII art, animations, and session statistics.</p>
+                        </div>
                         <div class="project-footer">
-                            <div class="project-tech-list"><span>Python</span><span>random</span><span>time</span></div>
+                            <div class="project-tech-list">
+                                <span>Python</span>
+                                <span>random</span>
+                                <span>time</span>
+                            </div>
                             <div class="project-links">
-                                <a href="#" class="project-link disabled-link">Archived ›</a>
-                                <a href="https://github.com/Yoni-Berihun/yo-dice-roller.git" class="project-link github" title="View on GitHub" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                                <span class="project-link disabled-link">Archived ›</span>
+                                <div class="project-link-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </article>
-
-            </div> <!-- End .projects-grid -->
+                </a>
+            </div>
         </section>
+        
+        <!-- GitHub More Projects Section -->
+        <section class="github-more-section">
+            <div class="github-more-wrapper">
+                <div class="github-more-content">
+                    <div class="github-more-text">
+                        <h3 class="github-more-title">Explore More Projects</h3>
+                        <p class="github-more-subtitle">Discover additional repositories and coding adventures on GitHub</p>
+                    </div>
+                    <div class="github-more-button-container">
+                        <a href="https://github.com/Yoni-Berihun" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="github-more-button">
+                            <span class="github-button-text">More on GitHub</span>
+                            <div class="github-button-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                </svg>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
         <!-- ========================================================== -->
-<!-- ======== THE TECHNOLOGY DISPATCH (SKILLS SECTION) ======== -->
-<!-- ========================================================== -->
-<section id="skills" class="skills-section">
-    <div class="editorial-header">
-        <h2 class="editorial-title">The Technology Dispatch</h2>
-        <p class="editorial-subtitle">A Comprehensive Analysis of Core Competencies</p>
-    </div>
 
-    <div class="skills-wrapper">
-        <div class="skills-grid-three-col">
+        <!-- Skills Section -->
+        <section id="skills" class="skills-section">
+            <div class="editorial-header">
+                <hr class="header-line">
+                <h2 class="editorial-title">The Technology Dispatch</h2>
+                <p class="editorial-subtitle">A Comprehensive Analysis of Core Competencies</p>
+                <hr class="header-line">
+            </div>
 
-            <!-- BLOCK 1: LANGUAGES -->
-            <div class="skills-block">
-                <h3 class="skills-category-title">Languages</h3>
-                <div class="skills-list">
-                    <!-- C# -->
-                    <div class="skill-item">
-                        <img src="images/c-sharp.png" alt="C# Logo" class="skill-logo">
-                        <div class="skill-info">
-                            <span class="skill-name">C#</span>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="--skill-level: 80%;"></div>
+            <div class="skills-wrapper">
+                <div class="skills-grid-three-col">
+                    <!-- Languages Block -->
+                    <div class="skills-block">
+                        <h3 class="skills-category-title">Languages</h3>
+                        <div class="skills-list">
+                            <!-- C# -->
+                            <div class="skill-item">
+                                <img src="images/c-sharp.png" alt="C# Logo" class="skill-logo">
+                                <div class="skill-info">
+                                    <span class="skill-name">C#</span>
+                                    <div class="skill-bar-container">
+                                        <div class="skill-bar" style="--skill-level: 80%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- C++ -->
+                            <div class="skill-item">
+                                <img src="images/cpp-logo.png" alt="C++ Logo" class="skill-logo">
+                                <div class="skill-info">
+                                    <span class="skill-name">C++</span>
+                                    <div class="skill-bar-container">
+                                        <div class="skill-bar" style="--skill-level: 81%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Python -->
+                            <div class="skill-item">
+                                <img src="images/python.png" alt="Python Logo" class="skill-logo">
+                                <div class="skill-info">
+                                    <span class="skill-name">Python</span>
+                                    <div class="skill-bar-container">
+                                        <div class="skill-bar" style="--skill-level: 75%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Dart -->
+                            <div class="skill-item">
+                                <img src="images/dart-logo.png" alt="Dart Logo" class="skill-logo">
+                                <div class="skill-info">
+                                    <span class="skill-name">Dart</span>
+                                    <div class="skill-bar-container">
+                                        <div class="skill-bar" style="--skill-level: 80%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Java -->
+                            <div class="skill-item">
+                                <img src="images/java.png" alt="Java Logo" class="skill-logo">
+                                <div class="skill-info">
+                                    <span class="skill-name">Java</span>
+                                    <div class="skill-bar-container">
+                                        <div class="skill-bar" style="--skill-level: 78%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- HTML -->
+                            <div class="skill-item">
+                                <img src="images/html-5.png" alt="HTML Logo" class="skill-logo">
+                                <div class="skill-info">
+                                    <span class="skill-name">HTML</span>
+                                    <div class="skill-bar-container">
+                                        <div class="skill-bar" style="--skill-level: 65%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- CSS -->
+                            <div class="skill-item">
+                                <img src="images/css-3.png" alt="CSS Logo" class="skill-logo">
+                                <div class="skill-info">
+                                    <span class="skill-name">CSS</span>
+                                    <div class="skill-bar-container">
+                                        <div class="skill-bar" style="--skill-level: 78%;"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- C++ -->
-                    <div class="skill-item">
-                        <img src="images/cpp-logo.png" alt="C++ Logo" class="skill-logo">
-                        <div class="skill-info">
-                            <span class="skill-name">C++</span>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="--skill-level: 81%;"></div>
+
+                    <!-- Frameworks & Concepts Block -->
+                    <div class="skills-block">
+                        <h3 class="skills-category-title">Frameworks & Concepts</h3>
+                        <div class="skills-list">
+                            <!-- .NET MVC -->
+                            <div class="skill-item">
+                                <img src="images/dot-net.png" alt=".NET Logo" class="skill-logo">
+                                <div class="skill-info">
+                                    <span class="skill-name">.NET MVC</span>
+                                    <div class="skill-bar-container">
+                                        <div class="skill-bar" style="--skill-level: 10%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Flutter -->
+                            <div class="skill-item">
+                                <img src="images/flutter-logo.png" alt="Flutter Logo" class="skill-logo">
+                                <div class="skill-info">
+                                    <span class="skill-name">Flutter</span>
+                                    <div class="skill-bar-container">
+                                        <div class="skill-bar" style="--skill-level: 20%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- OOP -->
+                            <div class="skill-item">
+                                <img src="images/programming.png" alt="OOP Concept Logo" class="skill-logo">
+                                <div class="skill-info">
+                                    <span class="skill-name">Object-Oriented Programming</span>
+                                    <div class="skill-bar-container">
+                                        <div class="skill-bar" style="--skill-level: 91%;"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Python -->
-                    <div class="skill-item">
-                        <img src="images/python.png" alt="Python Logo" class="skill-logo">
-                        <div class="skill-info">
-                            <span class="skill-name">Python</span>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="--skill-level: 75%;"></div>
+
+                    <!-- Developer Tools Block -->
+                    <div class="skills-block">
+                        <h3 class="skills-category-title">Developer Tools</h3>
+                        <div class="skills-list">
+                            <!-- Git -->
+                            <div class="skill-item">
+                                <img src="images/git.png" alt="Git Logo" class="skill-logo">
+                                <div class="skill-info">
+                                    <span class="skill-name">Git</span>
+                                    <div class="skill-bar-container">
+                                        <div class="skill-bar" style="--skill-level: 75%;"></div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <!-- Dart -->
-                    <div class="skill-item">
-                        <img src="images/java.png" alt="Dart Logo" class="skill-logo">
-                        <div class="skill-info">
-                            <span class="skill-name">Dart</span>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="--skill-level: 80%;"></div>
+                            <!-- GitHub -->
+                            <div class="skill-item">
+                                <img src="images/github.png" alt="GitHub Logo" class="skill-logo">
+                                <div class="skill-info">
+                                    <span class="skill-name">GitHub</span>
+                                    <div class="skill-bar-container">
+                                        <div class="skill-bar" style="--skill-level: 70%;"></div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <!-- Java -->
-                    <div class="skill-item">
-                        <img src="images/java.png" alt="Java Logo" class="skill-logo">
-                        <div class="skill-info">
-                            <span class="skill-name">Java</span>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="--skill-level: 78%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- HTML -->
-                    <div class="skill-item">
-                        <img src="images/html-5.png" alt="HTML Logo" class="skill-logo">
-                        <div class="skill-info">
-                            <span class="skill-name">HTML</span>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="--skill-level: 65%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                     <!-- CSS -->
-                    <div class="skill-item">
-                        <img src="images/css-3.png" alt="CSS Logo" class="skill-logo">
-                        <div class="skill-info">
-                            <span class="skill-name">CSS</span>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="--skill-level: 78%;"></div>
+                            <!-- Python Telegram Bot -->
+                            <div class="skill-item">
+                                <img src="images/telegram.png" alt="Telegram Logo" class="skill-logo">
+                                <div class="skill-info">
+                                    <span class="skill-name">Python Telegram Bot</span>
+                                    <div class="skill-bar-container">
+                                        <div class="skill-bar" style="--skill-level: 69%;"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- BLOCK 2: FRAMEWORKS & CONCEPTS -->
-            <div class="skills-block">
-                <h3 class="skills-category-title">Frameworks & Concepts</h3>
-                <div class="skills-list">
-                    <!-- .NET MVC -->
-                    <div class="skill-item">
-                        <img src="images/dot-net.png" alt=".NET Logo" class="skill-logo">
-                        <div class="skill-info">
-                            <span class="skill-name">.NET MVC</span>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="--skill-level: 10%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Flutter -->
-                    <div class="skill-item">
-                        <img src="images/flutter-logo.png" alt="Flutter Logo" class="skill-logo">
-                        <div class="skill-info">
-                            <span class="skill-name">Flutter</span>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="--skill-level: 20%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- OOP -->
-                    <div class="skill-item">
-                        <img src="images/programming.png" alt="OOP Concept Logo" class="skill-logo">
-                        <div class="skill-info">
-                            <span class="skill-name">Object-Oriented Programming</span>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="--skill-level: 91%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BLOCK 3: TOOLS -->
-            <div class="skills-block">
-                <h3 class="skills-category-title">Developer Tools</h3>
-                <div class="skills-list">
-                    <!-- Git -->
-                    <div class="skill-item">
-                        <img src="images/git.png" alt="Git Logo" class="skill-logo">
-                        <div class="skill-info">
-                            <span class="skill-name">Git</span>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="--skill-level: 75%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- GitHub -->
-                    <div class="skill-item">
-                        <img src="images/github.png" alt="GitHub Logo" class="skill-logo">
-                        <div class="skill-info">
-                            <span class="skill-name">GitHub</span>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="--skill-level: 70%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Python Telegram Bot -->
-                    <div class="skill-item">
-                        <img src="images/telegram.png" alt="Telegram Logo" class="skill-logo">
-                        <div class="skill-info">
-                            <span class="skill-name">Python Telegram Bot</span>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" style="--skill-level: 69%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-          <!-- ========================================================== -->
-        <!-- ===== PROFESSIONAL JOURNEY & STATISTICS - FINAL VERSION ==== -->
-        <!-- ========================================================== -->
+        <!-- Professional Journey Section -->
         <section id="journey" class="journey-section">
-             <div class="section-header">
+            <div class="section-header">
                 <hr class="section-divider-long">
                 <h2 class="section-title">Professional & Academic Journey</h2>
                 <hr class="section-divider-long">
             </div>
 
-           <div class="journey-grid">
-                <!-- Left Column: The Timeline -->
+            <div class="journey-grid">
+                <!-- Timeline Column -->
                 <div class="timeline">
-                    <!-- Timeline Item 1 -->
+                    <!-- Timeline Item 1: Tech Wing -->
                     <div class="timeline-item">
                         <div class="timeline-content">
-                             <div class="timeline-logo"><img src="images/husc.jpg" alt="HUSC Logo"></div>
-                             <div class="timeline-text">
-                                 <p class="timeline-date">2025 - Present</p>
-                                 <h3 class="timeline-title">Tech Wing, Hawassa University Student Union</h3>
-                                 <hr class="timeline-divider">
-                                 <p class="timeline-description">Leveraged Python and the Telegram API to develop and maintain the official HUSC Telegram bot, improving communication channels for the student body.</p>
-                             </div>
+                            <div class="timeline-logo">
+                                <img src="images/husc.jpg" alt="HUSC Logo">
+                            </div>
+                            <div class="timeline-text">
+                                <p class="timeline-date">2025 - Present</p>
+                                <h3 class="timeline-title">Tech Wing, Hawassa University Student Union</h3>
+                                <hr class="timeline-divider">
+                                <p class="timeline-description">Leveraged Python and the Telegram API to develop and maintain the official HUSC Telegram bot, improving communication channels for the student body.</p>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Timeline Item 2 -->
+                    <!-- Timeline Item 2: Hawassa University -->
                     <div class="timeline-item">
                         <div class="timeline-content">
-                            <div class="timeline-logo"><img src="images/Hawassa.jpeg" alt="Hawassa University Logo"></div>
-                             <div class="timeline-text">
-                                <p class="timeline-date">2023 - Present</p>
+                            <div class="timeline-logo">
+                                <img src="images/Hawassa.jpeg" alt="Hawassa University Logo">
+                            </div>
+                            <div class="timeline-text">
+                                <p class="timeline-date">2024 - Present</p>
                                 <h3 class="timeline-title">Hawassa University | Hawassa, Ethiopia</h3>
                                 <hr class="timeline-divider">
                                 <p class="timeline-description">Pursuing a B.Sc. in Information Systems, focusing on software engineering and system analysis. Expected graduation: June 2027.</p>
-                             </div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Timeline Item 3 -->
+                    <!-- Timeline Item 3: Karalo School -->
                     <div class="timeline-item">
                         <div class="timeline-content">
-                             <div class="timeline-logo"><img src="images/AAEB.jpeg" alt="Karalo School Logo"></div>
-                             <div class="timeline-text">
-                                <p class="timeline-date">2018</p>
+                            <div class="timeline-logo">
+                                <img src="images/AAEB.jpeg" alt="Karalo School Logo">
+                            </div>
+                            <div class="timeline-text">
+                                <p class="timeline-date">2018 - 2023</p>
                                 <h3 class="timeline-title">Karalo General Secondary School | Addis Ababa, Ethiopia</h3>
                                 <hr class="timeline-divider">
                                 <p class="timeline-description">Completed high school education, building a strong academic foundation and discovering an initial passion for logic and problem-solving.</p>
@@ -411,7 +519,7 @@
                     </div>
                 </div>
 
-                <!-- Right Column: The Statistics Sidebar (Unchanged) -->
+                <!-- Statistics Sidebar -->
                 <aside class="career-stats-column">
                     <h3 class="stats-title">By the Numbers</h3>
                     <div class="stat-card">
@@ -426,103 +534,95 @@
                         <span class="stat-number">3rd</span>
                         <p class="stat-label">Year University Student</p>
                     </div>
-                     <div class="stat-card">
+                    <div class="stat-card">
                         <span class="stat-number">1+</span>
                         <p class="stat-label">Years of Experience</p>
                     </div>
                 </aside>
             </div>
         </section>
-   <!-- ========================================================== -->
-<!-- ======== THE EDITOR'S ACCOLADES (CSS-ONLY V2) ============ -->
-<!-- ========================================================== -->
-<section id="accolades" class="accolades-section">
-    <div class="section-header">
-        <hr class="section-divider-long">
-        <h2 class="section-title">The Recognition Report</h2>
-        <hr class="section-divider-long">
-    </div>
 
-    <div class="accolades-gallery">
-        <!-- Invisible Radio Inputs for State Management -->
-        <input type="radio" name="accolade-slider" id="accolade-radio-1" checked>
-        <input type="radio" name="accolade-slider" id="accolade-radio-2">
-        <input type="radio"name="accolade-slider" id="accolade-radio-3">
-
-        <!-- Slides Wrapper -->
-        <div class="accolades-wrapper">
-
-            <!-- ACCOLADE SLIDE 1 -->
-            <div class="accolade-item">
-                <div class="accolade-image">
-                    <img src="images/Award-2.jpg" alt="Certificate Of Appreciation">
-                </div>
-                <div class="accolade-content">
-                    <p class="accolade-date">May 2025</p>
-                    <h3 class="accolade-title">Certificate Of Appreciation</h3>
-                    <p class="accolade-publication">As Awarded By Hawassa University</p>
-                    <p class="accolade-description">
-                        For the development of a groundbreaking Telegram bot that revolutionized student feedback systems at Hawassa University, demonstrating exceptional creativity and technical skill.
-                    </p>
-                </div>
+        <!-- Accolades Section -->
+        <section id="accolades" class="accolades-section">
+            <div class="section-header">
+                <hr class="section-divider-long">
+                <h2 class="section-title">The Recognition Report</h2>
+                <hr class="section-divider-long">
             </div>
 
-            <!-- ACCOLADE SLIDE 2 -->
-            <div class="accolade-item">
-                <div class="accolade-image">
-                    <img src="images/Award-1.jpg" alt="Certificate Of Appreciation">
+            <div class="accolades-gallery">
+                <!-- Radio Inputs for State Management -->
+                <input type="radio" name="accolade-slider" id="accolade-radio-1" checked>
+                <input type="radio" name="accolade-slider" id="accolade-radio-2">
+                <input type="radio" name="accolade-slider" id="accolade-radio-3">
+
+                <!-- Slides Wrapper -->
+                <div class="accolades-wrapper">
+                    <!-- Accolade Slide 1 -->
+                    <div class="accolade-item">
+                        <div class="accolade-image">
+                            <img src="images/Award-2.jpg" alt="Certificate Of Appreciation">
+                        </div>
+                        <div class="accolade-content">
+                            <p class="accolade-date">May 2025</p>
+                            <h3 class="accolade-title">Certificate Of Appreciation</h3>
+                            <p class="accolade-publication">As Awarded By Hawassa University</p>
+                            <p class="accolade-description">
+                                For the development of a groundbreaking Telegram bot that revolutionized student feedback systems at Hawassa University, demonstrating exceptional creativity and technical skill.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Accolade Slide 2 -->
+                    <div class="accolade-item">
+                        <div class="accolade-image">
+                            <img src="images/Award-1.jpg" alt="Certificate Of Appreciation">
+                        </div>
+                        <div class="accolade-content">
+                            <p class="accolade-date">October 2024</p>
+                            <h3 class="accolade-title">Certificate Of Accomplishment</h3>
+                            <p class="accolade-publication">Awarded By Udacity</p>
+                            <p class="accolade-description">
+                                This certificate from Udacity recognizes my completion of the Programming Fundamentals course. I gained essential skills in HTML and CSS, empowering me to create and style web pages effectively. This foundation equips me to tackle real-world coding challenges with confidence.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Accolade Slide 3 -->
+                    <div class="accolade-item">
+                        <div class="accolade-image">
+                            <img src="images/Award-3.jpg" alt="Certificate Of Participation">
+                        </div>
+                        <div class="accolade-content">
+                            <p class="accolade-date">November 2024</p>
+                            <h3 class="accolade-title">Certificate Of Participation</h3>
+                            <p class="accolade-publication">Awarded By Great Commission</p>
+                            <p class="accolade-description">
+                                This certificate acknowledges my participation in the Hack Hawassa Hackathon. I contributed my tech skills to build impactful solutions aimed at transforming lives and driving positive change in the community.
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="accolade-content">
-                    <p class="accolade-date">October 2024</p>
-                    <h3 class="accolade-title">Certificate Of Accomplishment</h3>
-                    <p class="accolade-publication">Awarded By Udacity</p>
-                    <p class="accolade-description">
-                        This certificate from Udacity recognizes my completion of the Programming Fundamentals course. I gained essential skills in HTML and CSS, empowering me to create and style web pages effectively. This foundation equips me to tackle real-world coding challenges with confidence.
 
-
-                    </p>
+                <!-- Navigation Labels -->
+                <div class="gallery-navigation">
+                    <div class="nav-for-accolade-1">
+                        <label for="accolade-radio-3" class="prev">‹</label>
+                        <label for="accolade-radio-2" class="next">›</label>
+                    </div>
+                    <div class="nav-for-accolade-2">
+                        <label for="accolade-radio-1" class="prev">‹</label>
+                        <label for="accolade-radio-3" class="next">›</label>
+                    </div>
+                    <div class="nav-for-accolade-3">
+                        <label for="accolade-radio-2" class="prev">‹</label>
+                        <label for="accolade-radio-1" class="next">›</label>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <!-- ACCOLADE SLIDE 3 -->
-            <div class="accolade-item">
-                <div class="accolade-image">
-                    <img src="images/Award-3.jpg" alt="">
-                </div>
-                <div class="accolade-content">
-                    <p class="accolade-date">November 2024</p>
-                    <h3 class="accolade-title">Certificate Of Participation</h3>
-                    <p class="accolade-publication">Awarded By Great Commission</p>
-                    <p class="accolade-description">
-                       This certificate acknowledges my participation in the Hack Hawassa Hackathon. I contributed my tech skills to build impactful solutions aimed at transforming lives and driving positive change in the community.
-                    </p>
-                </div>
-            </div>
-
-        </div> <!-- End .accolades-wrapper -->
-
-        <!-- Navigation via Labels -->
-        <div class="gallery-navigation">
-            <div class="nav-for-accolade-1">
-                <label for="accolade-radio-3" class="prev">‹</label>
-                <label for="accolade-radio-2" class="next">›</label>
-            </div>
-            <div class="nav-for-accolade-2">
-                <label for="accolade-radio-1" class="prev">‹</label>
-                <label for="accolade-radio-3" class="next">›</label>
-            </div>
-            <div class="nav-for-accolade-3">
-                <label for="accolade-radio-2" class="prev">‹</label>
-                <label for="accolade-radio-1" class="next">›</label>
-            </div>
-        </div>
-
-    </div> <!-- End .accolades-gallery -->
-    
-</section>
-  <!-- ====        <!-- ========================================================== -->
-        <!-- ======== LETTERS TO THE EDITOR (NETLIFY READY) =========== -->
-        <!-- ========================================================== -->
+        <!-- Contact Section -->
         <section id="contact" class="contact-section">
             <div class="section-header">
                 <hr class="section-divider-long">
@@ -532,44 +632,49 @@
 
             <div class="contact-form-wrapper">
                 <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="contact-form">
-                    
                     <p class="form-intro">
                         Your feedback, inquiries, and stories are invaluable. Please use the form below to send your message directly to our desk. All fields are required.
                     </p>
 
-                    <!-- Hidden field for Netlify's spam protection. It is REQUIRED. -->
+                    <!-- Hidden field for Netlify's spam protection -->
                     <p class="hidden-field">
-                      <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+                        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
                     </p>
                     
-                    <!-- This hidden field is also REQUIRED and must match the form's name attribute. -->
+                    <!-- Hidden field for form name -->
                     <input type="hidden" name="form-name" value="contact" />
 
                     <div class="form-grid">
-
+                        <!-- Full Name Field -->
                         <div class="form-group">
                             <label for="full-name">Correspondent's Name</label>
-                            <input type="text" id="full-name" name="name" placeholder="e.g., Jane Doe" required>
+                            <input type="text" id="full-name" name="name" placeholder="e.g., Abebe Belachew" required>
                         </div>
 
+                        <!-- Email Field -->
                         <div class="form-group">
                             <label for="email">Return Address (Email)</label>
                             <input type="email" id="email" name="email" placeholder="e.g., your.address@example.com" required>
                         </div>
 
+                        <!-- Subject Field -->
                         <div class="form-group form-col-span-2">
                             <label for="subject">Subject Line</label>
                             <input type="text" id="subject" name="subject" placeholder="Regarding your article on..." required>
                         </div>
 
+                        <!-- Message Field -->
                         <div class="form-group form-col-span-2">
                             <label for="message">Message Body</label>
                             <textarea id="message" name="message" rows="8" placeholder="Dear Editor, I am writing to you today because..." required></textarea>
                         </div>
 
+                        <!-- Submit Button -->
                         <div class="form-group form-col-span-2">
                             <button type="submit" class="dispatch-button">
-                                <svg class="dispatch-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+                                <svg class="dispatch-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                                </svg>
                                 Dispatch Message
                             </button>
                         </div>
@@ -577,15 +682,17 @@
                 </form>
             </div>
         </section>
- <!-- ========================================================== -->
-        <!-- ============== THE YONATAN TIMES FOOTER ================== -->
-        <!-- ========================================================== -->
+
+        <!-- Footer -->
         <footer class="site-footer">
             <div class="footer-content">
+                <!-- About Column -->
                 <div class="footer-column about">
                     <h4 class="footer-title">About The Publication</h4>
                     <p>The Yonatan Times is a digitally-native publication dedicated to chronicling the journey of a passionate developer. All content is engineered with HTML5 and styled with CSS3, reflecting a commitment to foundational web excellence.</p>
                 </div>
+                
+                <!-- Navigation Column -->
                 <div class="footer-column navigation">
                     <h4 class="footer-title">Navigate Sections</h4>
                     <ul class="footer-links">
@@ -595,41 +702,64 @@
                         <li><a href="#accolades">Accolades</a></li>
                     </ul>
                 </div>
+                
+                <!-- Social Column -->
                 <div class="footer-column social">
                     <h4 class="footer-title">Follow The Story</h4>
                     <div class="social-links">
+                        <!-- GitHub -->
                         <a href="https://github.com/Yoni-Berihun" target="_blank" rel="noopener noreferrer">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
                             <span>GitHub</span>
                         </a>
+                        
+                        <!-- LinkedIn -->
                         <a href="https://www.linkedin.com/in/yonatan-berihun" target="_blank" rel="noopener noreferrer">
-                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                             <span>LinkedIn</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                            <span>LinkedIn</span>
                         </a>
-                        <!-- UPDATED: X Link -->
+                        
+                        <!-- X (Twitter) -->
                         <a href="https://x.com/yoni_berihun" target="_blank" rel="noopener noreferrer">
-                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
-                             <span>X (Twitter)</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 6 6 18M6 6l12 12"></path>
+                            </svg>
+                            <span>X (Twitter)</span>
                         </a>
-                        <!-- UPDATED: Telegram Link -->
+                        
+                        <!-- Telegram -->
                         <a href="https://t.me/yoni_xyz" target="_blank" rel="noopener noreferrer">
-                             <!-- Better Telegram Icon -->
-                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                             <span>Telegram</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                            <span>Telegram</span>
                         </a>
-                        <!-- UPDATED: Instagram Link -->
-                         <a href="https://instagram.com/yoni_berihun" target="_blank" rel="noopener noreferrer">
-                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                             <span>Instagram</span>
+                        
+                        <!-- Instagram -->
+                        <a href="https://instagram.com/yoni_berihun" target="_blank" rel="noopener noreferrer">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                            <span>Instagram</span>
                         </a>
                     </div>
                 </div>
             </div>
+            
+            <!-- Footer Bottom Bar -->
             <div class="footer-bottom-bar">
                 <p>© 2025 The Yonatan Times. All Rights Reserved.</p>
             </div>
         </footer>
-
-    </div> <!-- End .container -->
+    </div>
 </body>
 </html>
