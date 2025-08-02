@@ -431,6 +431,8 @@ body {
   border-color: rgba(10, 36, 99, 0.5);
 }
 
+
+
 /* Project Image */
 .project-image-wrapper {
   height: 220px;
@@ -965,7 +967,7 @@ body {
 .accolades-section {
   margin-top: var(--space-xxl);
   padding: var(--space-xl) 0;
-  animation: fadeIn 1s 1.2s ease-out backwards;
+  animation: fadeIn 2s 2s ease-out backwards;
 }
 
 .accolades-gallery {
@@ -986,7 +988,7 @@ body {
 .accolades-wrapper {
   display: flex;
   width: 300%;
-  transition: transform 0.75s var(--transition-smooth);
+  transition: transform 0.6s ease;
 }
 
 .accolade-item {
@@ -1013,6 +1015,13 @@ body {
   transition: all var(--transition-slow);
 }
 
+.accolade-image:hover img {
+  filter: sepia(0%) grayscale(0%);
+  transform: scale(1.05);
+}
+
+
+
 .accolade-date {
   font-size: 0.9rem;
   font-weight: 700;
@@ -1028,6 +1037,7 @@ body {
   font-weight: 700;
   line-height: 1.1;
   margin: var(--space-xs) 0 var(--space-sm) 0;
+  animation: slideInFromLeft 0.6s 1.6s ease-out backwards;
 }
 
 .accolade-publication {
@@ -1038,12 +1048,14 @@ body {
   margin-bottom: var(--space-md);
   padding-bottom: var(--space-sm);
   border-bottom: 1px solid var(--border-color);
+  animation: slideInFromLeft 0.6s 1.7s ease-out backwards;
 }
 
 .accolade-description {
   font-size: 1.1rem;
   line-height: 1.8;
   color: var(--ink-color);
+  animation: slideInFromLeft 0.6s 1.8s ease-out backwards;
 }
 
 /* Navigation */
@@ -1083,9 +1095,11 @@ body {
   background-color: white;
   color: #000;
   border-color: rgba(0,0,0,0.2);
-  transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 8px 20px var(--shadow-medium);
+  transform: translateY(-50%) scale(1.15);
+  box-shadow: 0 12px 30px var(--shadow-medium);
 }
+
+
 
 .gallery-navigation label.prev { left: 25px; }
 .gallery-navigation label.next { right: 25px; }
@@ -1201,6 +1215,8 @@ body {
   box-shadow: 0 5px 15px rgba(10, 36, 99, 0.2);
   transform: translateY(-2px);
 }
+
+
 
 .dispatch-icon {
   width: 20px;
@@ -1376,6 +1392,8 @@ body {
   to { width: var(--skill-level); }
 }
 
+
+
 /* ========================================================== */
 /* 15. RESPONSIVE DESIGN */
 /* ========================================================== */
@@ -1413,10 +1431,10 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
   
-  .nav-toggle-label {
+    .nav-toggle-label {
     display: block;
   }
-  
+
   .main-navigation .navigation-title {
     display: block;
   }
@@ -1550,10 +1568,10 @@ body {
     grid-template-columns: 1fr;
   }
   
-  .accolade-item {
+    .accolade-item {
     padding: var(--space-lg) var(--space-sm);
   }
-  
+
   .gallery-navigation label {
     width: 45px;
     height: 45px;
@@ -1731,9 +1749,7 @@ body {
     border-color: var(--accent-blue);
 }
 
-.cv-download-button:active {
-    transform: translateY(-1px) scale(0.98);
-}
+
 
 .cv-button-text {
     position: relative;
@@ -1921,9 +1937,7 @@ body {
     border-color: var(--accent-blue);
 }
 
-.github-more-button:active {
-    transform: translateY(-1px) scale(0.98);
-}
+
 
 .github-button-text {
     position: relative;
