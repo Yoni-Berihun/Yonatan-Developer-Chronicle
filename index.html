@@ -3,7 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Yonatan Times | Professional Developer's Chronicle</title>
+    <title>The Yonatan Times | Professional Developer's Chronicle - Hackathon Edition</title>
+    <meta name="description" content="Yonatan Berihun's professional portfolio showcasing innovative projects, technical skills, and academic achievements in a newspaper-style design.">
+    <meta name="keywords" content="developer, portfolio, web development, programming, hackathon, newspaper design">
+    <meta name="author" content="Yonatan Berihun">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags for Social Sharing -->
+    <meta property="og:title" content="The Yonatan Times | Professional Developer's Chronicle">
+    <meta property="og:description" content="Innovative developer portfolio with newspaper-style design showcasing technical projects and achievements.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yonatan-berihun.github.io">
+    <meta property="og:image" content="images/author-photo.png">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Yonatan Times | Professional Developer's Chronicle">
+    <meta name="twitter:description" content="Innovative developer portfolio with newspaper-style design showcasing technical projects and achievements.">
+    <meta name="twitter:image" content="images/author-photo.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 
     <!-- Fonts: Playfair Display & Merriweather -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +35,6 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
 
     
     <!-- Top Black Bar -->
@@ -25,12 +45,16 @@
         <!-- Dateline Bar -->
         <div class="dateline-bar">
             <div class="dateline-left">
-                <p>Vol. MMXXV, No. 001</p>
-                <p class="free-edition">FREE EDITION</p>
+                <p>Vol. 2025, No. 001</p>
+                <p class="free-edition">PORTFOLIO EDITION</p>
             </div>
             <div class="dateline-right">
-                <p>August, 2025</p>
+                <p>August 2025 | Ethiopia</p>
             </div>
+            <!-- Mobile Hamburger Menu Button -->
+            <label for="nav-toggle" class="mobile-nav-toggle-label">
+                <span></span>
+            </label>
         </div>
 
         <!-- Sticky Navigation -->
@@ -38,14 +62,14 @@
             <!-- Navigation Toggle -->
             <input type="checkbox" id="nav-toggle" class="nav-toggle">
             
-            <!-- Hamburger Menu Button -->
+            <!-- Desktop Hamburger Menu Button (hidden on mobile) -->
             <label for="nav-toggle" class="nav-toggle-label">
                 <span></span>
             </label>
             
             <!-- Main Navigation -->
             <div class="main-navigation">
-                <h4 class="navigation-title">Navigation</h4>
+            
                  <ul>
                     <li><a href="#" class="nav-link" id="nav-home">Home</a></li>
                     <li><a href="#projects" class="nav-link" id="nav-projects">Projects</a></li>
@@ -68,7 +92,7 @@
         </header>
 
         <!-- Main Content Area -->
-        <main class="main-content">
+        <main id="main-content" class="main-content">
             <article class="about-me">
                 <h2 class="author-name">Yonatan Berihun</h2>
                 <h3 class="author-subtitle">Aspiring Inspired Developer | Lifelong Learner</h3>
@@ -134,7 +158,7 @@
                     </div>
                     <div class="project-content">
                         <div>
-                            <p class="project-category">Spotlight: Telegram Bot</p>
+                            <p class="project-category">Telegram Bot</p>
                             <h3 class="project-title">Hawassa University Feedback Bot</h3>
                             <p class="project-description">A dynamic Telegram bot designed to streamline student feedback. Supports multiple languages and intelligently routes reports.</p>
                         </div>
@@ -145,7 +169,7 @@
                                 <span>Regex</span>
                             </div>
                             <div class="project-links">
-                                <span class="project-link">Read Full Story ›</span>
+                                <span class="project-link">Veiw Live Demo ›</span>
                                 <div class="project-link-icon">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
@@ -163,7 +187,7 @@
                     </div>
                     <div class="project-content">
                         <div>
-                            <p class="project-category">Systems Architecture</p>
+                            <p class="project-category">Console Application</p>
                             <h3 class="project-title">Daycare Management System</h3>
                             <p class="project-description">A C++ console app to manage child records, allowing admins to add, view, search, and update profiles. Features persistent data storage.</p>
                         </div>
@@ -192,7 +216,7 @@
                     </div>
                     <div class="project-content">
                         <div>
-                            <p class="project-category">Object-Oriented Design</p>
+                            <p class="project-category">Console Application</p>
                             <h3 class="project-title">YO Vehicle Rental System</h3>
                             <p class="project-description">Engineered a Java-based console application to streamline vehicle rental operations, managing locations, vehicles, and customers.</p>
                         </div>
@@ -221,7 +245,7 @@
                     </div>
                     <div class="project-content">
                         <div>
-                            <p class="project-category">Full-Stack Concepts</p>
+                            <p class="project-category">Console Application</p>
                             <h3 class="project-title">YO-Social Platform</h3>
                             <p class="project-description">A Java console-based social media platform to connect users through posts, likes, and comments, with registration and authentication.</p>
                         </div>
@@ -250,7 +274,7 @@
                     </div>
                     <div class="project-content">
                         <div>
-                            <p class="project-category">Creative Development</p>
+                            <p class="project-category">Console Application/p>
                             <h3 class="project-title">YO Dice Roller</h3>
                             <p class="project-description">A lively Python app bringing the thrill of rolling dice to the terminal. Features ASCII art, animations, and session statistics.</p>
                         </div>
@@ -280,7 +304,7 @@
                 <div class="github-more-content">
                     <div class="github-more-text">
                         <h3 class="github-more-title">Explore More Projects</h3>
-                        <p class="github-more-subtitle">Discover additional repositories and coding adventures on GitHub</p>
+                        <p class="github-more-subtitle">Discover additional repositories and My coding adventures on GitHub</p>
                     </div>
                     <div class="github-more-button-container">
                         <a href="https://github.com/Yoni-Berihun" 
@@ -570,14 +594,14 @@
         <section id="contact" class="contact-section">
             <div class="section-header">
                 <hr class="section-divider-long">
-                <h2 class="section-title">Letters to the Editor</h2>
+                <h2 class="section-title">Get In Touch</h2>
                 <hr class="section-divider-long">
             </div>
 
             <div class="contact-form-wrapper">
                 <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="contact-form">
                     <p class="form-intro">
-                        Your feedback, inquiries, and stories are invaluable. Please use the form below to send your message directly to our desk. All fields are required.
+                        Interested in collaboration, opportunities, or just want to connect? I'd love to hear from you. Feel free to reach out using the form below.
                     </p>
 
                     <!-- Hidden field for Netlify's spam protection -->
@@ -591,26 +615,26 @@
                     <div class="form-grid">
                         <!-- Full Name Field -->
                         <div class="form-group">
-                            <label for="full-name">Correspondent's Name</label>
-                            <input type="text" id="full-name" name="name" placeholder="e.g., Abebe Belachew" required>
+                            <label for="full-name">Your Name</label>
+                            <input type="text" id="full-name" name="name" placeholder="e.g., John Doe" required>
                         </div>
 
                         <!-- Email Field -->
                         <div class="form-group">
-                            <label for="email">Return Address (Email)</label>
-                            <input type="email" id="email" name="email" placeholder="e.g., your.address@example.com" required>
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="e.g., john.doe@example.com" required>
                         </div>
 
                         <!-- Subject Field -->
                         <div class="form-group form-col-span-2">
-                            <label for="subject">Subject Line</label>
-                            <input type="text" id="subject" name="subject" placeholder="Regarding your article on..." required>
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="e.g., Project collaboration, Job opportunity, General inquiry..." required>
                         </div>
 
                         <!-- Message Field -->
                         <div class="form-group form-col-span-2">
-                            <label for="message">Message Body</label>
-                            <textarea id="message" name="message" rows="8" placeholder="Dear Editor, I am writing to you today because..." required></textarea>
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="8" placeholder="Hi Yonatan, I'd like to discuss..." required></textarea>
                         </div>
 
                         <!-- Submit Button -->
@@ -709,5 +733,3 @@
     </div>
 </body>
 </html>
-
-

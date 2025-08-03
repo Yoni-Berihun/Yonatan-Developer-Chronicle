@@ -21,7 +21,7 @@
 **The Yonatan Times** is an innovative interactive newspaper-style portfolio website that chronicles the professional journey of **Yonatan Berihun**, an aspiring developer and Information Systems student at Hawassa University. This project represents a professional submission for the **PLP Academy July 2025 Portfolio Challenge**.
 
 ### 🎯 Project Vision
-This portfolio transforms the traditional developer portfolio into a sophisticated newspaper format, combining journalistic storytelling with technical expertise. **Inspired by the New York Times design philosophy**, this project aims to be creative while maintaining professional standards. The design emphasizes readability, professional presentation, and engaging user experience while showcasing technical skills through pure HTML and CSS implementation.
+This portfolio transforms the traditional developer portfolio into a sophisticated newspaper format, combining journalistic storytelling with technical expertise. **Inspired by the New York Times NewsPaper design philosophy**, this project aims to be creative while maintaining professional standards. The design emphasizes readability, professional presentation, and engaging user experience while showcasing technical skills through pure HTML and CSS implementation.
 
 ### 🌟 Key Highlights
 - **Innovative Design**: Newspaper aesthetic with authentic typography and professional layout
@@ -45,7 +45,7 @@ This portfolio transforms the traditional developer portfolio into a sophisticat
 - **Performance Optimized**: Fast loading times and smooth interactions
 
 ### 📱 Interactive Elements
-- **Skills Visualization**: Descriptive skill blocks with hover effects and animations
+- **Skills Visualization**: Descriptive skill blocks with comprehensive text-based descriptions
 - **Project Showcase**: Grid layout featuring 5 major projects with detailed descriptions
 - **Awards Carousel**: Interactive CSS-only slider for displaying certificates and achievements
 - **Contact Form**: Functional contact form with Netlify integration and validation
@@ -56,7 +56,6 @@ This portfolio transforms the traditional developer portfolio into a sophisticat
 - **Smooth Transitions**: CSS animations for enhanced user experience
 - **Hover Effects**: Interactive elements with professional hover states
 - **Loading Animations**: Staggered animations for content sections
-- **Skill Block Animations**: Dynamic hover effects for technical skills
 - **Carousel Navigation**: Smooth transitions between award certificates
 - **Button Interactions**: Professional hover and active states
 
@@ -77,7 +76,6 @@ This portfolio transforms the traditional developer portfolio into a sophisticat
 ### Core Technologies
 - **HTML5**: Semantic markup with proper structure and accessibility
 - **CSS3**: Advanced styling with custom properties, flexbox, and grid
-- **Pure CSS**: No JavaScript dependencies - all interactions handled with CSS
 - **Responsive Design**: Mobile-first approach with breakpoints
 - **Accessibility**: Semantic HTML with proper structure and navigation
 
@@ -177,7 +175,7 @@ Yonatan-Developer-Chronicle/
 
 ### 3. Projects Showcase
 - **5 Featured Projects**: 
-  - Hawassa University Feedback Bot (Telegram)
+  - Hawassa University Feedback Bot (Python-Telegram-Bot)
   - Daycare Management System (C++)
   - Vehicle Rental System (Java)
   - YO-Social Platform (Java)
@@ -192,16 +190,15 @@ Yonatan-Developer-Chronicle/
   - Programming Languages (C#, C++, Python, Dart, Java, HTML, CSS)
   - Frameworks & Concepts (.NET MVC, Flutter, OOP)
   - Developer Tools (Git, GitHub, Telegram Bot API)
-- **Descriptive Skill Blocks**: Text-based skill descriptions with hover effects
-- **Technology Icons**: Professional logos for each skill
-- **Hover Effects**: Interactive skill display
+- **Descriptive Skill Blocks**: Comprehensive text-based skill descriptions
+- **Professional Presentation**: Clean, organized skill descriptions with hover effects
 
 ### 5. Professional Journey
 - **Timeline Layout**: Chronological career progression
 - **Institution Logos**: Visual representation of educational background
 - **Statistics Sidebar**: Key metrics and achievements
 - **Responsive Design**: Adapts timeline for mobile viewing
-- **Educational Background**: Hawassa University Information Systems
+- **Educational Background**: Hawassa University BSc. in Information Systems
 
 ### 6. Awards & Recognition
 - **Interactive Carousel**: Three award certificates with navigation
@@ -301,6 +298,7 @@ Yonatan-Developer-Chronicle/
 This project is created for the **PLP Academy July 2025 Portfolio Challenge**. All rights reserved.
 
 ### Acknowledgments
+- **PLP Academy Team**: Special thanks to the PLP Academy team for organizing the July 2025 cohort software development scholarships and hosting this amazing hackathon for cohort members. Your support and guidance have been invaluable in this learning journey.
 - **Google Fonts**: Playfair Display and Merriweather typography
 - **Netlify**: Professional hosting and form handling services
 - **GitHub**: Version control and development platform
