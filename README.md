@@ -295,7 +295,8 @@ Yonatan-Developer-Chronicle/
 
 ## 📄 License & Attribution
 
-This project is created for the **PLP Academy July 2025 Portfolio Challenge**. All rights reserved.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
 
 ### Acknowledgments
 - **PLP Academy Team**: Special thanks to the PLP Academy team for organizing the July 2025 cohort software development scholarships and hosting this amazing hackathon for cohort members. Your support and guidance have been invaluable in this learning journey.
