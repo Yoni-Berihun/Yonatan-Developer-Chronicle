@@ -2,17 +2,13 @@
   "name": "yonatan-times",
   "version": "2.0.0",
   "private": true,
-  "description": "The Yonatan Times — newspaper portfolio with admin CMS, deployed as one Railway service",
-  "engines": {
-    "node": ">=20"
-  },
+  "description": "The Yonatan Times - dynamic newspaper-style portfolio with an admin CMS",
   "scripts": {
     "dev": "concurrently -n api,web -c blue,magenta \"npm --prefix server run dev\" \"npm --prefix web run dev\"",
     "install:all": "npm --prefix server install --include=dev && npm --prefix web install --include=dev",
-    "build": "npm --prefix web install --include=dev && npm --prefix web run build:only && npm --prefix server install --include=dev && npm --prefix server run build",
-    "start": "cd server && npx prisma migrate deploy && if [ \"$RUN_SEED\" = \"true\" ] || [ \"$RUN_SEED\" = \"1\" ]; then npx prisma db seed; fi && node dist/index.js",
-    "seed": "npm --prefix server run seed",
-    "typecheck": "npm --prefix server run typecheck && npm --prefix web run typecheck"
+    "build:web": "npm --prefix web run build",
+    "build:server": "npm --prefix server run build",
+    "seed": "npm --prefix server run seed"
   },
   "devDependencies": {
     "concurrently": "^9.2.4"

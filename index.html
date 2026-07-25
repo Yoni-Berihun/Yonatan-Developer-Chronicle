@@ -630,12 +630,12 @@
             </div>
 
             <div class="contact-form-wrapper">
-                <form name="contact" method="POST" class="contact-form">
+                <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="contact-form">
                     <p class="form-intro">
                         Interested in collaboration, opportunities, or just want to connect? I'd love to hear from you. Feel free to reach out using the form below.
                     </p>
 
-                    <!-- Honeypot — leave empty. The live app drops these server-side. -->
+                    <!-- Hidden field for Netlify's spam protection -->
                     <p class="hidden-field">
                         <label>Don't fill this out if you're human: <input name="bot-field" /></label>
                     </p>
