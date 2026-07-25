@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // ---------------------------------------------------------------------------
@@ -41,8 +42,8 @@ model SiteSettings {
   portraitUrl     String
   portraitAlt     String @default("Portrait of the author")
 
-  cvTitle    String @default("Professional Credentials")
-  cvSubtitle String @default("Access my comprehensive resume and professional background")
+  cvTitle    String  @default("Professional Credentials")
+  cvSubtitle String  @default("Access my comprehensive resume and professional background")
   cvUrl      String
   cvEnabled  Boolean @default(true)
 
