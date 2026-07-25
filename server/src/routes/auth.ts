@@ -55,13 +55,13 @@ authRouter.post(
     });
 
     const identity = { id: admin.id, email: admin.email };
-    res.cookie(AUTH_COOKIE, signSession(identity), sessionCookieOptions());
+    res.cookie(AUTH_COOKIE, signSession(identity), sessionCookieOptions(req));
     res.json({ admin: { ...identity, name: admin.name } });
   }),
 );
 
-authRouter.post("/logout", (_req, res) => {
-  res.clearCookie(AUTH_COOKIE, { ...sessionCookieOptions(), maxAge: undefined });
+authRouter.post("/logout", (req, res) => {
+  res.clearCookie(AUTH_COOKIE, { ...sessionCookieOptions(req), maxAge: undefined });
   res.json({ ok: true });
 });
 
@@ -97,7 +97,7 @@ authRouter.post(
     });
 
     // Force a fresh sign-in everywhere else.
-    res.clearCookie(AUTH_COOKIE, { ...sessionCookieOptions(), maxAge: undefined });
+    res.clearCookie(AUTH_COOKIE, { ...sessionCookieOptions(req), maxAge: undefined });
     res.json({ ok: true });
   }),
 );

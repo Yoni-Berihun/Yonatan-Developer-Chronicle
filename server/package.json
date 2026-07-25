@@ -16,6 +16,7 @@
     "migrate:deploy": "prisma migrate deploy",
     "studio": "prisma studio",
     "seed": "tsx prisma/seed.ts",
+    "smoke": "node scripts/smoke.mjs",
     "typecheck": "tsc -p tsconfig.check.json"
   },
   "prisma": {

@@ -46,7 +46,15 @@ const envSchema = z.object({
   VERCEL_DEPLOY_HOOK_URL: urlish.optional(),
 });
 
-const parsed = envSchema.safeParse(process.env);
+// A blank value means "unset", both for an empty line in .env and for a field
+// left empty in the Render dashboard. Without this, `ADMIN_PASSWORD=` reads as a
+// present-but-too-short string and refuses to boot, and a blank var with a
+// default would override that default with "".
+const presentEnv = Object.fromEntries(
+  Object.entries(process.env).filter(([, value]) => value !== undefined && value.trim() !== ""),
+);
+
+const parsed = envSchema.safeParse(presentEnv);
 
 if (!parsed.success) {
   const issues = parsed.error.issues

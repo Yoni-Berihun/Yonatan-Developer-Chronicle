@@ -1,6 +1,6 @@
 import type { CookieOptions, NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { env, isProduction } from "../env.js";
+import { env } from "../env.js";
 import { unauthorized } from "../lib/http-error.js";
 import type { AdminIdentity } from "../types.js";
 
@@ -18,10 +18,14 @@ export function signSession(admin: AdminIdentity): string {
   });
 }
 
-export function sessionCookieOptions(): CookieOptions {
+export function sessionCookieOptions(req: Request): CookieOptions {
   return {
     httpOnly: true,
-    secure: isProduction,
+    // Keyed on the actual connection rather than NODE_ENV: a `Secure` cookie is
+    // dropped silently over plain HTTP, which would break sign-in on localhost
+    // for anyone whose shell exports NODE_ENV=production. Behind Render's proxy
+    // this reads X-Forwarded-Proto, which is why `trust proxy` is set in app.ts.
+    secure: req.secure,
     // The frontend reaches the API through a same-origin proxy rewrite, so the
     // cookie stays first-party and `lax` is enough. `none` would be required
     // only if the browser talked to the Render domain directly.

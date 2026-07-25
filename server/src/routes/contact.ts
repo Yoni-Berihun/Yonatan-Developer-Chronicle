@@ -23,8 +23,10 @@ const contactSchema = z.object({
     .regex(/^[^@\s]+@[^@\s]+\.[^@\s]+$/, "That email address does not look right"),
   subject: z.string().min(1, "Add a subject").max(200),
   message: z.string().min(10, "Please write at least a sentence or two").max(5000),
-  // Honeypot: real people never see this field, bots fill it in.
-  botField: z.string().max(0).optional(),
+  // Honeypot: real people never see this field, bots fill it in. It has to
+  // accept a value rather than reject one, otherwise validation answers with a
+  // 400 and tells the bot it was spotted — the handler discards it silently.
+  botField: z.string().max(200).optional(),
 });
 
 function hashIp(ip: string | undefined): string | null {
