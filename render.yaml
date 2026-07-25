@@ -1,0 +1,86 @@
+# Render Blueprint for The Yonatan Times API.
+#
+# Apply with: Render Dashboard → New → Blueprint → pick this repo.
+# Everything below is created in one go, and the database URL is wired into the
+# web service automatically.
+#
+# Estimated cost: $7/mo (web service) + $6.30/mo (database + 1GB storage).
+
+services:
+  - type: web
+    name: yonatan-times-api
+    runtime: node
+    plan: starter
+    region: frankfurt
+    rootDir: server
+    # --include=dev is required: Render sets NODE_ENV=production, which makes npm
+    # skip devDependencies, and the build needs TypeScript to compile.
+    buildCommand: npm ci --include=dev && npm run build
+    # Migrations run on boot so a schema change ships with its deploy. The
+    # service refuses to start if a migration fails, which is what we want.
+    startCommand: npx prisma migrate deploy && node dist/index.js
+    healthCheckPath: /health
+    autoDeploy: true
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      - key: DATABASE_URL
+        fromDatabase:
+          name: yonatan-times-db
+          property: connectionString
+
+      # Generated once by Render and kept secret. Rotating it signs you out.
+      - key: JWT_SECRET
+        generateValue: true
+
+      - key: JWT_EXPIRES_IN
+        value: 7d
+
+      # --- Set these in the dashboard after the first deploy -----------------
+
+      # Your login email. The account is created automatically on first boot;
+      # leave ADMIN_PASSWORD unset and the generated one is printed in the logs.
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ADMIN_NAME
+        sync: false
+
+      # The Vercel URL of the public site, e.g. https://yonatan-times.vercel.app
+      # Used for canonical links, the RSS feed and the sitemap.
+      - key: PUBLIC_SITE_URL
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+
+      # Cloudinary — image uploads from the admin panel.
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+
+      # Resend — contact form notifications.
+      - key: RESEND_API_KEY
+        sync: false
+      - key: RESEND_FROM_EMAIL
+        sync: false
+      - key: CONTACT_NOTIFY_EMAIL
+        sync: false
+
+      # Vercel deploy hook — publishing content triggers a frontend rebuild so
+      # new articles end up in the prerendered HTML that search engines read.
+      - key: VERCEL_DEPLOY_HOOK_URL
+        sync: false
+
+databases:
+  - name: yonatan-times-db
+    plan: basic-256mb
+    region: frankfurt
+    databaseName: yonatan_times
+    user: yonatan
+    postgresMajorVersion: "17"

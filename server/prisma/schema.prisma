@@ -1,0 +1,373 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Auth
+// ---------------------------------------------------------------------------
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  name         String?
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Global site content (masthead, about, footer, SEO)
+// ---------------------------------------------------------------------------
+
+// Single row, always id = 1.
+model SiteSettings {
+  id Int @id @default(1)
+
+  siteTitle    String @default("THE YONATAN TIMES")
+  siteSubtitle String @default("PROFESSIONAL DEVELOPER'S CHRONICLE")
+  volumeLabel  String @default("Vol. 2025, No. 001")
+  editionLabel String @default("PORTFOLIO EDITION")
+  datelineText String @default("October 2025 | Ethiopia")
+
+  authorName      String
+  authorSubtitle  String
+  aboutParagraphs Json // string[]
+  portraitUrl     String
+  portraitAlt     String @default("Portrait of the author")
+
+  cvTitle    String @default("Professional Credentials")
+  cvSubtitle String @default("Access my comprehensive resume and professional background")
+  cvUrl      String
+  cvEnabled  Boolean @default(true)
+
+  contactIntro String @default("Interested in collaboration, opportunities, or just want to connect?")
+
+  footerAbout String
+  copyright   String @default("© 2025 The Yonatan Times. All Rights Reserved.")
+
+  metaTitle       String
+  metaDescription String
+  ogImageUrl      String?
+  canonicalUrl    String?
+
+  updatedAt DateTime @updatedAt
+}
+
+model SocialLink {
+  id       String  @id @default(cuid())
+  platform String // github | linkedin | x | telegram | instagram | email | custom
+  label    String
+  url      String
+  order    Int     @default(0)
+  isActive Boolean @default(true)
+
+  @@index([order])
+}
+
+// ---------------------------------------------------------------------------
+// Sections: the ordered building blocks of the public page
+// ---------------------------------------------------------------------------
+
+enum SectionType {
+  PROJECTS
+  SKILLS
+  TIMELINE
+  ACCOLADES
+  BLOG_TEASER
+  CTA
+  CUSTOM
+}
+
+model Section {
+  id          String      @id @default(cuid())
+  slug        String      @unique // anchor id, e.g. "projects"
+  type        SectionType
+  title       String // e.g. "From The Technology Desk"
+  subtitle    String?
+  order       Int         @default(0)
+  isPublished Boolean     @default(true)
+  config      Json? // per-type layout options
+
+  projects        Project[]
+  skillCategories SkillCategory[]
+  timelineEntries TimelineEntry[]
+  stats           Stat[]
+  accolades       Accolade[]
+  blocks          ContentBlock[]
+  cta             CallToAction?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([order])
+}
+
+// Free-form blocks powering SectionType.CUSTOM, so new sections can be
+// composed from the admin panel without a code change.
+enum BlockType {
+  HEADING
+  PARAGRAPH
+  IMAGE
+  QUOTE
+  BUTTON
+  DIVIDER
+  LIST
+  HTML
+}
+
+model ContentBlock {
+  id        String    @id @default(cuid())
+  sectionId String
+  section   Section   @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  type      BlockType
+  data      Json // shape depends on `type`
+  order     Int       @default(0)
+
+  @@index([sectionId, order])
+}
+
+// Powers the "Download CV" and "More on GitHub" banner sections.
+model CallToAction {
+  id          String  @id @default(cuid())
+  sectionId   String  @unique
+  section     Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  heading     String
+  subheading  String?
+  buttonLabel String
+  buttonUrl   String
+  icon        String? // github | download | link
+  decoration  String? // emoji shown in the corner
+}
+
+// ---------------------------------------------------------------------------
+// Projects
+// ---------------------------------------------------------------------------
+
+model Project {
+  id        String  @id @default(cuid())
+  sectionId String
+  section   Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+  title       String
+  category    String // "Telegram Bot", "Console Application", ...
+  description String
+  techTags    String[]
+
+  imageUrl      String
+  imageAlt      String  @default("")
+  imagePublicId String? // Cloudinary handle, for deletion
+
+  linkUrl    String?
+  linkLabel  String  @default("View Live Demo")
+  isArchived Boolean @default(false) // renders the muted "Archived" state
+
+  featured    Boolean @default(false)
+  order       Int     @default(0)
+  isPublished Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sectionId, order])
+}
+
+// ---------------------------------------------------------------------------
+// Skills
+// ---------------------------------------------------------------------------
+
+model SkillCategory {
+  id        String  @id @default(cuid())
+  sectionId String
+  section   Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+  title String // "Programming Languages"
+  order Int    @default(0)
+
+  items SkillItem[]
+
+  @@index([sectionId, order])
+}
+
+model SkillItem {
+  id         String        @id @default(cuid())
+  categoryId String
+  category   SkillCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  heading     String // bolded lead-in, e.g. "C# and C++"
+  description String
+  order       Int    @default(0)
+
+  @@index([categoryId, order])
+}
+
+// ---------------------------------------------------------------------------
+// Journey timeline + stats
+// ---------------------------------------------------------------------------
+
+model TimelineEntry {
+  id        String  @id @default(cuid())
+  sectionId String
+  section   Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+  dateLabel   String // "2025 - Present"
+  title       String
+  description String
+  logoUrl     String?
+  logoAlt     String  @default("")
+  order       Int     @default(0)
+  isPublished Boolean @default(true)
+
+  @@index([sectionId, order])
+}
+
+model Stat {
+  id        String  @id @default(cuid())
+  sectionId String
+  section   Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+  value String // "6+"
+  label String // "Programming Languages"
+  order Int    @default(0)
+
+  @@index([sectionId, order])
+}
+
+// ---------------------------------------------------------------------------
+// Accolades
+// ---------------------------------------------------------------------------
+
+model Accolade {
+  id        String  @id @default(cuid())
+  sectionId String
+  section   Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+  dateLabel     String // "May 2025"
+  title         String
+  issuer        String
+  description   String
+  imageUrl      String
+  imageAlt      String  @default("")
+  imagePublicId String?
+  order         Int     @default(0)
+  isPublished   Boolean @default(true)
+
+  @@index([sectionId, order])
+}
+
+// ---------------------------------------------------------------------------
+// Blog: "The Latest Edition"
+// ---------------------------------------------------------------------------
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model Category {
+  id          String  @id @default(cuid())
+  slug        String  @unique
+  name        String
+  description String?
+  order       Int     @default(0)
+
+  posts Post[]
+}
+
+model Tag {
+  id   String @id @default(cuid())
+  slug String @unique
+  name String
+
+  posts PostTag[]
+}
+
+model PostTag {
+  postId String
+  tagId  String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([postId, tagId])
+}
+
+model Post {
+  id      String @id @default(cuid())
+  slug    String @unique
+  title   String
+  excerpt String
+
+  contentMarkdown String
+  coverImageUrl   String?
+  coverImageAlt   String  @default("")
+  coverPublicId   String?
+
+  readingMinutes Int @default(1)
+
+  status      PostStatus @default(DRAFT)
+  publishedAt DateTime?
+  isFeatured  Boolean    @default(false)
+
+  metaTitle       String?
+  metaDescription String?
+  ogImageUrl      String?
+
+  viewCount Int @default(0)
+
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  tags PostTag[]
+
+  // Manually curated "related reading" links, both directions.
+  relatedTo   Post[] @relation("RelatedPosts")
+  relatedFrom Post[] @relation("RelatedPosts")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status, publishedAt])
+}
+
+// ---------------------------------------------------------------------------
+// Contact inbox + media library
+// ---------------------------------------------------------------------------
+
+model ContactMessage {
+  id      String @id @default(cuid())
+  name    String
+  email   String
+  subject String
+  message String
+
+  isRead     Boolean @default(false)
+  isArchived Boolean @default(false)
+
+  userAgent String?
+  ipHash    String? // hashed, never the raw address
+
+  createdAt DateTime @default(now())
+
+  @@index([isArchived, createdAt])
+}
+
+model MediaAsset {
+  id       String  @id @default(cuid())
+  url      String
+  publicId String  @unique
+  alt      String  @default("")
+  width    Int?
+  height   Int?
+  format   String?
+  bytes    Int?
+  folder   String  @default("portfolio")
+
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}

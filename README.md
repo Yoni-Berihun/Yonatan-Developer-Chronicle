@@ -3,14 +3,14 @@
 <div align="center">
 
 ![The Yonatan Times](https://img.shields.io/badge/The%20Yonatan%20Times-Professional%20Portfolio-blue)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
-![Responsive](https://img.shields.io/badge/Responsive-Design-green)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat&logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat&logo=typescript&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=flat&logo=nodedotjs&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Prisma-4169E1?style=flat&logo=postgresql&logoColor=white)
 
+*A sophisticated newspaper-style portfolio showcasing the professional journey of an aspiring developer — now with its own newsroom.*
 
-*A sophisticated newspaper-style portfolio showcasing the professional journey of an aspiring developer*
-
-[🌐 Live Demo](https://yoni-berihun.netlify.app) | [📄 View CV](https://docs.google.com/uc?export=download&id=153Q42yrskPp4az6uF1gXapoVlv3d4gPd) | [💼 LinkedIn](https://www.linkedin.com/in/yonatan-berihun)
+[🌐 Live Demo](https://yoni-berihun.netlify.app) | [💼 LinkedIn](https://www.linkedin.com/in/yonatan-berihun) | [🐙 GitHub](https://github.com/Yoni-Berihun)
 
 </div>
 
@@ -18,80 +18,124 @@
 
 ## 📰 Project Overview
 
-**The Yonatan Times** is an innovative interactive newspaper-style portfolio website that chronicles the professional journey of **Yonatan Berihun**, an aspiring developer and Information Systems student at Hawassa University. This project represents a professional submission for the **PLP Academy July 2025 Portfolio Challenge**.
+**The Yonatan Times** is an interactive newspaper-style portfolio that chronicles the professional journey of **Yonatan Berihun**, an aspiring developer and Information Systems student at Hawassa University. It began as a professional submission for the **PLP Academy July 2025 Portfolio Challenge**.
 
 ### 🎯 Project Vision
-This portfolio transforms the traditional developer portfolio into a sophisticated newspaper format, combining journalistic storytelling with technical expertise. **Inspired by the New York Times NewsPaper design philosophy**, this project aims to be creative while maintaining professional standards. The design emphasizes readability, professional presentation, and engaging user experience while showcasing technical skills through pure HTML and CSS implementation.
+
+This portfolio transforms the traditional developer portfolio into a sophisticated newspaper format, combining journalistic storytelling with technical expertise. **Inspired by the New York Times newspaper design philosophy**, it aims to be creative while maintaining professional standards.
+
+The design has not changed. What changed is everything behind it: the site is now a **full-stack application with its own content management system**, so new projects, awards and articles are published from a browser instead of a code editor.
 
 ### 🌟 Key Highlights
-- **Innovative Design**: Newspaper aesthetic with authentic typography and professional layout
-- **Pure CSS Implementation**: No JavaScript dependencies - all interactions handled with CSS
-- **Responsive Design**: Seamless experience across all devices and screen sizes
-- **Professional Presentation**: Clean, accessible, and visually appealing interface
-- **Comprehensive Documentation**: Detailed setup instructions and technical specifications
-- **Modern Deployment**: Hosted on Netlify for optimal performance and reliability
+
+- **Identical newspaper aesthetic** — the same typography, rules, columns and masthead as the original hand-written edition
+- **Editable from anywhere** — a private `/admin` newsroom for every piece of content on the page
+- **Sections you can invent** — add, reorder, hide or delete whole page sections without a deployment
+- **A real publication** — "The Latest Edition" is a full blog with categories, tags, related reading and an RSS feed
+- **Built for discovery** — server-rendered metadata, structured data, a live sitemap and working link previews
+- **Type-safe from database to browser** — TypeScript throughout, with Prisma-generated types
+
+---
+
+## 🏗️ Architecture
+
+```mermaid
+flowchart LR
+    subgraph V["Vercel — free"]
+        W["React 19 + Vite<br/>public site + /admin"]
+    end
+    subgraph R["Render — ~$13/mo"]
+        A["Express API"]
+        D[("PostgreSQL")]
+        A <--> D
+    end
+    C["Cloudinary<br/>images"]
+    E["Resend<br/>email"]
+
+    W -- "/api/* proxy rewrite" --> A
+    W -- "img src" --> C
+    A -- uploads --> C
+    A -- notifications --> E
+```
+
+Two deliberate decisions are worth calling out:
+
+**The frontend proxies the API through its own domain.** Vercel rewrites `/api/*` to the Render service, so the browser only ever sees one origin. This keeps the admin session cookie first-party — Safari and Firefox block third-party cookies outright, which would otherwise break login entirely — and it means CORS never enters the picture in production.
+
+**Images never touch the API server.** Render's filesystem is ephemeral, so uploads go straight to Cloudinary and are served from its CDN with automatic WebP conversion and resizing.
 
 ---
 
 ## ✨ Features & Capabilities
 
 ### 🎨 Design & User Experience
-- **Newspaper Aesthetic**: Authentic newspaper layout with masthead, dateline, and editorial sections
-- **Responsive Design**: Fully responsive across desktop, tablet, and mobile devices
-- **Interactive Navigation**: Smooth scrolling navigation with hamburger menu for mobile
-- **Professional Typography**: Playfair Display and Merriweather fonts for authentic newspaper feel
-- **Visual Hierarchy**: Clear section organization with proper spacing and typography
-- **Color Scheme**: Professional paper tones with blue accent colors for visual appeal
-- **Performance Optimized**: Fast loading times and smooth interactions
 
-### 📱 Interactive Elements
-- **Skills Visualization**: Descriptive skill blocks with comprehensive text-based descriptions
-- **Project Showcase**: Grid layout featuring 5 major projects with detailed descriptions
-- **Awards Carousel**: Interactive CSS-only slider for displaying certificates and achievements
-- **Contact Form**: Functional contact form with Netlify integration and validation
-- **Download Links**: Direct CV download and GitHub profile links with hover effects
-- **Social Media Integration**: Professional social links with consistent styling
+- **Newspaper aesthetic**: authentic layout with masthead, dateline and editorial sections
+- **Responsive design**: fully responsive across desktop, tablet and mobile
+- **Professional typography**: Playfair Display and Merriweather
+- **Accessible navigation**: keyboard-operable menu, focus states, `aria` labels, and an Escape key that closes the mobile drawer
 
-### 🎭 Animations & Effects
-- **Smooth Transitions**: CSS animations for enhanced user experience
-- **Hover Effects**: Interactive elements with professional hover states
-- **Loading Animations**: Staggered animations for content sections
-- **Carousel Navigation**: Smooth transitions between award certificates
-- **Button Interactions**: Professional hover and active states
+### 📝 The Newsroom (`/admin`)
 
-### 📊 Content Sections
-1. **Header & Navigation**: Professional masthead with responsive navigation
-2. **About Section**: Personal introduction with professional photo
-3. **Projects Showcase**: 5 featured projects with technology tags
-4. **Skills Section**: Three categories with descriptive skill blocks
-5. **Professional Journey**: Timeline layout with educational background
-6. **Awards & Recognition**: Interactive carousel with certificates
-7. **Contact Section**: Professional form with validation
-8. **Footer**: Social links and project information
+| Area | What you can do |
+|---|---|
+| **Overview** | Counts of sections, articles, drafts and unread messages at a glance |
+| **Sections** | Create, reorder, rename, hide or delete page sections |
+| **Projects** | Full editing with screenshots, tech tags, links and an archived state |
+| **Skills** | Manage columns and the written entries inside them |
+| **Timeline** | Dated journey entries with logos, plus the "By the Numbers" statistics |
+| **Accolades** | Certificates and awards shown in the carousel |
+| **The Edition** | Write articles in Markdown with live preview, categories, tags, related reading and per-article SEO |
+| **Media** | Upload and reuse images; copy URLs; delete what you no longer need |
+| **Inbox** | Read, archive and reply to contact form submissions |
+| **Settings** | Masthead, biography, portrait, footer, social links and your password |
+
+### 🗞️ The Latest Edition (blog)
+
+- Markdown articles with newspaper typography, including a drop cap on the opening paragraph
+- Categories and tags, each with its own filtered listing
+- Curated related reading, with an automatic same-category fallback
+- Full-text search across titles, standfirsts and bodies
+- Draft and published states, plus a "front page" feature flag
+- A live RSS feed at `/rss.xml` and a sitemap at `/sitemap.xml`
+- Reading time and view counts calculated automatically
+
+### 🔒 Security
+
+- Passwords hashed with bcrypt at cost 12; the login path compares against a dummy hash for unknown accounts so response timing reveals nothing
+- Sessions in `httpOnly`, `sameSite` cookies — never in `localStorage`, so a script injection cannot steal them
+- Rate limiting on sign-in (10 attempts per 15 minutes) and on the contact form (5 per hour)
+- A honeypot field on the contact form that silently accepts bot submissions
+- Visitor IPs stored only as truncated SHA-256 hashes
+- `/admin` marked `noindex` and disallowed in `robots.txt`
+- Every request body validated with Zod before it reaches the database
 
 ---
 
 ## 🛠️ Technology Stack
 
-### Core Technologies
-- **HTML5**: Semantic markup with proper structure and accessibility
-- **CSS3**: Advanced styling with custom properties, flexbox, and grid
-- **Responsive Design**: Mobile-first approach with breakpoints
-- **Accessibility**: Semantic HTML with proper structure and navigation
+### Frontend
 
-### Design System
-- **CSS Custom Properties**: Centralized design tokens for consistency
-- **Flexbox & Grid**: Modern layout techniques for responsive design
-- **Typography**: Google Fonts integration (Playfair Display, Merriweather)
-- **Color Palette**: Professional newspaper-inspired color scheme
-- **Spacing System**: Consistent spacing using CSS custom properties
+- **React 19** with **TypeScript** and **Vite**
+- **React Router 7** for routing, with the admin and article pages code-split so visitors never download them unnecessarily
+- **TanStack Query** for data fetching, caching and optimistic invalidation
+- **React 19 native document metadata** — `<title>` and `<meta>` are rendered as ordinary components, so no helmet library is needed
+- **react-markdown** with GitHub Flavored Markdown
 
-### Deployment & Hosting
-- **Netlify**: Professional hosting platform with automatic deployment
-- **Netlify Forms**: Contact form functionality and spam protection
-- **Responsive Images**: Optimized images for various screen sizes
-- **Performance**: Fast loading times with optimized assets
-- **CDN**: Global content delivery for optimal performance
+### Backend
+
+- **Node.js** and **Express 5** in TypeScript
+- **Prisma 6** with **PostgreSQL**
+- **Zod** for environment and request validation
+- **bcrypt** and **JWT** for authentication
+- **Cloudinary** for image storage and delivery
+- **Resend** for contact notifications
+
+### Deployment
+
+- **Vercel** — the React application, with a rewrite that proxies the API
+- **Render** — the Express API and the PostgreSQL database
+- Publishing content pings a **Vercel deploy hook**, which rebuilds the prerendered metadata so new articles are immediately shareable
 
 ---
 
@@ -99,17 +143,35 @@ This portfolio transforms the traditional developer portfolio into a sophisticat
 
 ```
 Yonatan-Developer-Chronicle/
-├── index.html              # Main HTML file with semantic structure
-├── css/
-│   └── style.css          # Complete stylesheet (2096 lines)
-├── images/                # Image assets
-│   ├── author-photo.png   # Professional portrait
-│   ├── project screenshots # Project demonstration images
-│   ├── technology logos   # Programming language icons
-│   └── award certificates # Recognition certificates
-├── assets/
-│   └── Yonatan_Print_Edition.pdf  # Downloadable CV
-└── README.md              # Comprehensive project documentation
+├── server/                      # Express API → Render
+│   ├── prisma/
+│   │   ├── schema.prisma        # The complete data model
+│   │   └── seed.ts              # Imports the original index.html content
+│   └── src/
+│       ├── app.ts               # Middleware and route mounting
+│       ├── index.ts             # Startup and graceful shutdown
+│       ├── env.ts               # Fail-fast environment validation
+│       ├── bootstrap.ts         # Creates the first admin account
+│       ├── lib/                 # Prisma, Cloudinary, mail, slugs, errors
+│       ├── middleware/          # Auth, validation, error handling
+│       └── routes/              # Public, auth, feeds and admin endpoints
+│
+├── web/                         # React application → Vercel
+│   ├── scripts/prerender.mjs    # Bakes metadata into static HTML
+│   ├── public/images/           # Original image assets
+│   └── src/
+│       ├── components/          # Masthead, header, footer, sections
+│       ├── pages/               # Home, blog index, article, 404
+│       ├── admin/               # The newsroom
+│       ├── lib/                 # API client, types, formatting
+│       └── styles/
+│           ├── newspaper.css    # The original stylesheet, unchanged
+│           ├── additions.css    # Blog and new-state styles
+│           └── admin.css        # The newsroom interface
+│
+├── render.yaml                  # One-click Render blueprint
+├── DEPLOYMENT.md                # Step-by-step deployment guide
+└── index.html                   # The original static edition, kept for reference
 ```
 
 ---
@@ -117,179 +179,103 @@ Yonatan-Developer-Chronicle/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Modern web browser (Chrome, Firefox, Safari, Edge)
-- No additional software or dependencies required
-- Internet connection for Google Fonts
 
-### Installation & Setup
+- **Node.js 20 or newer**
+- A **PostgreSQL** database — a free [Neon](https://neon.tech) project is the quickest way to get one for local work
+- Optional: [Cloudinary](https://cloudinary.com) and [Resend](https://resend.com) accounts for uploads and email
 
-#### Option 1: Direct Access
-1. Visit the live demo: [The Yonatan Times](https://yoni-berihun.netlify.app)
-2. No installation required - fully functional web application
+### Local development
 
-#### Option 2: Local Development
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Yoni-Berihun/Yonatan-Developer-Chronicle.git
-   ```
+```bash
+git clone https://github.com/Yoni-Berihun/Yonatan-Developer-Chronicle.git
+cd Yonatan-Developer-Chronicle
 
-2. Navigate to the project directory:
-   ```bash
-   cd Yonatan-Developer-Chronicle
-   ```
+# Install both packages.
+# --include=dev is passed explicitly because some npm setups (and any
+# environment with NODE_ENV=production) skip devDependencies by default.
+npm run install:all
+npm install --include=dev
 
-3. Open `index.html` in your web browser:
-   ```bash
-   # On Windows
-   start index.html
-   
-   # On macOS
-   open index.html
-   
-   # On Linux
-   xdg-open index.html
-   ```
+# Configure the API
+cd server
+cp .env.example .env      # then fill in DATABASE_URL and JWT_SECRET
 
-### Development Workflow
-- **No Build Process**: Simply edit HTML and CSS files
-- **Live Preview**: Refresh browser to see changes
-- **Version Control**: Use Git for tracking changes
-- **Cross-browser Testing**: Test on multiple browsers and devices
+# Create the tables and import the existing portfolio content
+npx prisma migrate dev --name init
+npm run seed
+cd ..
+
+# Run the API on :4000 and the site on :5173 together
+npm install
+npm run dev
+```
+
+Then open:
+
+- **http://localhost:5173** — the public newspaper
+- **http://localhost:5173/admin** — the newsroom
+
+On its very first start the API creates your admin account. If you left `ADMIN_PASSWORD` blank it generates one and prints it to the console **once** — copy it before the log scrolls away.
+
+### Useful commands
+
+| Command | Where | What it does |
+|---|---|---|
+| `npm run dev` | root | Runs the API and the site together |
+| `npm run seed` | root | Re-imports the baseline content (safe to repeat) |
+| `npm run studio` | `server` | Opens Prisma Studio to browse the database |
+| `npm run migrate:dev` | `server` | Creates a migration after a schema change |
+| `npm run typecheck` | either | Type-checks without emitting files |
+| `npm run build` | `web` | Production build plus the prerender step |
 
 ---
 
-## 📋 Detailed Features Breakdown
+## 🌐 Deployment
 
-### 1. Header & Navigation System
-- **Masthead Design**: Professional newspaper title with volume information
-- **Dateline Bar**: Publication date and edition information
-- **Responsive Navigation**: Hamburger menu for mobile devices
-- **Smooth Scrolling**: Anchor links to page sections
-- **Professional Navigation**: Proper ARIA labels and keyboard navigation
+Full instructions live in **[DEPLOYMENT.md](DEPLOYMENT.md)**. The short version:
 
-### 2. About Section
-- **Personal Introduction**: Professional bio with drop cap styling
-- **Author Portrait**: Professional photo with hover effects
-- **CV Download**: Direct link to professional resume
-- **Typography**: Authentic newspaper-style text formatting
+1. Apply `render.yaml` as a Render Blueprint — this creates the API and the database together
+2. Set the secrets Render marked `sync: false` (admin email, Cloudinary, Resend)
+3. Deploy `web/` to Vercel with the root directory set to `web`
+4. Point the `/api` rewrite in `web/vercel.json` at your Render URL
+5. Run the seed script once against the production database
+6. Sign in at `/admin` and change your password
 
-### 3. Projects Showcase
-- **5 Featured Projects**: 
-  - Hawassa University Feedback Bot (Python-Telegram-Bot)
-  - Daycare Management System (C++)
-  - Vehicle Rental System (Java)
-  - YO-Social Platform (Java)
-  - YO Dice Roller (Python)
-- **Technology Tags**: Programming languages and frameworks used
-- **GitHub Integration**: Direct links to repository pages
-- **Responsive Grid**: Adapts to different screen sizes
-- **Hover Effects**: Interactive project cards
-
-### 4. Skills Section
-- **Three Categories**: 
-  - Programming Languages (C#, C++, Python, Dart, Java, HTML, CSS)
-  - Frameworks & Concepts (.NET MVC, Flutter, OOP)
-  - Developer Tools (Git, GitHub, Telegram Bot API)
-- **Descriptive Skill Blocks**: Comprehensive text-based skill descriptions
-- **Professional Presentation**: Clean, organized skill descriptions with hover effects
-
-### 5. Professional Journey
-- **Timeline Layout**: Chronological career progression
-- **Institution Logos**: Visual representation of educational background
-- **Statistics Sidebar**: Key metrics and achievements
-- **Responsive Design**: Adapts timeline for mobile viewing
-- **Educational Background**: Hawassa University BSc. in Information Systems
-
-### 6. Awards & Recognition
-- **Interactive Carousel**: Three award certificates with navigation
-- **Certificate Details**: Dates, issuing organizations, and descriptions
-- **Smooth Transitions**: CSS-only slider functionality
-- **Navigation Controls**: Previous/Next buttons for carousel
-
-### 7. Contact Section
-- **Professional Form**: Newspaper-style contact form
-- **Netlify Integration**: Form submission handling
-- **Form Validation**: Proper labels and form structure
-- **HTML5 Validation**: Built-in form validation
-- **Professional Styling**: Consistent with newspaper theme
-
-### 8. Footer
-- **Social Links**: GitHub, LinkedIn, Twitter, Telegram, Instagram
-- **Navigation Links**: Quick access to page sections
-- **About Information**: Project description and credits
-- **Professional Presentation**: Clean, organized layout
+**Running cost:** about **$13.30/month** — $7 for the API instance and $6.30 for the database with 1 GB of storage. Vercel, Cloudinary and Resend all sit comfortably inside their free tiers.
 
 ---
 
 ## 🎨 Design Philosophy
 
-### Newspaper Aesthetic
-- **Typography**: Serif fonts for authentic newspaper feel
-- **Layout**: Traditional newspaper column structure
-- **Color Scheme**: Paper tones with professional accents
-- **Spacing**: Generous whitespace for readability
-- **Visual Hierarchy**: Clear information organization
+### Newspaper aesthetic
 
-### Professional Presentation
-- **Consistency**: Unified design language throughout
-- **Professional Standards**: Proper contrast ratios and semantic HTML
-- **Performance**: Optimized images and efficient CSS
-- **Cross-browser**: Compatible with all modern browsers
-- **Mobile-first**: Responsive design for all devices
+- **Typography**: serif fonts for an authentic newspaper feel
+- **Layout**: traditional column structure with generous whitespace
+- **Colour**: paper tones with restrained blue and red accents
+- **Hierarchy**: clear organisation that rewards scanning and reading alike
 
----
+### Preserving the original
 
-## 📊 Technical Implementation
-
-### CSS Architecture
-- **Custom Properties**: Centralized design tokens for consistency
-- **Modular Structure**: Organized sections with clear comments
-- **Responsive Design**: Mobile-first approach with breakpoints
-- **Animation System**: Smooth transitions and hover effects
-- **Performance**: Optimized selectors and efficient rendering
-
-### Code Organization
-- **Semantic HTML**: Proper markup for SEO and accessibility
-- **CSS Structure**: Logical organization with comments
-- **Naming Conventions**: Consistent class naming
-- **Documentation**: Inline comments explaining design decisions
-- **Maintainability**: Clean, readable, and well-structured code
-
-### Performance Optimizations
-- **Minimal Dependencies**: No external libraries or frameworks
-- **Optimized Images**: Compressed images for faster loading
-- **Efficient CSS**: Streamlined stylesheets with minimal redundancy
-- **Semantic HTML**: Proper markup for SEO and accessibility
-- **Fast Loading**: Optimized for speed and user experience
+The stylesheet from the static edition is used **unmodified**. New styles live in a separate file and reuse the same design tokens, so anything added later inherits the same paper. Where the React version differs, it is because a behaviour was broken before — the mobile menu's close animation never fired in the CSS-only version, because the label sat outside the checkbox's sibling scope.
 
 ---
 
 ## 🚀 Future Enhancements
 
-### Planned Improvements
-- **Print Stylesheet**: Optimized printing experience
-- **Dark Mode**: Alternative color scheme option
-- **Blog Integration**: News section for updates
-- **Portfolio Expansion**: Additional project showcases
-- **Advanced Animations**: More sophisticated CSS animations
-- **Enhanced Features**: Additional professional features and optimizations
-
-### Technical Roadmap
-- **Performance Optimization**: Further image compression and CSS optimization
-- **Enhanced Navigation**: Improved user experience and keyboard navigation
-- **SEO**: Meta tags and structured data implementation
-- **Analytics**: User interaction tracking and performance monitoring
-- **Testing**: Automated testing for cross-browser compatibility
+- **Print stylesheet** for a genuinely printable edition
+- **Dark mode** as an evening edition
+- **Newsletter** subscriptions on top of the existing Resend integration
+- **Analytics** to see which articles and projects draw attention
+- **Scheduled publishing** so articles can be queued in advance
+- **Image alt-text prompts** in the admin to keep accessibility honest
 
 ---
 
 ## 📞 Contact Information
 
-- **🌐 Portfolio**: [The Yonatan Times](https://yoni-berihun.netlify.app)
 - **💼 LinkedIn**: [Yonatan Berihun](https://www.linkedin.com/in/yonatan-berihun)
 - **🐙 GitHub**: [Yoni-Berihun](https://github.com/Yoni-Berihun)
 - **📧 Email**: yonatanberihun26@gmail.com
-- **📄 CV**: [Download Resume](https://docs.google.com/uc?export=download&id=153Q42yrskPp4az6uF1gXapoVlv3d4gPd)
 
 ---
 
@@ -297,43 +283,18 @@ Yonatan-Developer-Chronicle/
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-
 ### Acknowledgments
+
 - **PLP Academy Team**: Special thanks to the PLP Academy team for organizing the July 2025 cohort software development scholarships and hosting this amazing hackathon for cohort members. Your support and guidance have been invaluable in this learning journey.
 - **Google Fonts**: Playfair Display and Merriweather typography
-- **Netlify**: Professional hosting and form handling services
-- **GitHub**: Version control and development platform
 - **Hawassa University**: Educational background and institutional support
-
----
-
-## 🔧 Technical Specifications
-
-### Browser Support
-- ✅ Chrome 90+
-- ✅ Firefox 88+
-- ✅ Safari 14+
-- ✅ Edge 90+
-- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
-
-### Performance Metrics
-- **Page Load Time**: < 3 seconds
-- **Lighthouse Score**: 90+ (Performance, Accessibility, Best Practices, SEO)
-- **Mobile Responsiveness**: 100% responsive across all devices
-- **Accessibility**: Semantic HTML with proper navigation and structure
-
-### File Structure
-- **HTML**: 732 lines of semantic markup
-- **CSS**: 2096 lines of organized styles
-- **Images**: Optimized for web with proper alt text
-- **Documentation**: Comprehensive README with setup instructions
 
 ---
 
 <div align="center">
 
-**The Yonatan Times** - Where code meets journalism, and innovation meets tradition.
+**The Yonatan Times** — Where code meets journalism, and innovation meets tradition.
 
-*Built with ❤️ using HTML5 & CSS3*
+*Built with ❤️ using React, TypeScript, Express and PostgreSQL*
 
 </div>
