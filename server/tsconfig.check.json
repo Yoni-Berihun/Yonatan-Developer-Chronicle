@@ -1,0 +1,13 @@
+// Typecheck-only config. The build config sets rootDir to "src" so it can emit a
+// flat dist/, which leaves prisma/seed.ts unchecked. The seed talks to the
+// generated Prisma client, so checking it here is what catches a seed that has
+// drifted from the schema.
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": "."
+  },
+  "include": ["src/**/*.ts", "prisma/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

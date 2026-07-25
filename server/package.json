@@ -16,7 +16,7 @@
     "migrate:deploy": "prisma migrate deploy",
     "studio": "prisma studio",
     "seed": "tsx prisma/seed.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc -p tsconfig.check.json"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
