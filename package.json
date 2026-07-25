@@ -1,0 +1,17 @@
+{
+  "name": "yonatan-times",
+  "version": "2.0.0",
+  "private": true,
+  "description": "The Yonatan Times - dynamic newspaper-style portfolio with an admin CMS",
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,magenta \"npm --prefix server run dev\" \"npm --prefix web run dev\"",
+    "install:all": "npm --prefix server install --include=dev && npm --prefix web install --include=dev",
+    "build:web": "npm --prefix web run build",
+    "build:server": "npm --prefix server run build",
+    "seed": "npm --prefix server run seed"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.4"
+  },
+  "license": "MIT"
+}
