@@ -19,8 +19,8 @@ const arg = (name, fallback) => {
 };
 
 const BASE = arg("base", process.env.SMOKE_BASE ?? "http://127.0.0.1:4000").replace(/\/$/, "");
-const EMAIL = arg("email", process.env.SMOKE_EMAIL);
-const PASSWORD = arg("password", process.env.SMOKE_PASSWORD);
+const EMAIL = arg("email", process.env.SMOKE_EMAIL ?? process.env.ADMIN_EMAIL);
+const PASSWORD = arg("password", process.env.SMOKE_PASSWORD ?? process.env.ADMIN_PASSWORD);
 
 let cookie = "";
 let passed = 0;
@@ -200,6 +200,55 @@ if (!EMAIL || !PASSWORD) {
     const remaining = afterDelete.json?.sections ?? [];
     record("section is gone after delete", !remaining.some((s) => s.id === sectionId), "still present");
   }
+
+  console.log("\nAdmin IMPACT round trip");
+  const impactCreate = await call("POST", "/api/admin/sections", {
+    auth: true,
+    body: { title: "Smoke Impact", type: "IMPACT", slug: `smoke-impact-${Date.now()}` },
+  });
+  record("create IMPACT section", impactCreate.status === 201 || impactCreate.status === 200, `got ${impactCreate.status}`);
+  const impactId = impactCreate.json?.section?.id;
+  if (impactId) {
+    const detail = await call("GET", `/api/admin/sections/${impactId}`, { auth: true });
+    record(
+      "IMPACT detail includes story/metric arrays",
+      Array.isArray(detail.json?.section?.impactStories) &&
+        Array.isArray(detail.json?.section?.impactMetrics),
+      "arrays missing",
+    );
+
+    const story = await call("POST", "/api/admin/portfolio/impact-stories", {
+      auth: true,
+      body: {
+        sectionId: impactId,
+        dateLabel: "Smoke",
+        title: "Smoke Impact Story",
+        summary: "Created by the smoke test to verify the impact carousel pipeline.",
+        imageUrl: "/images/lo.png",
+        imageAlt: "Smoke test",
+      },
+    });
+    record("create impact story", story.status === 201 || story.status === 200, `got ${story.status}`);
+    const storyId = story.json?.story?.id;
+
+    const metric = await call("POST", "/api/admin/portfolio/impact-metrics", {
+      auth: true,
+      body: { sectionId: impactId, value: "99+", label: "Smoke metric" },
+    });
+    record("create impact metric", metric.status === 201 || metric.status === 200, `got ${metric.status}`);
+    const metricId = metric.json?.metric?.id;
+
+    if (storyId) await call("DELETE", `/api/admin/portfolio/impact-stories/${storyId}`, { auth: true });
+    if (metricId) await call("DELETE", `/api/admin/portfolio/impact-metrics/${metricId}`, { auth: true });
+    await call("DELETE", `/api/admin/sections/${impactId}`, { auth: true });
+    record("cleanup IMPACT section", true, "");
+  }
+
+  console.log("\nAdmin settings + inbox + media probes");
+  await expectStatus("GET settings", "GET", "/api/admin/settings", 200, { auth: true });
+  await expectStatus("GET social links", "GET", "/api/admin/settings/social", 200, { auth: true });
+  await expectStatus("GET media", "GET", "/api/admin/media", 200, { auth: true });
+  await expectStatus("GET blog posts list", "GET", "/api/admin/blog/posts", 200, { auth: true });
 
   console.log("\nAdmin blog round trip");
   const postPayload = {

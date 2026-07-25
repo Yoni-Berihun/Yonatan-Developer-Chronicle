@@ -32,6 +32,8 @@ publicRouter.get(
           timelineEntries: { where: { isPublished: true }, ...publishedOrder },
           stats: publishedOrder,
           accolades: { where: { isPublished: true }, ...publishedOrder },
+          impactStories: { where: { isPublished: true }, ...publishedOrder },
+          impactMetrics: publishedOrder,
           blocks: publishedOrder,
           cta: true,
         },

@@ -273,6 +273,18 @@ adminPortfolioRouter.delete(
   }),
 );
 
+adminPortfolioRouter.post(
+  "/stats/reorder",
+  validateBody(reorderSchema),
+  asyncHandler(async (req, res) => {
+    const { ids } = req.body as z.infer<typeof reorderSchema>;
+    await prisma.$transaction(
+      ids.map((id, index) => prisma.stat.update({ where: { id }, data: { order: index } })),
+    );
+    res.json({ ok: true });
+  }),
+);
+
 // --- Accolades --------------------------------------------------------------
 
 const accoladeSchema = z.object({
@@ -329,6 +341,118 @@ adminPortfolioRouter.post(
     const { ids } = req.body as z.infer<typeof reorderSchema>;
     await prisma.$transaction(
       ids.map((id, index) => prisma.accolade.update({ where: { id }, data: { order: index } })),
+    );
+    res.json({ ok: true });
+  }),
+);
+
+// --- Impact stories + metrics ----------------------------------------------
+
+const impactStorySchema = z.object({
+  sectionId: z.string().min(1),
+  dateLabel: z.string().min(1).max(80),
+  title: z.string().min(1).max(200),
+  summary: z.string().min(1).max(1500),
+  imageUrl: z.string().min(1),
+  imageAlt: z.string().max(200).default(""),
+  imagePublicId: z.string().nullable().optional(),
+  isPublished: z.boolean().default(true),
+});
+
+adminPortfolioRouter.post(
+  "/impact-stories",
+  validateBody(impactStorySchema),
+  asyncHandler(async (req, res) => {
+    const body = req.body as z.infer<typeof impactStorySchema>;
+    const count = await prisma.impactStory.count({ where: { sectionId: body.sectionId } });
+    const story = await prisma.impactStory.create({ data: { ...body, order: count } });
+    triggerFrontendRebuild("impact story created");
+    res.status(201).json({ story });
+  }),
+);
+
+adminPortfolioRouter.put(
+  "/impact-stories/:id",
+  validateBody(impactStorySchema.partial()),
+  asyncHandler(async (req, res) => {
+    const story = await prisma.impactStory.update({
+      where: { id: param(req, "id") },
+      data: req.body as Partial<z.infer<typeof impactStorySchema>>,
+    });
+    triggerFrontendRebuild("impact story updated");
+    res.json({ story });
+  }),
+);
+
+adminPortfolioRouter.delete(
+  "/impact-stories/:id",
+  asyncHandler(async (req, res) => {
+    const story = await prisma.impactStory.delete({ where: { id: param(req, "id") } });
+    if (story.imagePublicId) await deleteImage(story.imagePublicId);
+    triggerFrontendRebuild("impact story deleted");
+    res.json({ ok: true });
+  }),
+);
+
+adminPortfolioRouter.post(
+  "/impact-stories/reorder",
+  validateBody(reorderSchema),
+  asyncHandler(async (req, res) => {
+    const { ids } = req.body as z.infer<typeof reorderSchema>;
+    await prisma.$transaction(
+      ids.map((id, index) => prisma.impactStory.update({ where: { id }, data: { order: index } })),
+    );
+    res.json({ ok: true });
+  }),
+);
+
+const impactMetricSchema = z.object({
+  sectionId: z.string().min(1),
+  value: z.string().min(1).max(40),
+  label: z.string().min(1).max(120),
+});
+
+adminPortfolioRouter.post(
+  "/impact-metrics",
+  validateBody(impactMetricSchema),
+  asyncHandler(async (req, res) => {
+    const body = req.body as z.infer<typeof impactMetricSchema>;
+    const count = await prisma.impactMetric.count({ where: { sectionId: body.sectionId } });
+    const metric = await prisma.impactMetric.create({ data: { ...body, order: count } });
+    triggerFrontendRebuild("impact metric created");
+    res.status(201).json({ metric });
+  }),
+);
+
+adminPortfolioRouter.put(
+  "/impact-metrics/:id",
+  validateBody(impactMetricSchema.partial()),
+  asyncHandler(async (req, res) => {
+    const metric = await prisma.impactMetric.update({
+      where: { id: param(req, "id") },
+      data: req.body as Partial<z.infer<typeof impactMetricSchema>>,
+    });
+    triggerFrontendRebuild("impact metric updated");
+    res.json({ metric });
+  }),
+);
+
+adminPortfolioRouter.delete(
+  "/impact-metrics/:id",
+  asyncHandler(async (req, res) => {
+    await prisma.impactMetric.delete({ where: { id: param(req, "id") } });
+    triggerFrontendRebuild("impact metric deleted");
+    res.json({ ok: true });
+  }),
+);
+
+adminPortfolioRouter.post(
+  "/impact-metrics/reorder",
+  validateBody(reorderSchema),
+  asyncHandler(async (req, res) => {
+    const { ids } = req.body as z.infer<typeof reorderSchema>;
+    await prisma.$transaction(
+      ids.map((id, index) => prisma.impactMetric.update({ where: { id }, data: { order: index } })),
     );
     res.json({ ok: true });
   }),

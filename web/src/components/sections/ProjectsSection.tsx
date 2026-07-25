@@ -57,9 +57,11 @@ export default function ProjectsSection({ section }: Props) {
                     <span className={clsx("project-link", project.isArchived && "disabled-link")}>
                       {project.isArchived ? "Archived" : project.linkLabel} ›
                     </span>
-                    <div className="project-link-icon">
-                      <SocialIcon platform="github" size={20} />
-                    </div>
+                    {project.linkUrl?.includes("github.com") ? (
+                      <div className="project-link-icon">
+                        <SocialIcon platform="github" size={20} />
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </div>

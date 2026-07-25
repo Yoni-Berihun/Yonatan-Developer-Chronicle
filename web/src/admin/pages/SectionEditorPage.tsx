@@ -6,6 +6,7 @@ import type { Section } from "../../lib/types";
 import AccoladesEditor from "../components/editors/AccoladesEditor";
 import BlocksEditor from "../components/editors/BlocksEditor";
 import CtaEditor from "../components/editors/CtaEditor";
+import ImpactEditor from "../components/editors/ImpactEditor";
 import ProjectsEditor from "../components/editors/ProjectsEditor";
 import SkillsEditor from "../components/editors/SkillsEditor";
 import TimelineEditor from "../components/editors/TimelineEditor";
@@ -39,7 +40,12 @@ export default function SectionEditorPage() {
       api.put(`/admin/sections/${id}`, {
         title,
         subtitle: subtitle || null,
-        config: navLabel ? { ...(data?.section.config ?? {}), navLabel } : (data?.section.config ?? null),
+        config: (() => {
+          const next = { ...(data?.section.config ?? {}) };
+          if (navLabel.trim()) next.navLabel = navLabel.trim();
+          else delete next.navLabel;
+          return Object.keys(next).length > 0 ? next : null;
+        })(),
       }),
     onSuccess: () => {
       setSaved(true);
@@ -109,6 +115,7 @@ export default function SectionEditorPage() {
       {section.type === "SKILLS" ? <SkillsEditor section={section} /> : null}
       {section.type === "TIMELINE" ? <TimelineEditor section={section} /> : null}
       {section.type === "ACCOLADES" ? <AccoladesEditor section={section} /> : null}
+      {section.type === "IMPACT" ? <ImpactEditor section={section} /> : null}
       {section.type === "CTA" ? <CtaEditor section={section} /> : null}
       {section.type === "CUSTOM" ? <BlocksEditor section={section} /> : null}
       {section.type === "BLOG_TEASER" ? (

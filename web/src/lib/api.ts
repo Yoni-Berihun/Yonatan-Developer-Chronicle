@@ -54,6 +54,17 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
         ? ((payload as { details?: { field: string; message: string }[] }).details ?? undefined)
         : undefined;
 
+    // Drop a live admin session when the cookie is gone mid-use — but never for
+    // the deliberate "am I signed in?" probe on /auth/me or a failed login.
+    if (
+      response.status === 401 &&
+      path !== "/auth/me" &&
+      path !== "/auth/login" &&
+      typeof window !== "undefined"
+    ) {
+      window.dispatchEvent(new CustomEvent("yt:session-expired"));
+    }
+
     throw new ApiError(response.status, message, details);
   }
 

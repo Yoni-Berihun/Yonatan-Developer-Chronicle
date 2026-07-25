@@ -212,10 +212,12 @@ export default function BlocksEditor({ section }: { section: Section }) {
     onSuccess: invalidate,
   });
 
+  const blocks = section.blocks ?? [];
+
   const move = (index: number, delta: number) => {
     const target = index + delta;
-    if (target < 0 || target >= section.blocks.length) return;
-    const ids = section.blocks.map((block) => block.id);
+    if (target < 0 || target >= blocks.length) return;
+    const ids = blocks.map((block) => block.id);
     const next = [...ids];
     const [moved] = next.splice(index, 1);
     next.splice(target, 0, moved!);
@@ -223,13 +225,13 @@ export default function BlocksEditor({ section }: { section: Section }) {
   };
 
   return (
-    <Card title={`Content blocks (${section.blocks.length})`}>
-      {section.blocks.length === 0 ? (
+    <Card title={`Content blocks (${blocks.length})`}>
+      {blocks.length === 0 ? (
         <EmptyState message="This section is empty. Add a block below to start writing." />
       ) : null}
 
       <div className="admin-item-list">
-        {section.blocks.map((block, index) => (
+        {blocks.map((block, index) => (
           <div key={block.id} className="admin-item">
             {editingId === block.id ? (
               <div className="admin-item-form">
@@ -271,7 +273,7 @@ export default function BlocksEditor({ section }: { section: Section }) {
                   <button
                     type="button"
                     aria-label="Move down"
-                    disabled={index === section.blocks.length - 1}
+                    disabled={index === blocks.length - 1}
                     onClick={() => move(index, 1)}
                   >
                     ↓

@@ -72,7 +72,10 @@ export default function BlogIndexPage() {
 
       <div className="container">
         <SiteHeader settings={settings} sections={sections} anchorsAreLocal={false} />
-        <Masthead title={settings.siteTitle} subtitle="THE LATEST EDITION" />
+        <Masthead
+          title={settings.siteTitle}
+          subtitle={settings.editionLabel || settings.siteSubtitle}
+        />
 
         <section className="edition-page">
           <div className="section-header">

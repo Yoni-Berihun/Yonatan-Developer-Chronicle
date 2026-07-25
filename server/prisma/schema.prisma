@@ -79,6 +79,7 @@ enum SectionType {
   SKILLS
   TIMELINE
   ACCOLADES
+  IMPACT
   BLOG_TEASER
   CTA
   CUSTOM
@@ -99,6 +100,8 @@ model Section {
   timelineEntries TimelineEntry[]
   stats           Stat[]
   accolades       Accolade[]
+  impactStories   ImpactStory[]
+  impactMetrics   ImpactMetric[]
   blocks          ContentBlock[]
   cta             CallToAction?
 
@@ -256,6 +259,39 @@ model Accolade {
   imagePublicId String?
   order         Int     @default(0)
   isPublished   Boolean @default(true)
+
+  @@index([sectionId, order])
+}
+
+// ---------------------------------------------------------------------------
+// Impact: community work beyond the codebase
+// ---------------------------------------------------------------------------
+
+model ImpactStory {
+  id        String  @id @default(cuid())
+  sectionId String
+  section   Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+  dateLabel     String // "2024 — Present"
+  title         String
+  summary       String
+  imageUrl      String
+  imageAlt      String  @default("")
+  imagePublicId String?
+  order         Int     @default(0)
+  isPublished   Boolean @default(true)
+
+  @@index([sectionId, order])
+}
+
+model ImpactMetric {
+  id        String  @id @default(cuid())
+  sectionId String
+  section   Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+  value String // "30+"
+  label String // "Students mentored"
+  order Int    @default(0)
 
   @@index([sectionId, order])
 }

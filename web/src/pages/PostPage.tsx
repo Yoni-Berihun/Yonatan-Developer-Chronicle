@@ -44,7 +44,10 @@ export default function PostPage() {
 
       <div className="container">
         <SiteHeader settings={settings} sections={sections} anchorsAreLocal={false} />
-        <Masthead title={settings.siteTitle} subtitle="THE LATEST EDITION" />
+        <Masthead
+          title={settings.siteTitle}
+          subtitle={settings.editionLabel || settings.siteSubtitle}
+        />
 
         {isLoading ? (
           <p className="loading-note">Setting the type…</p>

@@ -21,6 +21,7 @@ const emptyDraft = (): Draft => ({
 });
 
 export default function AccoladesEditor({ section }: { section: Section }) {
+  const accolades = section.accolades ?? [];
   const crud = useCrud("/admin/portfolio/accolades", section.id);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [adding, setAdding] = useState(false);
@@ -88,7 +89,13 @@ export default function AccoladesEditor({ section }: { section: Section }) {
         <button
           type="button"
           className="admin-button admin-button--primary"
-          disabled={!draft.title.trim() || !draft.imageUrl.trim()}
+          disabled={
+            !draft.title.trim() ||
+            !draft.dateLabel.trim() ||
+            !draft.issuer.trim() ||
+            !draft.description.trim() ||
+            !draft.imageUrl.trim()
+          }
           onClick={save}
         >
           Save award
@@ -101,11 +108,11 @@ export default function AccoladesEditor({ section }: { section: Section }) {
   );
 
   return (
-    <Card title={`Awards (${section.accolades.length})`}>
-      {section.accolades.length === 0 && !adding ? <EmptyState message="No awards yet." /> : null}
+    <Card title={`Awards (${accolades.length})`}>
+      {accolades.length === 0 && !adding ? <EmptyState message="No awards yet." /> : null}
 
       <div className="admin-item-list">
-        {section.accolades.map((accolade, index) => (
+        {accolades.map((accolade, index) => (
           <div key={accolade.id} className="admin-item">
             {editingId === accolade.id ? (
               form
@@ -124,7 +131,7 @@ export default function AccoladesEditor({ section }: { section: Section }) {
                     aria-label="Move up"
                     disabled={index === 0}
                     onClick={() => {
-                      const ids = moveInList(section.accolades, index, -1);
+                      const ids = moveInList(accolades, index, -1);
                       if (ids) crud.reorder.mutate(ids);
                     }}
                   >
@@ -133,9 +140,9 @@ export default function AccoladesEditor({ section }: { section: Section }) {
                   <button
                     type="button"
                     aria-label="Move down"
-                    disabled={index === section.accolades.length - 1}
+                    disabled={index === accolades.length - 1}
                     onClick={() => {
-                      const ids = moveInList(section.accolades, index, 1);
+                      const ids = moveInList(accolades, index, 1);
                       if (ids) crud.reorder.mutate(ids);
                     }}
                   >

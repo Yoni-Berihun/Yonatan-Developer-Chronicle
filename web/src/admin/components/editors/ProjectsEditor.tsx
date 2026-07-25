@@ -138,7 +138,13 @@ function ProjectForm({
           type="button"
           className="admin-button admin-button--primary"
           onClick={onSave}
-          disabled={saving || !draft.title.trim() || !draft.imageUrl.trim()}
+          disabled={
+            saving ||
+            !draft.title.trim() ||
+            !draft.category.trim() ||
+            !draft.description.trim() ||
+            !draft.imageUrl.trim()
+          }
         >
           {saving ? "Saving…" : "Save project"}
         </button>
@@ -151,6 +157,7 @@ function ProjectForm({
 }
 
 export default function ProjectsEditor({ section }: { section: Section }) {
+  const projects = section.projects ?? [];
   const crud = useCrud("/admin/portfolio/projects", section.id);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [draft, setDraft] = useState<Draft>(emptyDraft());
@@ -188,13 +195,13 @@ export default function ProjectsEditor({ section }: { section: Section }) {
   };
 
   return (
-    <Card title={`Projects (${section.projects.length})`}>
-      {section.projects.length === 0 && !adding ? (
+    <Card title={`Projects (${projects.length})`}>
+      {projects.length === 0 && !adding ? (
         <EmptyState message="No projects in this section yet." />
       ) : null}
 
       <div className="admin-item-list">
-        {section.projects.map((project, index) => (
+        {projects.map((project, index) => (
           <div key={project.id} className="admin-item">
             {editingId === project.id ? (
               <ProjectForm
@@ -223,7 +230,7 @@ export default function ProjectsEditor({ section }: { section: Section }) {
                     aria-label="Move up"
                     disabled={index === 0}
                     onClick={() => {
-                      const ids = moveInList(section.projects, index, -1);
+                      const ids = moveInList(projects, index, -1);
                       if (ids) crud.reorder.mutate(ids);
                     }}
                   >
@@ -232,9 +239,9 @@ export default function ProjectsEditor({ section }: { section: Section }) {
                   <button
                     type="button"
                     aria-label="Move down"
-                    disabled={index === section.projects.length - 1}
+                    disabled={index === projects.length - 1}
                     onClick={() => {
-                      const ids = moveInList(section.projects, index, 1);
+                      const ids = moveInList(projects, index, 1);
                       if (ids) crud.reorder.mutate(ids);
                     }}
                   >

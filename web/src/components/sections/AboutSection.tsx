@@ -8,7 +8,7 @@ export default function AboutSection({ settings }: Props) {
   const [lead, ...rest] = settings.aboutParagraphs;
 
   return (
-    <main id="main-content" className="main-content">
+    <section id="main-content" className="main-content" aria-label="About the author">
       <article className="about-me">
         <h2 className="author-name">{settings.authorName}</h2>
         <h3 className="author-subtitle">{settings.authorSubtitle}</h3>
@@ -26,8 +26,14 @@ export default function AboutSection({ settings }: Props) {
       </article>
 
       <aside className="portrait">
-        <img src={settings.portraitUrl} alt={settings.portraitAlt} width={400} height={400} />
+        <img
+          className="portrait-float"
+          src={settings.portraitUrl}
+          alt={settings.portraitAlt}
+          width={400}
+          height={400}
+        />
       </aside>
-    </main>
+    </section>
   );
 }

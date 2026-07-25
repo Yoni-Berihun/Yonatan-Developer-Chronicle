@@ -13,6 +13,7 @@ const sectionTypes = [
   "SKILLS",
   "TIMELINE",
   "ACCOLADES",
+  "IMPACT",
   "BLOG_TEASER",
   "CTA",
   "CUSTOM",
@@ -54,6 +55,8 @@ adminSectionsRouter.get(
             skillCategories: true,
             timelineEntries: true,
             accolades: true,
+            impactStories: true,
+            impactMetrics: true,
             stats: true,
           },
         },
@@ -79,6 +82,8 @@ adminSectionsRouter.get(
         timelineEntries: { orderBy: { order: "asc" } },
         stats: { orderBy: { order: "asc" } },
         accolades: { orderBy: { order: "asc" } },
+        impactStories: { orderBy: { order: "asc" } },
+        impactMetrics: { orderBy: { order: "asc" } },
       },
     });
     res.json({ section });

@@ -1,6 +1,6 @@
-import { createContext, useContext, useMemo, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, type ReactNode } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { api } from "../lib/api";
+import { ApiError, api } from "../lib/api";
 import type { AdminProfile } from "../lib/types";
 
 interface AuthValue {
@@ -30,9 +30,32 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
     retry: false,
   });
 
+  useEffect(() => {
+    const onExpired = () => {
+      queryClient.setQueryData(["admin", "me"], null);
+      queryClient.removeQueries({ queryKey: ["admin"] });
+    };
+    window.addEventListener("yt:session-expired", onExpired);
+    return () => window.removeEventListener("yt:session-expired", onExpired);
+  }, [queryClient]);
+
   const loginMutation = useMutation({
-    mutationFn: (variables: { email: string; password: string }) =>
-      api.post<{ admin: AdminProfile }>("/auth/login", variables),
+    mutationFn: async (variables: { email: string; password: string }) => {
+      const result = await api.post<{ admin: AdminProfile }>("/auth/login", variables);
+
+      // Login JSON can succeed while the cookie fails to stick (wrong domain,
+      // blocked storage). Confirm the session before treating the user as in.
+      try {
+        await api.get<{ admin: AdminProfile }>("/auth/me");
+      } catch {
+        throw new ApiError(
+          401,
+          "Signed in on the server, but the browser did not keep the session cookie. Use the site URL (not the API URL) and try again.",
+        );
+      }
+
+      return result;
+    },
     onSuccess: (result) => queryClient.setQueryData(["admin", "me"], result.admin),
   });
 
@@ -52,10 +75,16 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
         await loginMutation.mutateAsync({ email, password });
       },
       logout: async () => {
-        await logoutMutation.mutateAsync();
+        try {
+          await logoutMutation.mutateAsync();
+        } catch {
+          // Even if the network call fails, clear local state so the UI exits.
+          queryClient.setQueryData(["admin", "me"], null);
+          queryClient.clear();
+        }
       },
     }),
-    [data, isLoading, loginMutation, logoutMutation],
+    [data, isLoading, loginMutation, logoutMutation, queryClient],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

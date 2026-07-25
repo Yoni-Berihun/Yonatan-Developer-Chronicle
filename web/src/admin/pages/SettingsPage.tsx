@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { ApiError, api } from "../../lib/api";
 import type { SiteSettings, SocialLink } from "../../lib/types";
 import ImagePicker from "../components/ImagePicker";
 import { Card, PageHeader, Spinner } from "../components/ui";
+import { useAdminAuth } from "../useAdminAuth";
 
 const PLATFORMS = ["github", "linkedin", "x", "telegram", "instagram", "email", "link"];
 
@@ -43,7 +45,7 @@ function SocialLinksCard() {
   return (
     <Card title="Social links">
       <div className="admin-item-list">
-        {data?.socialLinks.map((link) => (
+        {(data?.socialLinks ?? []).map((link) => (
           <div key={link.id} className="admin-item-summary">
             <div className="admin-item-text">
               <strong>{link.label}</strong>
@@ -93,16 +95,22 @@ function SocialLinksCard() {
 }
 
 function PasswordCard() {
+  const navigate = useNavigate();
+  const { logout } = useAdminAuth();
   const [currentPassword, setCurrent] = useState("");
   const [newPassword, setNext] = useState("");
   const [message, setMessage] = useState("");
 
   const change = useMutation({
     mutationFn: () => api.post("/auth/change-password", { currentPassword, newPassword }),
-    onSuccess: () => {
-      setMessage("Password changed. You will need to sign in again.");
+    onSuccess: async () => {
+      setMessage("Password changed. Signing you out…");
       setCurrent("");
       setNext("");
+      // Server already cleared the cookie — finish the client logout so we
+      // never leave a zombie "signed in" admin UI with 401s on every click.
+      await logout();
+      navigate("/admin/login", { replace: true });
     },
     onError: (caught) =>
       setMessage(caught instanceof ApiError ? caught.message : "Could not change the password."),
@@ -164,6 +172,15 @@ export default function SettingsPage() {
   const save = useMutation({
     mutationFn: () => {
       if (!form) throw new Error("Nothing to save");
+      if (!form.aboutParagraphs.length) {
+        throw new ApiError(400, "Add at least one biography paragraph before saving.");
+      }
+      if (!form.portraitUrl.trim()) {
+        throw new ApiError(400, "A portrait image is required.");
+      }
+      if (!form.cvUrl.trim()) {
+        throw new ApiError(400, "A CV download URL is required.");
+      }
       const { id: _id, ...body } = form;
       return api.put("/admin/settings", body);
     },
@@ -173,8 +190,14 @@ export default function SettingsPage() {
       window.setTimeout(() => setSaved(false), 2500);
       void queryClient.invalidateQueries({ queryKey: ["admin", "settings"] });
     },
-    onError: (caught) =>
-      setError(caught instanceof ApiError ? caught.message : "Could not save the settings."),
+    onError: (caught) => {
+      if (caught instanceof ApiError) {
+        const fields = Object.values(caught.fieldErrors);
+        setError(fields.length ? `${caught.message}: ${fields.join("; ")}` : caught.message);
+        return;
+      }
+      setError("Could not save the settings.");
+    },
   });
 
   if (isLoading || !form) return <Spinner />;
@@ -188,8 +211,6 @@ export default function SettingsPage() {
         title="Settings"
         description="The masthead, the introduction, and everything in the footer."
       />
-
-      {error ? <p className="admin-error">{error}</p> : null}
 
       <Card title="Masthead">
         <div className="admin-form-row">
@@ -219,13 +240,18 @@ export default function SettingsPage() {
             />
           </label>
           <label className="admin-field">
-            <span>Dateline</span>
+            <span>Place (shown with the live clock)</span>
             <input
               value={form.datelineText}
               onChange={(e) => set("datelineText", e.target.value)}
+              placeholder="Ethiopia"
             />
           </label>
         </div>
+        <p className="admin-hint">
+          Date and time on the site update live (East Africa Time). Only the place
+          line above is edited here — e.g. <code>Ethiopia</code>.
+        </p>
       </Card>
 
       <Card title="Introduction">
@@ -270,6 +296,35 @@ export default function SettingsPage() {
         <label className="admin-field">
           <span>Portrait alt text</span>
           <input value={form.portraitAlt} onChange={(e) => set("portraitAlt", e.target.value)} />
+        </label>
+      </Card>
+
+      <Card title="CV banner">
+        <div className="admin-form-row">
+          <label className="admin-field">
+            <span>CV title</span>
+            <input value={form.cvTitle} onChange={(e) => set("cvTitle", e.target.value)} />
+          </label>
+          <label className="admin-field">
+            <span>CV button label context</span>
+            <input value={form.cvSubtitle} onChange={(e) => set("cvSubtitle", e.target.value)} />
+          </label>
+        </div>
+        <label className="admin-field">
+          <span>CV download URL</span>
+          <input
+            value={form.cvUrl}
+            placeholder="https://…"
+            onChange={(e) => set("cvUrl", e.target.value)}
+          />
+        </label>
+        <label className="admin-checkbox">
+          <input
+            type="checkbox"
+            checked={form.cvEnabled}
+            onChange={(e) => set("cvEnabled", e.target.checked)}
+          />
+          Show the credentials banner on the site
         </label>
       </Card>
 
@@ -320,12 +375,19 @@ export default function SettingsPage() {
         />
       </Card>
 
+      {error ? <p className="admin-error">{error}</p> : null}
+
       <div className="admin-sticky-save">
         <button
           type="button"
           className="admin-button admin-button--primary"
           onClick={() => save.mutate()}
-          disabled={save.isPending}
+          disabled={
+            save.isPending ||
+            !form.aboutParagraphs.length ||
+            !form.portraitUrl.trim() ||
+            !form.cvUrl.trim()
+          }
         >
           {save.isPending ? "Saving…" : "Save settings"}
         </button>

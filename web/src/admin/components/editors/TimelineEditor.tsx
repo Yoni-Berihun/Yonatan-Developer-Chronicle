@@ -19,6 +19,8 @@ const emptyDraft = (): Draft => ({
 });
 
 export default function TimelineEditor({ section }: { section: Section }) {
+  const timelineEntries = section.timelineEntries ?? [];
+  const sectionStats = section.stats ?? [];
   const entries = useCrud("/admin/portfolio/timeline", section.id);
   const stats = useCrud("/admin/portfolio/stats", section.id);
 
@@ -82,7 +84,9 @@ export default function TimelineEditor({ section }: { section: Section }) {
         <button
           type="button"
           className="admin-button admin-button--primary"
-          disabled={!draft.title.trim() || !draft.dateLabel.trim()}
+          disabled={
+            !draft.title.trim() || !draft.dateLabel.trim() || !draft.description.trim()
+          }
           onClick={save}
         >
           Save entry
@@ -96,13 +100,17 @@ export default function TimelineEditor({ section }: { section: Section }) {
 
   return (
     <>
-      <Card title={`Timeline entries (${section.timelineEntries.length})`}>
-        {section.timelineEntries.length === 0 && !adding ? (
+      <Card title={`Timeline entries (${timelineEntries.length})`}>
+        <p className="admin-hint">
+          Use ↑ ↓ to reorder, Edit to change copy, Delete to remove, or Add entry for a new stop on
+          the journey.
+        </p>
+        {timelineEntries.length === 0 && !adding ? (
           <EmptyState message="No entries yet." />
         ) : null}
 
         <div className="admin-item-list">
-          {section.timelineEntries.map((entry, index) => (
+          {timelineEntries.map((entry, index) => (
             <div key={entry.id} className="admin-item">
               {editingId === entry.id ? (
                 form
@@ -121,7 +129,7 @@ export default function TimelineEditor({ section }: { section: Section }) {
                       aria-label="Move up"
                       disabled={index === 0}
                       onClick={() => {
-                        const ids = moveInList(section.timelineEntries, index, -1);
+                        const ids = moveInList(timelineEntries, index, -1);
                         if (ids) entries.reorder.mutate(ids);
                       }}
                     >
@@ -130,9 +138,9 @@ export default function TimelineEditor({ section }: { section: Section }) {
                     <button
                       type="button"
                       aria-label="Move down"
-                      disabled={index === section.timelineEntries.length - 1}
+                      disabled={index === timelineEntries.length - 1}
                       onClick={() => {
-                        const ids = moveInList(section.timelineEntries, index, 1);
+                        const ids = moveInList(timelineEntries, index, 1);
                         if (ids) entries.reorder.mutate(ids);
                       }}
                     >
@@ -190,19 +198,57 @@ export default function TimelineEditor({ section }: { section: Section }) {
         )}
       </Card>
 
-      <Card title={`By the Numbers (${section.stats.length})`}>
-        <div className="admin-stat-editor">
-          {section.stats.map((stat) => (
-            <div key={stat.id} className="admin-stat-chip">
-              <strong>{stat.value}</strong>
-              <span>{stat.label}</span>
-              <button
-                type="button"
-                aria-label={`Delete ${stat.label}`}
-                onClick={() => stats.remove.mutate(stat.id)}
-              >
-                ×
-              </button>
+      <Card title={`By the Numbers (${sectionStats.length})`}>
+        <p className="admin-hint">
+          Add, remove, or reorder the figures shown beside the journey. Changes appear on the public
+          site immediately after save.
+        </p>
+
+        <div className="admin-item-list">
+          {sectionStats.map((stat, index) => (
+            <div key={stat.id} className="admin-item">
+              <div className="admin-item-summary">
+                <div className="admin-item-text">
+                  <strong>
+                    {stat.value} — {stat.label}
+                  </strong>
+                </div>
+                <div className="admin-item-buttons">
+                  <button
+                    type="button"
+                    aria-label="Move up"
+                    disabled={index === 0}
+                    onClick={() => {
+                      const ids = moveInList(sectionStats, index, -1);
+                      if (ids) stats.reorder.mutate(ids);
+                    }}
+                  >
+                    ↑
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Move down"
+                    disabled={index === sectionStats.length - 1}
+                    onClick={() => {
+                      const ids = moveInList(sectionStats, index, 1);
+                      if (ids) stats.reorder.mutate(ids);
+                    }}
+                  >
+                    ↓
+                  </button>
+                  <button
+                    type="button"
+                    className="admin-button admin-button--danger"
+                    onClick={() => {
+                      if (window.confirm(`Delete "${stat.label}"?`)) {
+                        stats.remove.mutate(stat.id);
+                      }
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
             </div>
           ))}
         </div>

@@ -8,9 +8,11 @@ import BlogTeaserSection from "../components/sections/BlogTeaserSection";
 import ContactSection from "../components/sections/ContactSection";
 import CtaSection from "../components/sections/CtaSection";
 import CustomSection from "../components/sections/CustomSection";
+import ImpactSection from "../components/sections/ImpactSection";
 import ProjectsSection from "../components/sections/ProjectsSection";
 import SkillsSection from "../components/sections/SkillsSection";
 import TimelineSection from "../components/sections/TimelineSection";
+import { useRevealSections } from "../lib/useRevealSections";
 import { useSite } from "../lib/useSite";
 import type { Section } from "../lib/types";
 
@@ -24,6 +26,8 @@ function renderSection(section: Section) {
       return <TimelineSection key={section.id} section={section} />;
     case "ACCOLADES":
       return <AccoladesSection key={section.id} section={section} />;
+    case "IMPACT":
+      return <ImpactSection key={section.id} section={section} />;
     case "BLOG_TEASER":
       return <BlogTeaserSection key={section.id} section={section} />;
     case "CTA":
@@ -37,6 +41,7 @@ function renderSection(section: Section) {
 
 export default function HomePage() {
   const { data, isLoading, isError, error, refetch } = useSite();
+  useRevealSections(Boolean(data));
 
   if (isLoading) {
     return (
@@ -75,6 +80,18 @@ export default function HomePage() {
       <div className="super-header" />
 
       <div className="container">
+        <span className="floating-ink" style={{ top: "12%", left: "2%" }} aria-hidden="true" />
+        <span
+          className="floating-ink"
+          style={{ top: "38%", right: "3%", animationDelay: "-2s" }}
+          aria-hidden="true"
+        />
+        <span
+          className="floating-ink"
+          style={{ bottom: "18%", left: "4%", animationDelay: "-4.2s", width: "4px", height: "4px" }}
+          aria-hidden="true"
+        />
+
         <SiteHeader settings={settings} sections={sections} />
         <Masthead title={settings.siteTitle} subtitle={settings.siteSubtitle} />
         <AboutSection settings={settings} />

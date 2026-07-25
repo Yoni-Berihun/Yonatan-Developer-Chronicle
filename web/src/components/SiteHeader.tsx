@@ -1,23 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
+import { navigableSections, placeFromDateline, toNavLabel } from "../lib/sections";
+import { useLivingClock } from "../lib/useLivingClock";
 import type { Section, SiteSettings } from "../lib/types";
 
 interface NavItem {
   label: string;
   href: string;
   isRoute?: boolean;
-}
-
-const NAV_EXCLUDED_TYPES = new Set(["CTA", "BLOG_TEASER"]);
-
-function toNavLabel(section: Section): string {
-  const configured = section.config?.navLabel;
-  if (typeof configured === "string" && configured.trim()) return configured.trim();
-  return section.slug
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
 }
 
 interface Props {
@@ -30,10 +21,11 @@ interface Props {
 export default function SiteHeader({ settings, sections, anchorsAreLocal = true }: Props) {
   const [navOpen, setNavOpen] = useState(false);
   const location = useLocation();
+  const clock = useLivingClock();
+  const place = placeFromDateline(settings.datelineText);
 
-  useEffect(() => setNavOpen(false), [location.pathname]);
+  useEffect(() => setNavOpen(false), [location.pathname, location.hash]);
 
-  // A menu that stays open behind the Escape key feels broken on mobile.
   useEffect(() => {
     if (!navOpen) return;
     const onKeyDown = (event: KeyboardEvent) => {
@@ -43,13 +35,19 @@ export default function SiteHeader({ settings, sections, anchorsAreLocal = true 
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [navOpen]);
 
+  useEffect(() => {
+    document.body.classList.toggle("nav-open", navOpen);
+    return () => document.body.classList.remove("nav-open");
+  }, [navOpen]);
+
   const prefix = anchorsAreLocal ? "" : "/";
 
   const navItems: NavItem[] = [
     { label: "Home", href: anchorsAreLocal ? "#" : "/", isRoute: !anchorsAreLocal },
-    ...sections
-      .filter((section) => section.isPublished && !NAV_EXCLUDED_TYPES.has(section.type))
-      .map((section) => ({ label: toNavLabel(section), href: `${prefix}#${section.slug}` })),
+    ...navigableSections(sections).map((section) => ({
+      label: toNavLabel(section),
+      href: `${prefix}#${section.slug}`,
+    })),
     { label: "Edition", href: "/edition", isRoute: true },
     { label: "Contact", href: `${prefix}#contact` },
   ];
@@ -58,26 +56,48 @@ export default function SiteHeader({ settings, sections, anchorsAreLocal = true 
     <>
       <div className="dateline-bar">
         <div className="dateline-left">
-          <p>{settings.volumeLabel}</p>
+          <p className="dateline-volume">{settings.volumeLabel}</p>
           <p className="free-edition">{settings.editionLabel}</p>
         </div>
-        <div className="dateline-right">
-          <p>{settings.datelineText}</p>
+
+        <div className="dateline-right living-dateline" aria-live="polite">
+          <p className="living-dateline-full">
+            <span className="living-date">
+              {clock.weekday}, {clock.date}
+            </span>
+            <span className="living-sep" aria-hidden="true">
+              ·
+            </span>
+            <span className="living-time" title="East Africa Time">
+              {clock.time}
+            </span>
+            <span className="living-sep" aria-hidden="true">
+              ·
+            </span>
+            <span className="living-place">{place}</span>
+          </p>
+
+          <div className="living-dateline-compact">
+            <span className="living-time" title="East Africa Time">
+              {clock.timeShort}
+            </span>
+            <span className="living-place">{place}</span>
+          </div>
         </div>
+
         <button
           type="button"
           className={clsx("mobile-nav-toggle-label", navOpen && "is-open")}
           aria-label={navOpen ? "Close menu" : "Open menu"}
           aria-expanded={navOpen}
+          aria-controls="site-navigation"
           onClick={() => setNavOpen((open) => !open)}
         >
-          <span />
+          <span aria-hidden="true" />
         </button>
       </div>
 
-      <nav className="sticky-navigation" aria-label="Main">
-        {/* Kept so the original sibling-combinator CSS keeps driving the mobile
-            drawer; React owns the state, the checkbox just reflects it. */}
+      <nav className="sticky-navigation" aria-label="Main" id="site-navigation">
         <input
           type="checkbox"
           id="nav-toggle"
@@ -89,6 +109,7 @@ export default function SiteHeader({ settings, sections, anchorsAreLocal = true 
         />
 
         <div className="main-navigation">
+          <p className="navigation-title">Sections</p>
           <ul>
             {navItems.map((item) => (
               <li key={`${item.label}-${item.href}`}>

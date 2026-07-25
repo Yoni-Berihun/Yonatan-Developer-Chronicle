@@ -15,17 +15,17 @@ const IMG = (name: string) => `/images/${name}`;
 async function seedSettings() {
   const data = {
     siteTitle: "THE YONATAN TIMES",
-    siteSubtitle: "PROFESSIONAL DEVELOPER'S CHRONICLE",
-    volumeLabel: "Vol. 2025, No. 001",
+    siteSubtitle: "DEVELOPER | MENTOR | BUILDING IMPACT THROUGH TECHNOLOGY",
+    volumeLabel: "Vol. 2026, No. 001",
     editionLabel: "PORTFOLIO EDITION",
-    datelineText: "October 2025 | Ethiopia",
+    datelineText: "Ethiopia",
 
     authorName: "Yonatan Berihun",
-    authorSubtitle: "Aspiring Inspired Developer | Lifelong Learner",
+    authorSubtitle: "Relentless Developer | Mentor | Impact Through Technology",
     aboutParagraphs: [
       "Hello! I'm Yonatan Berihun, a passionate and resilient aspiring developer currently in my third year of Information Systems at Hawassa University. My journey into technology began with a challenging introduction to C++, but that initial struggle ignited a relentless drive in me.",
       "Instead of being discouraged, I dedicated myself to mastering the craft, quickly expanding my skills to include C, C#, Python, Dart, and Java. This experience taught me to be a persistent, teachable, and lifelong learner who thrives on overcoming obstacles.",
-      "Today, I am a relentless problem-solver, driven to build innovative solutions and continuously learn. I don't just write code; I embrace challenges and remain persistent until I achieve my goals.",
+      "Today I build with the same energy I bring to classrooms and workshops: I don't just write code — I teach digital literacy, mentor students, and treat every hard problem as a chance to leave people better than I found them. My vision is simple and stubborn: build impact through technology.",
     ],
     portraitUrl: IMG("lo.png"),
     portraitAlt: "A portrait of Yonatan Berihun",
@@ -36,15 +36,15 @@ async function seedSettings() {
     cvEnabled: true,
 
     contactIntro:
-      "Interested in collaboration, opportunities, or just want to connect? I'd love to hear from you. Feel free to reach out using the form below.",
+      "Building something that matters — a product, a classroom, or a community effort? I'd love to hear from you.",
 
     footerAbout:
-      "The Yonatan Times is a digitally-native publication inspired by classic newspaper design. Every element showcases the elegance and sophistication achievable through careful typography and thoughtful layout.",
-    copyright: "© 2025 The Yonatan Times. All Rights Reserved.",
+      "The Yonatan Times is a digitally-native publication inspired by classic newspaper design — and by a belief that technology should lift people, not just ship features.",
+    copyright: "© 2026 The Yonatan Times. All Rights Reserved.",
 
-    metaTitle: "The Yonatan Times | Professional Developer's Chronicle",
+    metaTitle: "The Yonatan Times | Developer Building Impact Through Technology",
     metaDescription:
-      "Yonatan Berihun's professional portfolio showcasing innovative projects, technical skills, and academic achievements in a newspaper-style design.",
+      "Yonatan Berihun — relentless developer, mentor, and builder of digital literacy. Projects, community impact, and the craft behind them.",
     ogImageUrl: IMG("lo.png"),
   };
 
@@ -241,13 +241,89 @@ async function seedProjects() {
   console.info(`  ${projects.length} projects`);
 }
 
+async function seedImpact() {
+  const section = await upsertSection({
+    slug: "impact",
+    type: "IMPACT",
+    title: "The Civic Dispatch",
+    subtitle: "Impact beyond the repository — teaching, mentoring, and lifting others through technology",
+    order: 3,
+  });
+
+  const stories = [
+    {
+      dateLabel: "Ongoing",
+      title: "Digital Literacy Trainings",
+      summary:
+        "Hands-on sessions that turn intimidation into fluency — teaching people how to navigate tools, think critically online, and use technology as a daily instrument rather than a mystery.",
+      imageUrl: IMG("programming.png"),
+      imageAlt: "Digital literacy training session",
+    },
+    {
+      dateLabel: "Campus & Community",
+      title: "Workshops That Stick",
+      summary:
+        "From first-line-of-code workshops to practical problem-solving labs, I design sessions that leave people building — not just listening. Energy in the room, clarity on the board, momentum after the door closes.",
+      imageUrl: IMG("husc.jpg"),
+      imageAlt: "Workshop with students at Hawassa University",
+    },
+    {
+      dateLabel: "30+ Students",
+      title: "Mentoring the Next Wave",
+      summary:
+        "One-to-one and small-group mentoring for more than thirty students: debugging together, reviewing thinking, and holding a high bar for craft while making the path feel walkable.",
+      imageUrl: IMG("Hawassa.jpeg"),
+      imageAlt: "Mentoring and academic community at Hawassa University",
+    },
+    {
+      dateLabel: "The Vision",
+      title: "Building Impact Through Technology",
+      summary:
+        "Code is the craft. Impact is the point. Every bot, app, and lesson is another press of the same ink: technology that serves people — relentlessly, patiently, and in public.",
+      imageUrl: IMG("lo.png"),
+      imageAlt: "Yonatan Berihun — building impact through technology",
+    },
+  ];
+
+  for (const [index, story] of stories.entries()) {
+    const existing = await prisma.impactStory.findFirst({
+      where: { sectionId: section.id, title: story.title },
+    });
+    if (existing) {
+      await prisma.impactStory.update({ where: { id: existing.id }, data: { ...story, order: index } });
+    } else {
+      await prisma.impactStory.create({ data: { ...story, sectionId: section.id, order: index } });
+    }
+  }
+
+  const metrics = [
+    { value: "30+", label: "Students mentored" },
+    { value: "15+", label: "Digital literacy sessions" },
+    { value: "10+", label: "Community workshops" },
+    { value: "1", label: "Mission: tech that lifts people" },
+  ];
+
+  for (const [index, metric] of metrics.entries()) {
+    const existing = await prisma.impactMetric.findFirst({
+      where: { sectionId: section.id, label: metric.label },
+    });
+    if (existing) {
+      await prisma.impactMetric.update({ where: { id: existing.id }, data: { ...metric, order: index } });
+    } else {
+      await prisma.impactMetric.create({ data: { ...metric, sectionId: section.id, order: index } });
+    }
+  }
+
+  console.info(`  impact — ${stories.length} stories, ${metrics.length} metrics`);
+}
+
 async function seedSkills() {
   const section = await upsertSection({
     slug: "skills",
     type: "SKILLS",
     title: "The Technology Dispatch",
     subtitle: "A Comprehensive Analysis of Core Competencies",
-    order: 3,
+    order: 4,
   });
 
   const categories = [
@@ -353,7 +429,7 @@ async function seedJourney() {
     slug: "journey",
     type: "TIMELINE",
     title: "Professional & Academic Journey",
-    order: 4,
+    order: 5,
   });
 
   const entries = [
@@ -419,7 +495,7 @@ async function seedAccolades() {
     slug: "accolades",
     type: "ACCOLADES",
     title: "The Recognition Report",
-    order: 5,
+    order: 6,
   });
 
   const accolades = [
@@ -471,7 +547,7 @@ async function seedBlog() {
     type: "BLOG_TEASER",
     title: "The Latest Edition",
     subtitle: "Dispatches from the desk — notes on building, learning and shipping",
-    order: 6,
+    order: 7,
   });
 
   const categories = [
@@ -540,6 +616,7 @@ async function main() {
   await seedSocialLinks();
   await seedCtaSections();
   await seedProjects();
+  await seedImpact();
   await seedSkills();
   await seedJourney();
   await seedAccolades();

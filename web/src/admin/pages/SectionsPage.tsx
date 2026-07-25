@@ -10,9 +10,18 @@ const SECTION_TYPES: { value: SectionType; label: string; description: string }[
   { value: "SKILLS", label: "Skills", description: "Columns of written skill descriptions." },
   { value: "TIMELINE", label: "Timeline", description: "Dated entries plus a statistics sidebar." },
   { value: "ACCOLADES", label: "Accolades", description: "A carousel of awards and certificates." },
+  {
+    value: "IMPACT",
+    label: "Impact",
+    description: "Community impact — metrics plus an image carousel of stories.",
+  },
   { value: "CTA", label: "Banner", description: "A headline with a single call-to-action button." },
   { value: "BLOG_TEASER", label: "Blog teaser", description: "The three most recent articles." },
-  { value: "CUSTOM", label: "Custom", description: "Build freely from headings, text and images." },
+  {
+    value: "CUSTOM",
+    label: "Custom",
+    description: "Build freely from headings, text and images — appears on the home page when published.",
+  },
 ];
 
 export default function SectionsPage() {
@@ -162,6 +171,9 @@ export default function SectionsPage() {
                     ? ` · ${section._count.timelineEntries} entries`
                     : ""}
                   {section.type === "ACCOLADES" ? ` · ${section._count.accolades} awards` : ""}
+                  {section.type === "IMPACT"
+                    ? ` · ${section._count.impactStories ?? 0} stories`
+                    : ""}
                 </p>
               </div>
 

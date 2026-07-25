@@ -122,7 +122,7 @@ function CategoryBlock({ category, sectionId }: { category: SkillCategory; secti
       </div>
 
       <div className="admin-item-list">
-        {category.items.map((item) => (
+        {(category.items ?? []).map((item) => (
           <div key={item.id} className="admin-item">
             <ItemRow item={item} sectionId={sectionId} onDone={() => undefined} />
           </div>
@@ -187,16 +187,17 @@ function CategoryBlock({ category, sectionId }: { category: SkillCategory; secti
 }
 
 export default function SkillsEditor({ section }: { section: Section }) {
+  const skillCategories = section.skillCategories ?? [];
   const crud = useCrud("/admin/portfolio/skill-categories", section.id);
   const [newTitle, setNewTitle] = useState("");
 
   return (
-    <Card title={`Skill columns (${section.skillCategories.length})`}>
-      {section.skillCategories.length === 0 ? (
+    <Card title={`Skill columns (${skillCategories.length})`}>
+      {skillCategories.length === 0 ? (
         <EmptyState message="No columns yet. Add one to get started." />
       ) : null}
 
-      {section.skillCategories.map((category) => (
+      {skillCategories.map((category) => (
         <CategoryBlock key={category.id} category={category} sectionId={section.id} />
       ))}
 

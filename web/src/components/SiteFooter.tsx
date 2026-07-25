@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { navigableSections, toNavLabel } from "../lib/sections";
 import type { Section, SiteSettings, SocialLink } from "../lib/types";
 import SocialIcon from "./SocialIcon";
 
@@ -16,10 +17,7 @@ export default function SiteFooter({
   anchorsAreLocal = true,
 }: Props) {
   const prefix = anchorsAreLocal ? "" : "/";
-
-  const navigable = sections.filter(
-    (section) => section.isPublished && section.type !== "CTA" && section.type !== "BLOG_TEASER",
-  );
+  const navigable = navigableSections(sections);
 
   return (
     <footer className="site-footer">
@@ -40,7 +38,7 @@ export default function SiteFooter({
             {navigable.map((section) => (
               <li key={section.id}>
                 <a href={`${prefix}#${section.slug}`} className="footer-nav-link">
-                  {section.title}
+                  {toNavLabel(section)}
                 </a>
               </li>
             ))}

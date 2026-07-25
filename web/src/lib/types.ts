@@ -3,6 +3,7 @@ export type SectionType =
   | "SKILLS"
   | "TIMELINE"
   | "ACCOLADES"
+  | "IMPACT"
   | "BLOG_TEASER"
   | "CTA"
   | "CUSTOM";
@@ -124,6 +125,27 @@ export interface Accolade {
   isPublished: boolean;
 }
 
+export interface ImpactStory {
+  id: string;
+  sectionId: string;
+  dateLabel: string;
+  title: string;
+  summary: string;
+  imageUrl: string;
+  imageAlt: string;
+  imagePublicId: string | null;
+  order: number;
+  isPublished: boolean;
+}
+
+export interface ImpactMetric {
+  id: string;
+  sectionId: string;
+  value: string;
+  label: string;
+  order: number;
+}
+
 export interface ContentBlock {
   id: string;
   sectionId: string;
@@ -157,6 +179,8 @@ export interface Section {
   timelineEntries: TimelineEntry[];
   stats: Stat[];
   accolades: Accolade[];
+  impactStories: ImpactStory[];
+  impactMetrics: ImpactMetric[];
   blocks: ContentBlock[];
   cta: CallToAction | null;
 }
@@ -300,12 +324,23 @@ export interface MediaAsset {
   createdAt: string;
 }
 
-export interface AdminSectionSummary extends Omit<Section, "projects" | "skillCategories" | "timelineEntries" | "stats" | "accolades"> {
+export interface AdminSectionSummary extends Omit<
+  Section,
+  | "projects"
+  | "skillCategories"
+  | "timelineEntries"
+  | "stats"
+  | "accolades"
+  | "impactStories"
+  | "impactMetrics"
+> {
   _count: {
     projects: number;
     skillCategories: number;
     timelineEntries: number;
     accolades: number;
+    impactStories: number;
+    impactMetrics: number;
     stats: number;
   };
 }

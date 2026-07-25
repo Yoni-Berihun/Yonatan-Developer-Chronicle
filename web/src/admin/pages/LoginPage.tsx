@@ -1,13 +1,15 @@
 import { useState, type FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { ApiError } from "../../lib/api";
 import { useAdminAuth } from "../useAdminAuth";
 
 export default function LoginPage() {
-  const { login } = useAdminAuth();
+  const { login, admin, isLoading } = useAdminAuth();
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+
+  if (!isLoading && admin) return <Navigate to="/admin" replace />;
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
