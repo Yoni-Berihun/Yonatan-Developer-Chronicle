@@ -19,8 +19,10 @@ services:
     # --include=dev is required: Render sets NODE_ENV=production, which makes npm
     # skip devDependencies, and the build needs TypeScript to compile.
     buildCommand: npm ci --include=dev && npm run build
-    # Migrations run on boot so a schema change ships with its deploy.
-    startCommand: npx prisma migrate deploy && node dist/index.js
+    # Migrations run on boot. Set RUN_SEED=true once in the dashboard to load
+    # baseline content from inside Render (needed when your laptop can't reach
+    # Postgres on port 5432). Turn RUN_SEED off again after it succeeds.
+    startCommand: npx prisma migrate deploy && if [ "$RUN_SEED" = "true" ]; then npx prisma db seed; fi && node dist/index.js
     healthCheckPath: /health
     autoDeploy: true
 
@@ -39,6 +41,10 @@ services:
 
       - key: JWT_EXPIRES_IN
         value: 7d
+
+      # One-shot: set to "true" in the dashboard, redeploy, then clear it.
+      - key: RUN_SEED
+        sync: false
 
       # --- Set these in the dashboard after the first deploy -----------------
 
