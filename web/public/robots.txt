@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin
 
-Sitemap: https://yonatan-times.vercel.app/sitemap.xml
+Sitemap: https://yonatan-times.up.railway.app/sitemap.xml

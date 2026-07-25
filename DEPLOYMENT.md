@@ -1,28 +1,21 @@
-# Deploying The Yonatan Times
+# Deploying The Yonatan Times on Railway
 
-Two services: the **API and database on Render**, the **React site on Vercel**. Work through this in order — the Vercel step needs the Render URL, and the seed step needs both.
-
-Expected running cost: **$13.30/month** on Render. Vercel, Cloudinary and Resend stay inside their free tiers.
+One Railway web service serves **both** the Express API and the React site (same domain — admin cookies just work). Postgres is a Railway plugin.
 
 ---
 
 ## Before you start
 
-Create these accounts. All three have free tiers that are genuinely sufficient here.
+Create these free-tier accounts:
 
-| Service | Why | Free tier |
-|---|---|---|
-| [Cloudinary](https://cloudinary.com) | Image uploads from the admin panel | 25 GB storage and bandwidth |
-| [Resend](https://resend.com) | Contact form notification emails | 3,000 emails/month |
-| [Vercel](https://vercel.com) | Hosting the React site | Generous for personal projects |
+| Service | Why |
+|---|---|
+| [Railway](https://railway.app) | API + site + Postgres |
+| [Cloudinary](https://cloudinary.com) | Admin image uploads |
+| [Resend](https://resend.com) | Contact form emails |
+| [GitHub](https://github.com) | Source for auto-deploy |
 
-Also generate a session secret and keep it somewhere safe:
-
-```bash
-openssl rand -base64 48
-```
-
-No `openssl`? In PowerShell:
+Generate a session secret:
 
 ```powershell
 [Convert]::ToBase64String((1..48 | ForEach-Object { Get-Random -Max 256 }))
@@ -30,196 +23,122 @@ No `openssl`? In PowerShell:
 
 ---
 
-## Step 1 — Push the branch
+## Step 1 — Push this repo
 
-```bash
-git push -u origin feat/dynamic-portfolio
+```powershell
+cd d:\projects\yonatan-times
+git remote -v
+# Optional: point at a new GitHub repo named yonatan-times
+# gh repo create yonatan-times --private --source=. --push
+git push -u origin HEAD
 ```
 
-Deploy from this branch first and merge to `main` once you have confirmed it works.
+---
+
+## Step 2 — Create the Railway project
+
+1. Open [railway.app/new](https://railway.app/new)
+2. **Deploy from GitHub repo** → pick `yonatan-times` (or this repo)
+3. Railway detects [`railway.toml`](railway.toml) and builds from the repo root
+4. In the project canvas: **+ New** → **Database** → **Add PostgreSQL**
+5. Open the **web** service → **Variables** → add reference:
+   `DATABASE_URL` = `${{Postgres.DATABASE_URL}}`
+   (Railway often injects this automatically when services are linked — confirm it exists)
 
 ---
 
-## Step 2 — Create the Render services
+## Step 3 — Environment variables
 
-1. In the [Render dashboard](https://dashboard.render.com), choose **New → Blueprint**
-2. Connect this repository and select the `feat/dynamic-portfolio` branch
-3. Render reads `render.yaml` and offers to create two resources:
-   - `yonatan-times-api` — a Starter web service ($7/month)
-   - `yonatan-times-db` — a `basic-256mb` PostgreSQL database ($6/month plus $0.30/GB)
-4. Click **Apply**
-
-`DATABASE_URL` and `JWT_SECRET` are wired up automatically. The first deploy will fail to finish starting, which is expected — the remaining environment variables are not set yet.
-
-> **Check the service URL.** If the name `yonatan-times-api` is already taken globally, Render appends a suffix. Note the real URL from the dashboard — you need it in step 4.
-
-### Confirm your credit is being used
-
-Go to **Billing** and check that your $100 credit is applied and note its **expiry date**. Promotional credits usually expire on a fixed date rather than when they run out.
-
----
-
-## Step 3 — Set the remaining environment variables
-
-In the Render dashboard, open `yonatan-times-api` → **Environment**, then add:
+On the web service → **Variables**, set:
 
 | Key | Value |
 |---|---|
+| `NODE_ENV` | `production` |
+| `JWT_SECRET` | the long random string you generated |
+| `JWT_EXPIRES_IN` | `7d` |
 | `ADMIN_EMAIL` | `yonatanberihun26@gmail.com` |
-| `ADMIN_PASSWORD` | *Leave empty* — one is generated and logged once. Or set your own (10+ characters). |
+| `ADMIN_PASSWORD` | leave empty (generated once in logs) or 10+ chars |
 | `ADMIN_NAME` | `Yonatan Berihun` |
-| `PUBLIC_SITE_URL` | Your Vercel URL. Set a placeholder now, correct it after step 4. |
-| `CORS_ORIGINS` | Same as `PUBLIC_SITE_URL` |
-| `CLOUDINARY_CLOUD_NAME` | From your Cloudinary dashboard |
-| `CLOUDINARY_API_KEY` | From your Cloudinary dashboard |
-| `CLOUDINARY_API_SECRET` | From your Cloudinary dashboard |
-| `RESEND_API_KEY` | From Resend → API Keys |
+| `PUBLIC_SITE_URL` | `https://${{RAILWAY_PUBLIC_DOMAIN}}` |
+| `CORS_ORIGINS` | `https://${{RAILWAY_PUBLIC_DOMAIN}}` |
+| `CLOUDINARY_CLOUD_NAME` | from Cloudinary |
+| `CLOUDINARY_API_KEY` | from Cloudinary |
+| `CLOUDINARY_API_SECRET` | from Cloudinary |
+| `RESEND_API_KEY` | from Resend |
 | `RESEND_FROM_EMAIL` | `The Yonatan Times <onboarding@resend.dev>` |
-| `CONTACT_NOTIFY_EMAIL` | Where contact messages should land |
+| `CONTACT_NOTIFY_EMAIL` | where contact mail should go |
+| `RUN_SEED` | `true` for the first deploy only |
 
-Save. Render redeploys automatically.
-
-When it comes up, check the logs. If you left `ADMIN_PASSWORD` empty you will see a block like this **exactly once**:
-
-```
-======================================================================
-  An admin account was created because none existed.
-  Email:    yonatanberihun26@gmail.com
-  Password: kJ3n-xQ8mR2pL9vT
-  Save this now — it will not be shown again.
-======================================================================
-```
-
-**Copy that password before you do anything else.**
-
-Then confirm the API is alive:
-
-```
-https://yonatan-times-api.onrender.com/health
-```
-
-You should see `{"ok":true,...}`.
+Do **not** set `COOKIE_DOMAIN`.
 
 ---
 
-## Step 4 — Import your existing content
+## Step 4 — Public domain
 
-The database has tables but no content yet. Run the seed once from your machine, pointing at production.
-
-Copy the **External Database URL** from the Render database page, then:
-
-```bash
-cd server
-# PowerShell
-$env:DATABASE_URL="<external database url from Render>"
-npm run seed
-```
-
-```bash
-# macOS / Linux
-DATABASE_URL="<external database url from Render>" npm run seed
-```
-
-This imports every project, skill, timeline entry, award, social link and setting from the original `index.html`, plus a short welcome article. It is safe to run more than once — everything is keyed on a stable slug, so re-running refreshes the baseline rather than duplicating it.
+1. Web service → **Settings** → **Networking** → **Generate Domain**
+2. Copy the `*.up.railway.app` URL
+3. Confirm `PUBLIC_SITE_URL` / `CORS_ORIGINS` resolve to that HTTPS URL
+4. Update [`web/public/robots.txt`](web/public/robots.txt) Sitemap line to your real domain, commit, push
 
 ---
 
-## Step 5 — Deploy the site to Vercel
+## Step 5 — First boot + seed
 
-1. **New Project** → import this repository
-2. Set **Root Directory** to `web` — this matters, the build will fail without it
-3. Framework preset should detect **Vite** automatically
-4. Add one environment variable:
-
-| Key | Value |
-|---|---|
-| `PRERENDER_API_URL` | `https://yonatan-times-api.onrender.com` |
-| `PUBLIC_SITE_URL` | Your Vercel production URL |
-
-5. **Deploy**
-
-`PRERENDER_API_URL` lets the build fetch your content and bake real titles and share images into the HTML. Without it the site still works, but shared links fall back to a generic title.
-
-### Point the proxy at your API
-
-Open `web/vercel.json` and replace `yonatan-times-api.onrender.com` with your actual Render host in all three rewrites:
-
-```json
-{
-  "source": "/api/:path*",
-  "destination": "https://YOUR-API-HOST.onrender.com/api/:path*"
-}
-```
-
-Commit and push. This rewrite is what keeps the admin login working — it makes the API same-origin so the session cookie is first-party.
+1. Watch **Deployments** → **Logs**
+2. With `RUN_SEED=true` you should see `Seeding The Yonatan Times…`
+3. If `ADMIN_PASSWORD` was empty, copy the one-time password block from logs
+4. Open `https://YOUR-DOMAIN/health` → `{"ok":true,...}`
+5. Open `https://YOUR-DOMAIN/` → the newspaper
+6. **Remove or set `RUN_SEED` to empty** and redeploy so every restart does not re-seed
 
 ---
 
-## Step 6 — Close the loop
+## Step 6 — Verify
 
-Now that you have the real Vercel URL:
-
-1. Back in Render, correct `PUBLIC_SITE_URL` and `CORS_ORIGINS`
-2. Update the `Sitemap:` line in `web/public/robots.txt` to your domain
-3. In Vercel, go to **Settings → Git → Deploy Hooks**, create a hook named `content-publish` on your production branch, and copy the URL
-4. Add it in Render as `VERCEL_DEPLOY_HOOK_URL`
-
-That last one means publishing an article automatically rebuilds the site so the new piece is immediately shareable and indexable.
-
----
-
-## Step 7 — Verify
-
-Work down this list:
-
-- [ ] The home page looks identical to the original static site
-- [ ] The mobile menu opens, closes on Escape, and closes when a link is tapped
-- [ ] The awards carousel advances with the arrows and the dots
+- [ ] Home page loads
+- [ ] Mobile menu works
 - [ ] `/edition` lists the welcome article
-- [ ] The contact form sends, and the message appears in `/admin/inbox`
-- [ ] `/admin` login works with your credentials
-- [ ] Uploading an image in `/admin/media` succeeds
-- [ ] Editing a project appears on the public page after a refresh
-- [ ] `/rss.xml` and `/sitemap.xml` return XML
-- [ ] Pasting an article link into Telegram or LinkedIn shows the right title and image
-
-Then **change your password** under `/admin` → Settings.
+- [ ] Contact form works; message appears in `/admin/inbox`
+- [ ] `/admin` login works
+- [ ] Media upload works (Cloudinary)
+- [ ] Edit a project → refresh public site → change shows
+- [ ] `/rss.xml` and `/sitemap.xml` redirect/return XML
+- [ ] Change password under Settings
 
 ---
 
-## Step 8 — Custom domain (recommended)
+## Local development
 
-A real domain makes the portfolio noticeably more credible to a recruiter, and it removes the `.vercel.app` in shared links. Add it in **Vercel → Settings → Domains**, then update `PUBLIC_SITE_URL`, `CORS_ORIGINS` and `robots.txt`.
+```powershell
+cd d:\projects\yonatan-times
+npm run install:all
+npm install --include=dev
+cd server
+copy .env.example .env   # fill DATABASE_URL + JWT_SECRET
+npx prisma migrate dev
+npm run seed
+cd ..
+npm run dev
+```
+
+- Site: http://localhost:5173
+- API: http://localhost:4000 (Vite proxies `/api`)
 
 ---
 
 ## Troubleshooting
 
-**The admin login succeeds but immediately bounces back to the login screen.**
-The session cookie is not sticking, which almost always means the `/api` rewrite in `web/vercel.json` still points at the wrong host. Open the browser network tab: requests to `/api/auth/me` should go to your own domain, not to `onrender.com`.
+**Build fails on TypeScript**
+Railway must install `devDependencies`. The root `build` script uses `npm install --include=dev` in each package.
 
-**The site loads but shows "Stop the press".**
-The API is unreachable or the database is empty. Check `/health` on your Render URL, then confirm you ran the seed in step 4.
+**Admin login bounces**
+You should be on the Railway domain only (not a separate frontend host). Clear cookies and try again.
 
-**Uploads fail with "Image uploads are not configured".**
-One of the three `CLOUDINARY_*` variables is missing or misspelled in Render.
+**Empty site / “not set up yet”**
+Set `RUN_SEED=true`, redeploy once, then clear it.
 
-**The contact form works but no email arrives.**
-Messages are saved to the database first and emailed second by design, so check `/admin/inbox` — if the message is there, the problem is only `RESEND_API_KEY` or `CONTACT_NOTIFY_EMAIL`. On Resend's free tier without a verified domain you can only send to your own address.
+**Uploads fail**
+Check the three `CLOUDINARY_*` variables.
 
-**A migration fails on deploy and the service will not start.**
-That is deliberate — starting with a mismatched schema would corrupt data. Read the Render log for the Prisma error, fix the migration locally, and push again.
-
-**Everything was fine, now the first request each morning is slow.**
-That would mean the service is on the Free instance type rather than Starter. Starter instances do not spin down. Check the plan on the Render service page.
-
----
-
-## What to keep an eye on
-
-| Thing | Where | Why |
-|---|---|---|
-| Credit balance and expiry | Render → Billing | Promo credits expire on a date, not on use |
-| Database size | Render → your database | You are paying for 1 GB; text content will not come close |
-| Cloudinary usage | Cloudinary dashboard | 25 GB is a lot of screenshots, but worth a glance |
-| Backups | Render → your database | Basic instances include daily backups; confirm they are on |
+**Contact saves but no email**
+Inbox still works; fix `RESEND_API_KEY` / `CONTACT_NOTIFY_EMAIL`. Free Resend often only emails your own address until a domain is verified.

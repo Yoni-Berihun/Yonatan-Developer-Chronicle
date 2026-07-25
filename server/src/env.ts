@@ -29,8 +29,8 @@ const envSchema = z.object({
   ADMIN_NAME: z.string().default("Yonatan Berihun"),
 
   PUBLIC_SITE_URL: urlish.default("http://localhost:5173"),
-  // Comma-separated. Only needed when the frontend calls the API cross-origin
-  // rather than through the Vercel proxy rewrite.
+  // Comma-separated. Only needed for local Vite (cross-origin) or direct API use.
+  // In production the API serves the React build from the same origin.
   CORS_ORIGINS: z.string().optional(),
 
   CLOUDINARY_CLOUD_NAME: z.string().optional(),
@@ -42,12 +42,12 @@ const envSchema = z.object({
   RESEND_FROM_EMAIL: z.string().default("The Yonatan Times <onboarding@resend.dev>"),
   CONTACT_NOTIFY_EMAIL: emailish.optional(),
 
-  // Called after publishing content so the prerendered frontend rebuilds.
-  VERCEL_DEPLOY_HOOK_URL: urlish.optional(),
+  // Optional webhook after publishing (rarely needed when the API serves the SPA).
+  FRONTEND_DEPLOY_HOOK_URL: urlish.optional(),
 });
 
 // A blank value means "unset", both for an empty line in .env and for a field
-// left empty in the Render dashboard. Without this, `ADMIN_PASSWORD=` reads as a
+// left empty in the Railway dashboard. Without this, `ADMIN_PASSWORD=` reads as a
 // present-but-too-short string and refuses to boot, and a blank var with a
 // default would override that default with "".
 const presentEnv = Object.fromEntries(

@@ -7,7 +7,7 @@
  * Without this step every shared link would show the same generic title.
  *
  * How it works: for each public route we write dist/<route>/index.html with the
- * metadata already in place. Vercel serves a matching static file before it
+ * metadata already in place. A static host can serve a matching file before it
  * applies the SPA rewrite, so crawlers get real tags and browsers still get the
  * same single-page app.
  *
@@ -187,7 +187,7 @@ main().catch((error) => {
   console.warn(
     `\nPrerender skipped: ${error instanceof Error ? error.message : error}\n` +
       "The site still works; shared links will fall back to the default title.\n" +
-      "Set PRERENDER_API_URL to your Render API URL to enable it.\n",
+      "Set PRERENDER_API_URL to your API origin to enable it.\n",
   );
   process.exit(0);
 });

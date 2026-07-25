@@ -23,9 +23,9 @@ interface RequestOptions {
 }
 
 /**
- * All calls are same-origin: Vite proxies /api in development and Vercel
- * rewrites it in production. That keeps the session cookie first-party, which
- * matters because Safari and Firefox block third-party cookies outright.
+ * All calls are same-origin: Vite proxies /api in development; in production
+ * Express serves the React build and the API from one host. That keeps the
+ * session cookie first-party (Safari/Firefox block third-party cookies).
  */
 export async function apiRequest<T>(path: string, options: RequestOptions = {}): Promise<T> {
   const { method = "GET", body, signal } = options;
