@@ -311,6 +311,29 @@ export interface ContactMessage {
   createdAt: string;
 }
 
+export interface AdminAnalytics {
+  totals: {
+    totalViews: number;
+    published: number;
+    drafts: number;
+    totalPosts: number;
+    sections: number;
+    unread: number;
+    totalMessages: number;
+    media: number;
+  };
+  deltas: {
+    postsThisMonth: number;
+    postsLastMonth: number;
+    messagesThisMonth: number;
+    messagesLastMonth: number;
+  };
+  monthly: { label: string; posts: number; messages: number }[];
+  topPosts: { id: string; title: string; slug: string; viewCount: number }[];
+  recentPosts: { id: string; title: string; status: "DRAFT" | "PUBLISHED"; updatedAt: string }[];
+  recentMessages: { id: string; name: string; subject: string; createdAt: string; isRead: boolean }[];
+}
+
 export interface MediaAsset {
   id: string;
   url: string;

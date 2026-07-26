@@ -16,6 +16,7 @@ import { adminPortfolioRouter } from "./routes/admin-portfolio.js";
 import { adminBlogRouter } from "./routes/admin-blog.js";
 import { adminMediaRouter } from "./routes/admin-media.js";
 import { adminInboxRouter } from "./routes/admin-inbox.js";
+import { adminAnalyticsRouter } from "./routes/admin-analytics.js";
 import "./types.js";
 
 export function createApp() {
@@ -61,6 +62,7 @@ export function createApp() {
   app.use("/api/admin/blog", requireAuth, adminBlogRouter);
   app.use("/api/admin/media", requireAuth, adminMediaRouter);
   app.use("/api/admin/inbox", requireAuth, adminInboxRouter);
+  app.use("/api/admin/analytics", requireAuth, adminAnalyticsRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);
