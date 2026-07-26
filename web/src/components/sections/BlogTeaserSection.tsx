@@ -13,6 +13,8 @@ export default function BlogTeaserSection({ section }: Props) {
   const { data, isLoading } = useQuery({
     queryKey: ["posts", { perPage: 3 }],
     queryFn: () => api.get<PostListResponse>("/public/posts?perPage=3"),
+    staleTime: 0,
+    refetchOnMount: "always",
   });
 
   const posts = data?.posts ?? [];

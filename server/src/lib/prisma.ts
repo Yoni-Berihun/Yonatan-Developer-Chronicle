@@ -9,6 +9,6 @@ export const prisma =
     log: isProduction ? ["error"] : ["warn", "error"],
   });
 
-// `tsx watch` re-imports modules on every change; reusing the client keeps the
-// connection pool from growing without bound during development.
-if (!isProduction) globalForPrisma.prisma = prisma;
+// Reuse the client across development reloads and warm serverless module
+// imports. DATABASE_URL must still be a pooled connection in Vercel.
+globalForPrisma.prisma = prisma;

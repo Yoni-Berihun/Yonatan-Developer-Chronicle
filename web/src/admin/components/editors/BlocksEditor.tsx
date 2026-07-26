@@ -184,8 +184,12 @@ export default function BlocksEditor({ section }: { section: Section }) {
   const [draftData, setDraftData] = useState<Record<string, unknown>>({});
   const [newType, setNewType] = useState<BlockType>("PARAGRAPH");
 
-  const invalidate = () =>
-    queryClient.invalidateQueries({ queryKey: ["admin", "section", section.id] });
+  const invalidate = async () => {
+    await Promise.all([
+      queryClient.invalidateQueries({ queryKey: ["admin", "section", section.id] }),
+      queryClient.invalidateQueries({ queryKey: ["site"] }),
+    ]);
+  };
 
   const create = useMutation({
     mutationFn: (type: BlockType) =>

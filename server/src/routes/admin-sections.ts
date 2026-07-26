@@ -113,7 +113,7 @@ adminSectionsRouter.post(
       include: { cta: true, blocks: true },
     });
 
-    triggerFrontendRebuild(`section created: ${section.slug}`);
+    await triggerFrontendRebuild(`section created: ${section.slug}`);
     res.status(201).json({ section });
   }),
 );
@@ -142,7 +142,7 @@ adminSectionsRouter.put(
       include: { cta: true, blocks: { orderBy: { order: "asc" } } },
     });
 
-    triggerFrontendRebuild(`section updated: ${section.slug}`);
+    await triggerFrontendRebuild(`section updated: ${section.slug}`);
     res.json({ section });
   }),
 );
@@ -151,7 +151,7 @@ adminSectionsRouter.delete(
   "/:id",
   asyncHandler(async (req, res) => {
     await prisma.section.delete({ where: { id: param(req, "id") } });
-    triggerFrontendRebuild("section deleted");
+    await triggerFrontendRebuild("section deleted");
     res.json({ ok: true });
   }),
 );
@@ -164,7 +164,7 @@ adminSectionsRouter.post(
     await prisma.$transaction(
       ids.map((id, index) => prisma.section.update({ where: { id }, data: { order: index } })),
     );
-    triggerFrontendRebuild("sections reordered");
+    await triggerFrontendRebuild("sections reordered");
     res.json({ ok: true });
   }),
 );
@@ -190,7 +190,7 @@ adminSectionsRouter.put(
       create: { ...body, sectionId: param(req, "id") },
       update: body,
     });
-    triggerFrontendRebuild("cta updated");
+    await triggerFrontendRebuild("cta updated");
     res.json({ cta });
   }),
 );
@@ -216,7 +216,7 @@ adminSectionsRouter.post(
         order: count,
       },
     });
-    triggerFrontendRebuild("block added");
+    await triggerFrontendRebuild("block added");
     res.status(201).json({ block });
   }),
 );
@@ -233,7 +233,7 @@ adminSectionsRouter.put(
         ...(body.data ? { data: body.data as never } : {}),
       },
     });
-    triggerFrontendRebuild("block updated");
+    await triggerFrontendRebuild("block updated");
     res.json({ block });
   }),
 );
@@ -242,7 +242,7 @@ adminSectionsRouter.delete(
   "/blocks/:blockId",
   asyncHandler(async (req, res) => {
     await prisma.contentBlock.delete({ where: { id: param(req, "blockId") } });
-    triggerFrontendRebuild("block deleted");
+    await triggerFrontendRebuild("block deleted");
     res.json({ ok: true });
   }),
 );

@@ -2,14 +2,30 @@ import type { Request, Response } from "express";
 import { createApp } from "../src/app.js";
 import { ensureAdminUser } from "../src/bootstrap.js";
 
-const app = createApp();
-const initialized = ensureAdminUser();
+type Initializer = () => Promise<void>;
+
+export function createServerlessHandler(initializer: Initializer = ensureAdminUser) {
+  const app = createApp();
+  let initialization: Promise<void> | undefined;
+
+  return async function handler(req: Request, res: Response) {
+    if (!initialization) {
+      initialization = initializer().catch((error: unknown) => {
+        // A transient database wake-up must not poison this warm function
+        // instance forever. Let the next request retry initialization.
+        initialization = undefined;
+        throw error;
+      });
+    }
+
+    await initialization;
+    return app(req, res);
+  };
+}
 
 /**
- * Vercel invokes this module as a serverless function. Keep initialization
- * outside the handler so warm instances reuse both Express and Prisma.
+ * Vercel invokes this module as a serverless function. The handler and its
+ * initialization promise live at module scope so warm instances reuse Express
+ * and Prisma.
  */
-export default async function handler(req: Request, res: Response) {
-  await initialized;
-  return app(req, res);
-}
+export default createServerlessHandler();

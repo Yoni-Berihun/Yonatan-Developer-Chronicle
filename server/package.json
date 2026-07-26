@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "prisma generate && tsc -p tsconfig.json",
-    "vercel-build": "prisma generate && prisma migrate deploy && tsc -p tsconfig.json",
+    "vercel-build": "prisma generate && npm run typecheck && tsc -p tsconfig.json",
     "start": "node dist/index.js",
     "postinstall": "prisma generate",
     "migrate:dev": "prisma migrate dev",
@@ -18,6 +18,7 @@
     "studio": "prisma studio",
     "seed": "tsx prisma/seed.ts",
     "smoke": "node scripts/smoke.mjs",
+    "smoke:serverless": "tsx scripts/serverless-smoke.ts",
     "typecheck": "tsc -p tsconfig.check.json"
   },
   "prisma": {

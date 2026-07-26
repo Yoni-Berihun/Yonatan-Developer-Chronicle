@@ -35,7 +35,7 @@ adminPortfolioRouter.post(
     const body = req.body as z.infer<typeof projectSchema>;
     const count = await prisma.project.count({ where: { sectionId: body.sectionId } });
     const project = await prisma.project.create({ data: { ...body, order: count } });
-    triggerFrontendRebuild("project created");
+    await triggerFrontendRebuild("project created");
     res.status(201).json({ project });
   }),
 );
@@ -48,7 +48,7 @@ adminPortfolioRouter.put(
       where: { id: param(req, "id") },
       data: req.body as Partial<z.infer<typeof projectSchema>>,
     });
-    triggerFrontendRebuild("project updated");
+    await triggerFrontendRebuild("project updated");
     res.json({ project });
   }),
 );
@@ -58,7 +58,7 @@ adminPortfolioRouter.delete(
   asyncHandler(async (req, res) => {
     const project = await prisma.project.delete({ where: { id: param(req, "id") } });
     if (project.imagePublicId) await deleteImage(project.imagePublicId);
-    triggerFrontendRebuild("project deleted");
+    await triggerFrontendRebuild("project deleted");
     res.json({ ok: true });
   }),
 );
@@ -71,7 +71,7 @@ adminPortfolioRouter.post(
     await prisma.$transaction(
       ids.map((id, index) => prisma.project.update({ where: { id }, data: { order: index } })),
     );
-    triggerFrontendRebuild("projects reordered");
+    await triggerFrontendRebuild("projects reordered");
     res.json({ ok: true });
   }),
 );
@@ -99,7 +99,7 @@ adminPortfolioRouter.post(
       data: { ...body, order: count },
       include: { items: true },
     });
-    triggerFrontendRebuild("skill category created");
+    await triggerFrontendRebuild("skill category created");
     res.status(201).json({ category });
   }),
 );
@@ -113,7 +113,7 @@ adminPortfolioRouter.put(
       data: req.body as Partial<z.infer<typeof skillCategorySchema>>,
       include: { items: { orderBy: { order: "asc" } } },
     });
-    triggerFrontendRebuild("skill category updated");
+    await triggerFrontendRebuild("skill category updated");
     res.json({ category });
   }),
 );
@@ -122,7 +122,7 @@ adminPortfolioRouter.delete(
   "/skill-categories/:id",
   asyncHandler(async (req, res) => {
     await prisma.skillCategory.delete({ where: { id: param(req, "id") } });
-    triggerFrontendRebuild("skill category deleted");
+    await triggerFrontendRebuild("skill category deleted");
     res.json({ ok: true });
   }),
 );
@@ -134,7 +134,7 @@ adminPortfolioRouter.post(
     const body = req.body as z.infer<typeof skillItemSchema>;
     const count = await prisma.skillItem.count({ where: { categoryId: body.categoryId } });
     const item = await prisma.skillItem.create({ data: { ...body, order: count } });
-    triggerFrontendRebuild("skill item created");
+    await triggerFrontendRebuild("skill item created");
     res.status(201).json({ item });
   }),
 );
@@ -147,7 +147,7 @@ adminPortfolioRouter.put(
       where: { id: param(req, "id") },
       data: req.body as Partial<z.infer<typeof skillItemSchema>>,
     });
-    triggerFrontendRebuild("skill item updated");
+    await triggerFrontendRebuild("skill item updated");
     res.json({ item });
   }),
 );
@@ -156,7 +156,7 @@ adminPortfolioRouter.delete(
   "/skill-items/:id",
   asyncHandler(async (req, res) => {
     await prisma.skillItem.delete({ where: { id: param(req, "id") } });
-    triggerFrontendRebuild("skill item deleted");
+    await triggerFrontendRebuild("skill item deleted");
     res.json({ ok: true });
   }),
 );
@@ -198,7 +198,7 @@ adminPortfolioRouter.post(
     const body = req.body as z.infer<typeof timelineSchema>;
     const count = await prisma.timelineEntry.count({ where: { sectionId: body.sectionId } });
     const entry = await prisma.timelineEntry.create({ data: { ...body, order: count } });
-    triggerFrontendRebuild("timeline entry created");
+    await triggerFrontendRebuild("timeline entry created");
     res.status(201).json({ entry });
   }),
 );
@@ -211,7 +211,7 @@ adminPortfolioRouter.put(
       where: { id: param(req, "id") },
       data: req.body as Partial<z.infer<typeof timelineSchema>>,
     });
-    triggerFrontendRebuild("timeline entry updated");
+    await triggerFrontendRebuild("timeline entry updated");
     res.json({ entry });
   }),
 );
@@ -220,7 +220,7 @@ adminPortfolioRouter.delete(
   "/timeline/:id",
   asyncHandler(async (req, res) => {
     await prisma.timelineEntry.delete({ where: { id: param(req, "id") } });
-    triggerFrontendRebuild("timeline entry deleted");
+    await triggerFrontendRebuild("timeline entry deleted");
     res.json({ ok: true });
   }),
 );
@@ -246,7 +246,7 @@ adminPortfolioRouter.post(
     const body = req.body as z.infer<typeof statSchema>;
     const count = await prisma.stat.count({ where: { sectionId: body.sectionId } });
     const stat = await prisma.stat.create({ data: { ...body, order: count } });
-    triggerFrontendRebuild("stat created");
+    await triggerFrontendRebuild("stat created");
     res.status(201).json({ stat });
   }),
 );
@@ -259,7 +259,7 @@ adminPortfolioRouter.put(
       where: { id: param(req, "id") },
       data: req.body as Partial<z.infer<typeof statSchema>>,
     });
-    triggerFrontendRebuild("stat updated");
+    await triggerFrontendRebuild("stat updated");
     res.json({ stat });
   }),
 );
@@ -268,7 +268,7 @@ adminPortfolioRouter.delete(
   "/stats/:id",
   asyncHandler(async (req, res) => {
     await prisma.stat.delete({ where: { id: param(req, "id") } });
-    triggerFrontendRebuild("stat deleted");
+    await triggerFrontendRebuild("stat deleted");
     res.json({ ok: true });
   }),
 );
@@ -306,7 +306,7 @@ adminPortfolioRouter.post(
     const body = req.body as z.infer<typeof accoladeSchema>;
     const count = await prisma.accolade.count({ where: { sectionId: body.sectionId } });
     const accolade = await prisma.accolade.create({ data: { ...body, order: count } });
-    triggerFrontendRebuild("accolade created");
+    await triggerFrontendRebuild("accolade created");
     res.status(201).json({ accolade });
   }),
 );
@@ -319,7 +319,7 @@ adminPortfolioRouter.put(
       where: { id: param(req, "id") },
       data: req.body as Partial<z.infer<typeof accoladeSchema>>,
     });
-    triggerFrontendRebuild("accolade updated");
+    await triggerFrontendRebuild("accolade updated");
     res.json({ accolade });
   }),
 );
@@ -329,7 +329,7 @@ adminPortfolioRouter.delete(
   asyncHandler(async (req, res) => {
     const accolade = await prisma.accolade.delete({ where: { id: param(req, "id") } });
     if (accolade.imagePublicId) await deleteImage(accolade.imagePublicId);
-    triggerFrontendRebuild("accolade deleted");
+    await triggerFrontendRebuild("accolade deleted");
     res.json({ ok: true });
   }),
 );
@@ -366,7 +366,7 @@ adminPortfolioRouter.post(
     const body = req.body as z.infer<typeof impactStorySchema>;
     const count = await prisma.impactStory.count({ where: { sectionId: body.sectionId } });
     const story = await prisma.impactStory.create({ data: { ...body, order: count } });
-    triggerFrontendRebuild("impact story created");
+    await triggerFrontendRebuild("impact story created");
     res.status(201).json({ story });
   }),
 );
@@ -379,7 +379,7 @@ adminPortfolioRouter.put(
       where: { id: param(req, "id") },
       data: req.body as Partial<z.infer<typeof impactStorySchema>>,
     });
-    triggerFrontendRebuild("impact story updated");
+    await triggerFrontendRebuild("impact story updated");
     res.json({ story });
   }),
 );
@@ -389,7 +389,7 @@ adminPortfolioRouter.delete(
   asyncHandler(async (req, res) => {
     const story = await prisma.impactStory.delete({ where: { id: param(req, "id") } });
     if (story.imagePublicId) await deleteImage(story.imagePublicId);
-    triggerFrontendRebuild("impact story deleted");
+    await triggerFrontendRebuild("impact story deleted");
     res.json({ ok: true });
   }),
 );
@@ -419,7 +419,7 @@ adminPortfolioRouter.post(
     const body = req.body as z.infer<typeof impactMetricSchema>;
     const count = await prisma.impactMetric.count({ where: { sectionId: body.sectionId } });
     const metric = await prisma.impactMetric.create({ data: { ...body, order: count } });
-    triggerFrontendRebuild("impact metric created");
+    await triggerFrontendRebuild("impact metric created");
     res.status(201).json({ metric });
   }),
 );
@@ -432,7 +432,7 @@ adminPortfolioRouter.put(
       where: { id: param(req, "id") },
       data: req.body as Partial<z.infer<typeof impactMetricSchema>>,
     });
-    triggerFrontendRebuild("impact metric updated");
+    await triggerFrontendRebuild("impact metric updated");
     res.json({ metric });
   }),
 );
@@ -441,7 +441,7 @@ adminPortfolioRouter.delete(
   "/impact-metrics/:id",
   asyncHandler(async (req, res) => {
     await prisma.impactMetric.delete({ where: { id: param(req, "id") } });
-    triggerFrontendRebuild("impact metric deleted");
+    await triggerFrontendRebuild("impact metric deleted");
     res.json({ ok: true });
   }),
 );

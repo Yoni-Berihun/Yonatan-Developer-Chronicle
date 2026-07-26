@@ -55,7 +55,7 @@ feedRouter.get(
       `    <description>${escapeXml(description)}</description>`,
       "    <language>en</language>",
       `    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>`,
-      `    <atom:link href="${base}/api/feed/rss.xml" rel="self" type="application/rss+xml" />`,
+      `    <atom:link href="${base}/rss.xml" rel="self" type="application/rss+xml" />`,
       items,
       "  </channel>",
       "</rss>",

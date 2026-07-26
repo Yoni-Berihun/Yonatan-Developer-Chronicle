@@ -111,6 +111,9 @@ export default function PostEditorPage() {
       setSaved(true);
       window.setTimeout(() => setSaved(false), 2500);
       void queryClient.invalidateQueries({ queryKey: ["admin", "posts"] });
+      void queryClient.invalidateQueries({ queryKey: ["posts"] });
+      void queryClient.invalidateQueries({ queryKey: ["post", result.post.slug] });
+      void queryClient.invalidateQueries({ queryKey: ["site"] });
       if (isNew) navigate(`/admin/blog/${result.post.id}`, { replace: true });
     },
     onError: (caught) => {

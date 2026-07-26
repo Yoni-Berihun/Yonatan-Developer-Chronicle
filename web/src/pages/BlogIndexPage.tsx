@@ -26,12 +26,15 @@ export default function BlogIndexPage() {
   const posts = useQuery({
     queryKey: ["posts", query.toString()],
     queryFn: () => api.get<PostListResponse>(`/public/posts?${query.toString()}`),
+    staleTime: 0,
+    refetchOnMount: "always",
   });
 
   const taxonomy = useQuery({
     queryKey: ["taxonomy"],
     queryFn: () => api.get<Taxonomy>("/public/taxonomy"),
-    staleTime: 5 * 60_000,
+    staleTime: 0,
+    refetchOnMount: "always",
   });
 
   const activeCategory = taxonomy.data?.categories.find((c) => c.slug === categorySlug);

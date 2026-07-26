@@ -129,7 +129,7 @@ adminBlogRouter.post(
       },
     });
 
-    if (shouldPublish) triggerFrontendRebuild(`post published: ${post.slug}`);
+    if (shouldPublish) await triggerFrontendRebuild(`post published: ${post.slug}`);
     res.status(201).json({ post });
   }),
 );
@@ -197,7 +197,9 @@ adminBlogRouter.put(
       },
     });
 
-    if (nextStatus === "PUBLISHED") triggerFrontendRebuild(`post updated: ${post.slug}`);
+    if (nextStatus === "PUBLISHED") {
+      await triggerFrontendRebuild(`post updated: ${post.slug}`);
+    }
     res.json({ post });
   }),
 );
@@ -207,7 +209,7 @@ adminBlogRouter.delete(
   asyncHandler(async (req, res) => {
     const post = await prisma.post.delete({ where: { id: param(req, "id") } });
     if (post.coverPublicId) await deleteImage(post.coverPublicId);
-    triggerFrontendRebuild("post deleted");
+    await triggerFrontendRebuild("post deleted");
     res.json({ ok: true });
   }),
 );
@@ -244,6 +246,7 @@ adminBlogRouter.post(
         order: count,
       },
     });
+    await triggerFrontendRebuild("blog category created");
     res.status(201).json({ category });
   }),
 );
@@ -260,6 +263,7 @@ adminBlogRouter.put(
         ...(body.description !== undefined ? { description: body.description } : {}),
       },
     });
+    await triggerFrontendRebuild("blog category updated");
     res.json({ category });
   }),
 );
@@ -268,6 +272,7 @@ adminBlogRouter.delete(
   "/categories/:id",
   asyncHandler(async (req, res) => {
     await prisma.category.delete({ where: { id: param(req, "id") } });
+    await triggerFrontendRebuild("blog category deleted");
     res.json({ ok: true });
   }),
 );
@@ -289,6 +294,7 @@ adminBlogRouter.delete(
   "/tags/:id",
   asyncHandler(async (req, res) => {
     await prisma.tag.delete({ where: { id: param(req, "id") } });
+    await triggerFrontendRebuild("blog tag deleted");
     res.json({ ok: true });
   }),
 );

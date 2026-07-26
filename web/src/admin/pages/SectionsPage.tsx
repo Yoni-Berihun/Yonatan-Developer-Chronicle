@@ -35,7 +35,12 @@ export default function SectionsPage() {
     queryFn: () => api.get<{ sections: AdminSectionSummary[] }>("/admin/sections"),
   });
 
-  const invalidate = () => queryClient.invalidateQueries({ queryKey: ["admin", "sections"] });
+  const invalidate = async () => {
+    await Promise.all([
+      queryClient.invalidateQueries({ queryKey: ["admin", "sections"] }),
+      queryClient.invalidateQueries({ queryKey: ["site"] }),
+    ]);
+  };
 
   const create = useMutation({
     mutationFn: () => api.post("/admin/sections", { title, type }),

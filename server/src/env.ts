@@ -47,7 +47,7 @@ const envSchema = z.object({
 });
 
 // A blank value means "unset", both for an empty line in .env and for a field
-// left empty in the Render dashboard. Without this, `ADMIN_PASSWORD=` reads as a
+// left empty in the Vercel dashboard. Without this, `ADMIN_PASSWORD=` reads as a
 // present-but-too-short string and refuses to boot, and a blank var with a
 // default would override that default with "".
 const presentEnv = Object.fromEntries(

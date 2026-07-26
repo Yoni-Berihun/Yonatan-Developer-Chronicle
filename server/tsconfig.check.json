@@ -8,6 +8,6 @@
     "noEmit": true,
     "rootDir": "."
   },
-  "include": ["src/**/*.ts", "api/**/*.ts", "prisma/**/*.ts"],
+  "include": ["src/**/*.ts", "api/**/*.ts", "prisma/**/*.ts", "scripts/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

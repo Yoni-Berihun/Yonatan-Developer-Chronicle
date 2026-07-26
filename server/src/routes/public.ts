@@ -44,7 +44,10 @@ publicRouter.get(
       throw notFound("The site has not been set up yet. Run the seed script.");
     }
 
-    res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=600");
+    // CMS edits must be visible immediately. This endpoint sits behind the
+    // frontend's Vercel rewrite, so stale browser/CDN responses are otherwise
+    // easy to mistake for a failed deployment.
+    res.set("Cache-Control", "private, no-store, max-age=0");
     res.json({ settings, socialLinks, sections });
   }),
 );
@@ -107,7 +110,7 @@ publicRouter.get(
       }),
     ]);
 
-    res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=600");
+    res.set("Cache-Control", "private, no-store, max-age=0");
     res.json({
       posts: posts.map((post) => ({ ...post, tags: post.tags.map((t) => t.tag) })),
       pagination: { page, perPage, total, totalPages: Math.ceil(total / perPage) || 1 },
@@ -171,7 +174,7 @@ publicRouter.get(
       });
     }
 
-    res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=600");
+    res.set("Cache-Control", "private, no-store, max-age=0");
     res.json({
       post: { ...post, tags: post.tags.map((t) => t.tag), relatedTo: undefined },
       related,
@@ -202,7 +205,7 @@ publicRouter.get(
       }),
     ]);
 
-    res.set("Cache-Control", "public, max-age=300, stale-while-revalidate=3600");
+    res.set("Cache-Control", "private, no-store, max-age=0");
     res.json({
       categories: categories.map((c) => ({ ...c, postCount: c._count.posts, _count: undefined })),
       tags: tags.map((t) => ({ ...t, postCount: t._count.posts, _count: undefined })),

@@ -16,7 +16,7 @@ async function main() {
     server.close(() => {
       void prisma.$disconnect().finally(() => process.exit(0));
     });
-    // Render sends SIGTERM and waits ~30s; don't hang if a socket is stuck.
+    // Local/process hosts send SIGTERM; don't hang if a socket is stuck.
     setTimeout(() => process.exit(1), 10_000).unref();
   };
 

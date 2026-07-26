@@ -25,6 +25,8 @@ export default function PostPage() {
     queryKey: ["post", slug],
     queryFn: () => api.get<PostResponse>(`/public/posts/${slug}`),
     enabled: Boolean(slug),
+    staleTime: 0,
+    refetchOnMount: "always",
   });
 
   if (!site.data) {

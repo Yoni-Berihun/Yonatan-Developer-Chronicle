@@ -33,6 +33,7 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
   const response = await fetch(`/api${path}`, {
     method,
     signal,
+    cache: method === "GET" ? "no-store" : undefined,
     credentials: "same-origin",
     headers: body instanceof FormData ? undefined : { "Content-Type": "application/json" },
     body: body instanceof FormData ? body : body !== undefined ? JSON.stringify(body) : undefined,

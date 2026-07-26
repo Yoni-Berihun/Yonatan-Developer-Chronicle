@@ -55,7 +55,7 @@ adminSettingsRouter.put(
       where: { id: 1 },
       data,
     });
-    triggerFrontendRebuild("site settings updated");
+    await triggerFrontendRebuild("site settings updated");
     res.json({ settings });
   }),
 );
@@ -84,6 +84,7 @@ adminSettingsRouter.post(
     const socialLink = await prisma.socialLink.create({
       data: { ...(req.body as z.infer<typeof socialSchema>), order: count },
     });
+    await triggerFrontendRebuild("social link created");
     res.status(201).json({ socialLink });
   }),
 );
@@ -96,6 +97,7 @@ adminSettingsRouter.put(
       where: { id: param(req, "id") },
       data: req.body as Partial<z.infer<typeof socialSchema>>,
     });
+    await triggerFrontendRebuild("social link updated");
     res.json({ socialLink });
   }),
 );
@@ -104,6 +106,7 @@ adminSettingsRouter.delete(
   "/social/:id",
   asyncHandler(async (req, res) => {
     await prisma.socialLink.delete({ where: { id: param(req, "id") } });
+    await triggerFrontendRebuild("social link deleted");
     res.json({ ok: true });
   }),
 );
@@ -118,6 +121,7 @@ adminSettingsRouter.post(
         prisma.socialLink.update({ where: { id }, data: { order: index } }),
       ),
     );
+    await triggerFrontendRebuild("social links reordered");
     res.json({ ok: true });
   }),
 );

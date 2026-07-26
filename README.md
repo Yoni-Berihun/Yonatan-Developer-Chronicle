@@ -41,18 +41,16 @@ The design has not changed. What changed is everything behind it: the site is no
 
 ```mermaid
 flowchart LR
-    subgraph V["Vercel — free"]
+    subgraph V["Vercel"]
         W["React 19 + Vite<br/>public site + /admin"]
+        A["Express API<br/>serverless function"]
     end
-    subgraph R["Render — ~$13/mo"]
-        A["Express API"]
-        D[("PostgreSQL")]
-        A <--> D
-    end
+    D[("Neon PostgreSQL")]
     C["Cloudinary<br/>images"]
     E["Resend<br/>email"]
 
     W -- "/api/* proxy rewrite" --> A
+    A <--> D
     W -- "img src" --> C
     A -- uploads --> C
     A -- notifications --> E
@@ -60,9 +58,9 @@ flowchart LR
 
 Two deliberate decisions are worth calling out:
 
-**The frontend proxies the API through its own domain.** Vercel rewrites `/api/*` to the Render service, so the browser only ever sees one origin. This keeps the admin session cookie first-party — Safari and Firefox block third-party cookies outright, which would otherwise break login entirely — and it means CORS never enters the picture in production.
+**The frontend proxies the API through its own domain.** Vercel rewrites `/api/*` to the serverless API project, so the browser only ever sees one origin. This keeps the admin session cookie first-party — Safari and Firefox block third-party cookies outright, which would otherwise break login entirely — and it means CORS never enters the picture in production.
 
-**Images never touch the API server.** Render's filesystem is ephemeral, so uploads go straight to Cloudinary and are served from its CDN with automatic WebP conversion and resizing.
+**Images never touch the API filesystem.** Vercel Functions are ephemeral, so uploads go straight to Cloudinary and are served from its CDN with automatic WebP conversion and resizing.
 
 ---
 
@@ -133,8 +131,8 @@ Two deliberate decisions are worth calling out:
 
 ### Deployment
 
-- **Vercel** — the React application, with a rewrite that proxies the API
-- **Render** — the Express API and the PostgreSQL database
+- **Vercel** — separate frontend and serverless Express API projects
+- **Neon** — pooled PostgreSQL for serverless-safe connections
 - Publishing content pings a **Vercel deploy hook**, which rebuilds the prerendered metadata so new articles are immediately shareable
 
 ---
@@ -143,7 +141,9 @@ Two deliberate decisions are worth calling out:
 
 ```
 Yonatan-Developer-Chronicle/
-├── server/                      # Express API → Render
+├── server/                      # Express API → Vercel Function
+│   ├── api/index.ts             # Serverless entrypoint
+│   ├── vercel.json              # API routing/build config
 │   ├── prisma/
 │   │   ├── schema.prisma        # The complete data model
 │   │   └── seed.ts              # Imports the original index.html content
@@ -169,7 +169,6 @@ Yonatan-Developer-Chronicle/
 │           ├── additions.css    # Blog and new-state styles
 │           └── admin.css        # The newsroom interface
 │
-├── render.yaml                  # One-click Render blueprint
 ├── DEPLOYMENT.md                # Step-by-step deployment guide
 └── index.html                   # The original static edition, kept for reference
 ```
@@ -234,14 +233,13 @@ On its very first start the API creates your admin account. If you left `ADMIN_P
 
 Full instructions live in **[DEPLOYMENT.md](DEPLOYMENT.md)**. The short version:
 
-1. Apply `render.yaml` as a Render Blueprint — this creates the API and the database together
-2. Set the secrets Render marked `sync: false` (admin email, Cloudinary, Resend)
-3. Deploy `web/` to Vercel with the root directory set to `web`
-4. Point the `/api` rewrite in `web/vercel.json` at your Render URL
-5. Run the seed script once against the production database
-6. Sign in at `/admin` and change your password
+1. Create a pooled Neon PostgreSQL database and run committed migrations
+2. Deploy `server/` as a Vercel project using the **Other** framework preset
+3. Deploy `web/` as a second Vercel project using the **Vite** preset
+4. Set the backend URL in `web/vercel.json`, then configure the frontend deploy hook
+5. Seed once, verify `/health`, `/admin`, `/version.json`, RSS and sitemap
 
-**Running cost:** about **$13.30/month** — $7 for the API instance and $6.30 for the database with 1 GB of storage. Vercel, Cloudinary and Resend all sit comfortably inside their free tiers.
+Both Vercel projects, Neon, Cloudinary and Resend can start on free tiers.
 
 ---
 

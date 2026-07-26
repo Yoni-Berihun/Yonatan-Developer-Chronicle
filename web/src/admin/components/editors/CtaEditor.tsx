@@ -37,6 +37,7 @@ export default function CtaEditor({ section }: { section: Section }) {
       setSaved(true);
       window.setTimeout(() => setSaved(false), 2500);
       void queryClient.invalidateQueries({ queryKey: ["admin", "section", section.id] });
+      void queryClient.invalidateQueries({ queryKey: ["site"] });
     },
   });
 

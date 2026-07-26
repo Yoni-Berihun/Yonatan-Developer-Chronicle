@@ -187,7 +187,7 @@ main().catch((error) => {
   console.warn(
     `\nPrerender skipped: ${error instanceof Error ? error.message : error}\n` +
       "The site still works; shared links will fall back to the default title.\n" +
-      "Set PRERENDER_API_URL to your Render API URL to enable it.\n",
+      "Set PRERENDER_API_URL to your Vercel API project URL to enable it.\n",
   );
   process.exit(0);
 });

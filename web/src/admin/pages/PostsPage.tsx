@@ -15,7 +15,12 @@ export default function PostsPage() {
 
   const remove = useMutation({
     mutationFn: (id: string) => api.del(`/admin/blog/posts/${id}`),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin", "posts"] }),
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["admin", "posts"] }),
+        queryClient.invalidateQueries({ queryKey: ["posts"] }),
+      ]);
+    },
   });
 
   return (

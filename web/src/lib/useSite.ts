@@ -6,6 +6,8 @@ export function useSite() {
   return useQuery({
     queryKey: ["site"],
     queryFn: () => api.get<SitePayload>("/public/site"),
-    staleTime: 5 * 60_000,
+    staleTime: 0,
+    refetchOnMount: "always",
+    refetchOnWindowFocus: true,
   });
 }

@@ -21,7 +21,7 @@ import "./types.js";
 export function createApp() {
   const app = express();
 
-  // Render terminates TLS at its proxy; without this req.ip is the proxy and
+  // Vercel terminates TLS at its proxy; without this req.ip is the proxy and
   // rate limiting would bucket every visitor together.
   app.set("trust proxy", 1);
 

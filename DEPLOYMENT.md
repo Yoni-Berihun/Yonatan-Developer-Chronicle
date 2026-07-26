@@ -49,9 +49,20 @@ Add these environment variables before deploying:
 | `RESEND_FROM_EMAIL` | Optional verified sender |
 | `CONTACT_NOTIFY_EMAIL` | Optional notification recipient |
 
-`npm run vercel-build` generates Prisma, applies committed migrations, and
-typechecks the server. Use a separate database for preview deployments, or
-disable preview deployments for the API, so previews cannot migrate production.
+`npm run vercel-build` generates Prisma and typechecks both the Express app and
+the serverless entrypoint. It deliberately does **not** run migrations during a
+Vercel build: preview deployments must never mutate the production schema.
+
+Before the first production deployment (and after adding a migration), run:
+
+```powershell
+cd server
+$env:DATABASE_URL="<production pooled database url>"
+$env:DIRECT_URL="<production direct database url>"
+npm run migrate:deploy
+Remove-Item Env:DATABASE_URL
+Remove-Item Env:DIRECT_URL
+```
 
 After deployment, verify:
 
@@ -95,6 +106,8 @@ Set:
 
 The rewrites in `web/vercel.json` proxy API requests through the frontend
 domain. This is required for reliable first-party admin session cookies.
+The same config pins the build command to `npm run build` and output directory
+to `dist`, avoiding dashboard overrides that can serve an older build.
 
 ## 5. Connect publishing and final URLs
 
@@ -105,6 +118,10 @@ domain. This is required for reliable first-party admin session cookies.
 4. Update the `Sitemap:` URL in `web/public/robots.txt`.
 5. Redeploy both projects after changing environment variables.
 
+The backend now awaits the deploy-hook request before completing an admin
+mutation, which is required on serverless runtimes. Fire-and-forget requests can
+be terminated before Vercel receives them.
+
 ## 6. Verify
 
 - `/health` on the backend returns `{ "ok": true, ... }`
@@ -114,6 +131,17 @@ domain. This is required for reliable first-party admin session cookies.
 - Image upload works (maximum 4 MB per image on Vercel)
 - `/rss.xml` and `/sitemap.xml` return XML
 - Publishing content triggers a frontend deployment
+- `/version.json` returns the current `VERCEL_GIT_COMMIT_SHA` and build time
+
+If the production domain still shows an old frontend:
+
+1. Open the frontend Vercel project → **Settings → Git** and confirm it is
+   connected to `Yoni-Berihun/my-portfolio`, production branch `main`.
+2. Open **Deployments**, check the latest deployment's source commit against
+   `/version.json`.
+3. Redeploy the latest commit with **Use existing Build Cache** turned off.
+4. Confirm Project Settings still show Root Directory `web`; `web/vercel.json`
+   enforces `npm run build` and output `dist`.
 
 ## Notes
 

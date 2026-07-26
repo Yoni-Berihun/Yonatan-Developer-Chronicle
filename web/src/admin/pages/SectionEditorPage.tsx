@@ -52,6 +52,7 @@ export default function SectionEditorPage() {
       window.setTimeout(() => setSaved(false), 2500);
       void queryClient.invalidateQueries({ queryKey: ["admin", "section", id] });
       void queryClient.invalidateQueries({ queryKey: ["admin", "sections"] });
+      void queryClient.invalidateQueries({ queryKey: ["site"] });
     },
   });
 

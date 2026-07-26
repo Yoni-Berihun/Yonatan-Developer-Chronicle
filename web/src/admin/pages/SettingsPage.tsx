@@ -20,7 +20,12 @@ function SocialLinksCard() {
     queryFn: () => api.get<{ socialLinks: SocialLink[] }>("/admin/settings/social"),
   });
 
-  const invalidate = () => queryClient.invalidateQueries({ queryKey: ["admin", "social"] });
+  const invalidate = async () => {
+    await Promise.all([
+      queryClient.invalidateQueries({ queryKey: ["admin", "social"] }),
+      queryClient.invalidateQueries({ queryKey: ["site"] }),
+    ]);
+  };
 
   const create = useMutation({
     mutationFn: () => api.post("/admin/settings/social", { platform, label, url, isActive: true }),
@@ -189,6 +194,7 @@ export default function SettingsPage() {
       setSaved(true);
       window.setTimeout(() => setSaved(false), 2500);
       void queryClient.invalidateQueries({ queryKey: ["admin", "settings"] });
+      void queryClient.invalidateQueries({ queryKey: ["site"] });
     },
     onError: (caught) => {
       if (caught instanceof ApiError) {

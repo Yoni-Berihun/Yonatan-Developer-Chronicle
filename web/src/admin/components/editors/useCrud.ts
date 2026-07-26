@@ -11,6 +11,7 @@ export function useCrud(basePath: string, sectionId: string) {
   const invalidate = () => {
     void queryClient.invalidateQueries({ queryKey: ["admin", "section", sectionId] });
     void queryClient.invalidateQueries({ queryKey: ["admin", "sections"] });
+    void queryClient.invalidateQueries({ queryKey: ["site"] });
   };
 
   return {
