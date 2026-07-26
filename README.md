@@ -1,4 +1,4 @@
-# The Yonatan Times - Professional Developer's Chronicle
+# The Yonatan Times - Professional Developer's chronicle
 
 <div align="center">
 
